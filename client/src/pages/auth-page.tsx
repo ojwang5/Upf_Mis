@@ -34,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import logoImg from "../assets/logo.jpg";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -63,19 +64,20 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="fixed inset-0 bg-blue-900 z-50 flex items-center justify-center p-4 animate-fadeIn">
-      <Card className="bg-white rounded-lg shadow-lg w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-condensed font-bold text-blue-900">MDD MANAGER</CardTitle>
-          <CardDescription className="text-gray-600">Personnel Management System</CardDescription>
+    <div className="fixed inset-0 bg-navy-900 z-50 flex items-center justify-center p-4 animate-fadeIn" style={{ backgroundColor: "#0a1c3e" }}>
+      <Card className="bg-white rounded-lg shadow-lg w-full max-w-md border-2 border-navy-600" style={{ borderColor: "#1d3461" }}>
+        <CardHeader className="text-center pb-0">
+          <CardTitle className="text-2xl font-condensed font-bold text-blue-900">UGANDA POLICE FORCE</CardTitle>
+          <CardDescription className="text-gray-700 font-semibold mt-1">MDD MANAGEMENT SYSTEM</CardDescription>
         </CardHeader>
 
-        <div className="mb-6">
+        <div className="mb-3 mt-4 flex flex-col items-center px-8">
           <img 
-            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-            alt="Military Band" 
-            className="w-full h-40 object-cover rounded-lg"
+            src={logoImg} 
+            alt="Uganda Police Force Logo" 
+            className="h-32 object-contain"
           />
+          <p className="text-blue-900 font-medium text-sm mt-2 italic">PROTECT & SERVE</p>
         </div>
 
         <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab}>
@@ -153,7 +155,8 @@ function LoginForm() {
         />
         <Button
           type="submit"
-          className="w-full bg-blue-900 hover:bg-blue-800 text-white"
+          className="w-full text-white"
+          style={{ backgroundColor: "#0a1c3e", borderColor: "#1d3461" }}
           disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? "Logging in..." : "Log In"}
