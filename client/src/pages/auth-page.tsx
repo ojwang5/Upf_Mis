@@ -67,7 +67,7 @@ export default function AuthPage() {
     <div className="fixed inset-0 bg-navy-900 z-50 flex items-center justify-center p-4 animate-fadeIn" style={{ backgroundColor: "#0a1c3e" }}>
       <Card className="bg-white rounded-lg shadow-lg w-full max-w-md border-2 border-navy-600" style={{ borderColor: "#1d3461" }}>
         <CardHeader className="text-center pb-0">
-          <CardTitle className="text-2xl font-condensed font-bold text-blue-900">UGANDA POLICE FORCE</CardTitle>
+          <CardTitle className="text-2xl font-condensed font-bold" style={{ color: "#0a1c3e" }}>UGANDA POLICE FORCE</CardTitle>
           <CardDescription className="text-gray-700 font-semibold mt-1">MDD MANAGEMENT SYSTEM</CardDescription>
         </CardHeader>
 
@@ -77,7 +77,7 @@ export default function AuthPage() {
             alt="Uganda Police Force Logo" 
             className="h-32 object-contain"
           />
-          <p className="text-blue-900 font-medium text-sm mt-2 italic">PROTECT & SERVE</p>
+          <p className="font-medium text-sm mt-2 italic" style={{ color: "#0a1c3e" }}>PROTECT & SERVE</p>
         </div>
 
         <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab}>
@@ -98,10 +98,10 @@ export default function AuthPage() {
         <CardContent className="mt-4 text-center text-sm text-gray-600">
           <p>Login with one of these accounts:</p>
           <p className="mt-2">
-            <span className="font-medium text-blue-900">admin</span> (full access),{" "}
-            <span className="font-medium text-blue-900">kmgr</span> (Kampala),{" "}
-            <span className="font-medium text-blue-900">rmgr</span> (Rwizi),{" "}
-            <span className="font-medium text-blue-900">nmgr</span> (N.Kyoga)
+            <span className="font-medium" style={{ color: "#0a1c3e" }}>admin</span> (full access),{" "}
+            <span className="font-medium" style={{ color: "#0a1c3e" }}>kmgr</span> (Kampala),{" "}
+            <span className="font-medium" style={{ color: "#0a1c3e" }}>rmgr</span> (Rwizi),{" "}
+            <span className="font-medium" style={{ color: "#0a1c3e" }}>nmgr</span> (N.Kyoga)
           </p>
         </CardContent>
       </Card>
@@ -281,7 +281,8 @@ function RegisterForm() {
         
         <Button
           type="submit"
-          className="w-full bg-blue-900 hover:bg-blue-800 text-white"
+          className="w-full text-white"
+          style={{ backgroundColor: "#0a1c3e", borderColor: "#1d3461" }}
           disabled={registerMutation.isPending}
         >
           {registerMutation.isPending ? "Registering..." : "Register"}
