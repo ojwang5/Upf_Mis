@@ -16,13 +16,13 @@ export default function BranchOverview() {
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   
   // Get branch summaries
-  const { data: summaries = [], isLoading, refetch, isFetching } = useQuery({
+  const { data: summaries = [], isLoading, refetch, isFetching } = useQuery<any[]>({
     queryKey: ['/api/protected/summary'],
     refetchInterval: refreshInterval || undefined,
   });
   
   // Get detailed entries (for export and filtering)
-  const { data: detailedData = [] } = useQuery({
+  const { data: detailedData = [] } = useQuery<any[]>({
     queryKey: ['/api/protected/daily-status-entries'],
     refetchInterval: refreshInterval || undefined,
   });
