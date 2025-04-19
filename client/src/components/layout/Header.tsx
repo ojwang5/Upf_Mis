@@ -1,82 +1,49 @@
-import { useState } from 'react';
-import { useAuth } from '@/hooks/use-auth';
-import { Menu, User, Settings, LogOut } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/use-auth";
+import logoPng from "@assets/logo.jpg";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
-interface HeaderProps {
-  toggleSidebar: () => void;
-  userName: string;
-  branchName?: string;
-}
-
-export default function Header({ toggleSidebar, userName, branchName }: HeaderProps) {
-  const { logoutMutation } = useAuth();
+export default function Header() {
+  const { user, logoutMutation } = useAuth();
   
   const handleLogout = () => {
     logoutMutation.mutate();
   };
   
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(part => part.charAt(0))
-      .join('')
-      .toUpperCase();
-  };
-
   return (
-    <header className="bg-blue-900 text-white shadow-md">
-      <div className="container mx-auto flex justify-between items-center px-4 py-3">
-        <div className="flex items-center">
-          <button 
-            onClick={toggleSidebar} 
-            className="mr-4 lg:hidden focus:outline-none"
-            aria-label="Toggle sidebar"
-          >
-            <Menu />
-          </button>
-          <h1 className="font-condensed text-xl font-bold">MDD MANAGER</h1>
-        </div>
-        
-        <div className="flex items-center">
-          {branchName && (
-            <div className="mr-4 text-sm hidden md:block">
-              <span className="opacity-80">Branch:</span> {branchName}
+    <header className="bg-navy-900 text-white p-4 shadow-md">
+      <div className="container mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="flex items-center gap-4">
+            <img 
+              src={logoPng} 
+              alt="Uganda Police Force Logo" 
+              className="h-16 w-16 object-contain"
+            />
+            <div className="text-center md:text-left">
+              <h1 className="text-xl md:text-2xl font-bold tracking-wider">UGANDA POLICE FORCE</h1>
+              <h2 className="text-sm md:text-base text-slate-300">MDD MANAGEMENT SYSTEM</h2>
+              <p className="text-xs text-slate-400 italic">PROTECT & SERVE</p>
+            </div>
+          </div>
+          
+          {user && (
+            <div className="mt-4 md:mt-0 flex items-center gap-4">
+              <div className="text-right">
+                <p className="font-medium">{user.fullName}</p>
+                <p className="text-xs text-slate-300">{user.role === 'admin' ? 'Administrator' : 'Branch Manager'}</p>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-white text-white hover:bg-white hover:text-navy-900"
+                onClick={handleLogout}
+              >
+                <LogOut size={16} className="mr-2" />
+                Logout
+              </Button>
             </div>
           )}
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger className="focus:outline-none">
-              <div className="flex items-center space-x-2">
-                <span className="hidden sm:inline">{userName}</span>
-                <Avatar className="h-8 w-8 bg-blue-800">
-                  <AvatarFallback>{getInitials(userName)}</AvatarFallback>
-                </Avatar>
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout}>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </div>
     </header>
