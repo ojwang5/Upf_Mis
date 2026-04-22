@@ -43,11 +43,12 @@ include __DIR__ . '/../includes/header.php';
   </form>
 </div>
 
+<?php $detailQS = 'date=' . urlencode($date) . ($branchId ? '&branch=' . $branchId : ''); ?>
 <div class="grid grid-4">
-  <div class="stat present"><div><div class="label">Present</div><div class="value"><?= $totals['present'] ?></div></div><div class="icon">P</div></div>
-  <div class="stat awol"><div><div class="label">AWOL</div><div class="value"><?= $totals['awol'] ?></div></div><div class="icon">A</div></div>
-  <div class="stat leave"><div><div class="label">On Leave</div><div class="value"><?= $totals['on_leave'] ?></div></div><div class="icon">L</div></div>
-  <div class="stat sick"><div><div class="label">Sick</div><div class="value"><?= $totals['sick'] ?></div></div><div class="icon">S</div></div>
+  <a class="stat present stat-link" href="/status-details.php?status=present&<?= e($detailQS) ?>"><div><div class="label">Present</div><div class="value"><?= $totals['present'] ?></div><div class="muted" style="margin-top:4px">Click for details</div></div><div class="icon">P</div></a>
+  <a class="stat awol stat-link" href="/status-details.php?status=awol&<?= e($detailQS) ?>"><div><div class="label">AWOL</div><div class="value"><?= $totals['awol'] ?></div><div class="muted" style="margin-top:4px">Click for details</div></div><div class="icon">A</div></a>
+  <a class="stat leave stat-link" href="/status-details.php?status=leave&<?= e($detailQS) ?>"><div><div class="label">On Leave</div><div class="value"><?= $totals['on_leave'] ?></div><div class="muted" style="margin-top:4px">Click for details</div></div><div class="icon">L</div></a>
+  <a class="stat sick stat-link" href="/status-details.php?status=sick&<?= e($detailQS) ?>"><div><div class="label">Sick</div><div class="value"><?= $totals['sick'] ?></div><div class="muted" style="margin-top:4px">Click for details</div></div><div class="icon">S</div></a>
 </div>
 
 <div class="card" style="margin-top:18px">
