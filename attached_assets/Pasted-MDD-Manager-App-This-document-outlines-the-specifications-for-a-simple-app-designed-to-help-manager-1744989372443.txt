@@ -1,6 +1,7 @@
 MDD Manager App 
 This document outlines the specifications for a simple app designed to help managers organize structured organizations such as brass bands, police units, or military teams. The application focuses on personnel management, daily status reporting, and supervisory role tracking.
 Core Features
+login must be for super admin,branch managers, and users(submit reports to both branch admin and super admin)
 BRANCHES
 The organization has 3 branches 1) kampala headquarters. 2) Rwizi mbarara .3) n.kyoga lira. 
 1. Employee Profile Management (must be given to all employees in all the branches)
