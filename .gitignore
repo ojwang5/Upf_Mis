@@ -1,6 +1,4 @@
-node_modules
-dist
+data/*.sqlite
+data/*.sqlite-journal
 .DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
+.cache/
