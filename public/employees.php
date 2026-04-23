@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/helpers.php';
-$user = require_login();
+$user = require_role(['admin','manager']);
 $page = 'employees';
 $page_title = 'Employees';
 $pdo = db();

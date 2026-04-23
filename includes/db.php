@@ -13,6 +13,7 @@ function db(): PDO {
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $pdo->exec('PRAGMA foreign_keys = ON');
         init_schema($pdo);
+        migrate($pdo);
     }
     return $pdo;
 }
@@ -30,7 +31,7 @@ function init_schema(PDO $pdo): void {
             username TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
             full_name TEXT NOT NULL,
-            role TEXT NOT NULL CHECK(role IN ('admin','manager')),
+            role TEXT NOT NULL CHECK(role IN ('admin','manager','officer')),
             branch_id INTEGER REFERENCES branches(id)
         );
         CREATE TABLE IF NOT EXISTS employees (
@@ -65,6 +66,97 @@ function init_schema(PDO $pdo): void {
     $count = (int)$pdo->query("SELECT COUNT(*) FROM branches")->fetchColumn();
     if ($count === 0) {
         seed_data($pdo);
+    }
+}
+
+function migrate(PDO $pdo): void {
+    $v = (int)$pdo->query("PRAGMA user_version")->fetchColumn();
+
+    if ($v < 1) {
+        // v1: ensure 'officer' allowed in users.role; add report workflow fields; create leave_requests + notifications
+        // foreign_keys must be toggled outside a transaction
+        $pdo->exec("PRAGMA foreign_keys = OFF");
+        $pdo->exec("BEGIN");
+        try {
+            $pdo->exec("CREATE TABLE users_new (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL UNIQUE,
+                password_hash TEXT NOT NULL,
+                full_name TEXT NOT NULL,
+                role TEXT NOT NULL CHECK(role IN ('admin','manager','officer')),
+                branch_id INTEGER REFERENCES branches(id)
+            )");
+            $pdo->exec("INSERT INTO users_new (id, username, password_hash, full_name, role, branch_id) SELECT id, username, password_hash, full_name, role, branch_id FROM users");
+            $pdo->exec("DROP TABLE users");
+            $pdo->exec("ALTER TABLE users_new RENAME TO users");
+
+            // Report workflow columns
+            $cols = [];
+            foreach ($pdo->query("PRAGMA table_info(reports)") as $c) $cols[$c['name']] = true;
+            if (!isset($cols['status']))       $pdo->exec("ALTER TABLE reports ADD COLUMN status TEXT NOT NULL DEFAULT 'approved'");
+            if (!isset($cols['reviewed_by']))  $pdo->exec("ALTER TABLE reports ADD COLUMN reviewed_by INTEGER");
+            if (!isset($cols['reviewed_at']))  $pdo->exec("ALTER TABLE reports ADD COLUMN reviewed_at TEXT");
+            if (!isset($cols['review_notes'])) $pdo->exec("ALTER TABLE reports ADD COLUMN review_notes TEXT");
+
+            // Leave requests
+            $pdo->exec("CREATE TABLE IF NOT EXISTS leave_requests (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+                branch_id INTEGER NOT NULL REFERENCES branches(id),
+                leave_type TEXT NOT NULL,
+                start_date TEXT NOT NULL,
+                end_date TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'pending_manager',
+                submitted_by INTEGER REFERENCES users(id),
+                submitted_at TEXT NOT NULL,
+                manager_reviewed_by INTEGER REFERENCES users(id),
+                manager_reviewed_at TEXT,
+                manager_notes TEXT,
+                admin_reviewed_by INTEGER REFERENCES users(id),
+                admin_reviewed_at TEXT,
+                admin_notes TEXT
+            )");
+
+            // Notifications
+            $pdo->exec("CREATE TABLE IF NOT EXISTS notifications (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                message TEXT NOT NULL,
+                link TEXT,
+                kind TEXT NOT NULL DEFAULT 'info',
+                audience TEXT NOT NULL,
+                target_user_id INTEGER REFERENCES users(id),
+                target_role TEXT,
+                target_branch_id INTEGER REFERENCES branches(id),
+                created_by INTEGER REFERENCES users(id),
+                created_at TEXT NOT NULL
+            )");
+            $pdo->exec("CREATE TABLE IF NOT EXISTS notification_reads (
+                notification_id INTEGER NOT NULL REFERENCES notifications(id) ON DELETE CASCADE,
+                user_id INTEGER NOT NULL,
+                read_at TEXT NOT NULL,
+                PRIMARY KEY (notification_id, user_id)
+            )");
+
+            $pdo->exec("PRAGMA user_version = 1");
+            $pdo->exec("COMMIT");
+            $pdo->exec("PRAGMA foreign_keys = ON");
+        } catch (Throwable $e) {
+            $pdo->exec("ROLLBACK");
+            $pdo->exec("PRAGMA foreign_keys = ON");
+            throw $e;
+        }
+    }
+
+    // Seed an officer account if none exists
+    $hasOfficer = (int)$pdo->query("SELECT COUNT(*) FROM users WHERE role='officer'")->fetchColumn();
+    if ($hasOfficer === 0) {
+        $kla = $pdo->query("SELECT id FROM branches WHERE code='KLA'")->fetchColumn();
+        if ($kla) {
+            $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?)");
+            $stmt->execute(['kofc', password_hash('kofc123', PASSWORD_DEFAULT), 'Kampala Field Officer', 'officer', (int)$kla]);
+        }
     }
 }
 

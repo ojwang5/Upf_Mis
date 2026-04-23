@@ -29,6 +29,20 @@ function require_admin(): array {
     return $u;
 }
 
+function require_role(array $roles): array {
+    $u = require_login();
+    if (!in_array($u['role'], $roles, true)) {
+        http_response_code(403);
+        echo "Forbidden";
+        exit;
+    }
+    return $u;
+}
+
+function is_admin(array $u): bool { return $u['role'] === 'admin'; }
+function is_manager(array $u): bool { return $u['role'] === 'manager'; }
+function is_officer(array $u): bool { return $u['role'] === 'officer'; }
+
 function login(string $username, string $password): bool {
     $stmt = db()->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
