@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/helpers.php';
-$user = require_role(['admin','manager']);
+$user = require_role(['admin','manager','officer']);
 $page = 'employees';
 $page_title = 'Employees';
 $pdo = db();
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $branch_id = (int)($_POST['branch_id'] ?? 0);
         $phone = trim($_POST['phone'] ?? '');
 
-        if ($user['role'] === 'manager') $branch_id = (int)$user['branch_id'];
+        if (in_array($user['role'], ['manager','officer'], true)) $branch_id = (int)$user['branch_id'];
         if (!can_access_branch($user, $branch_id)) { http_response_code(403); exit('Forbidden'); }
 
         if ($action === 'create') {
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $branches = $pdo->query("SELECT * FROM branches ORDER BY name")->fetchAll();
 $where = '1=1'; $params = [];
-if ($user['role'] === 'manager') { $where .= ' AND e.branch_id = ?'; $params[] = $user['branch_id']; }
+if (in_array($user['role'], ['manager','officer'], true)) { $where .= ' AND e.branch_id = ?'; $params[] = $user['branch_id']; }
 elseif (!empty($_GET['branch'])) { $where .= ' AND e.branch_id = ?'; $params[] = (int)$_GET['branch']; }
 if (!empty($_GET['q'])) { $where .= ' AND (e.full_name LIKE ? OR e.service_no LIKE ?)'; $params[] = '%'.$_GET['q'].'%'; $params[] = '%'.$_GET['q'].'%'; }
 
@@ -66,7 +66,7 @@ if ($editId) {
 include __DIR__ . '/../includes/header.php';
 ?>
 <div class="page-header">
-  <div><h1>Employees</h1><div class="desc">Manage personnel records</div></div>
+  <div><h1>Personnel</h1><div class="desc"><?= is_admin($user) ? 'Manage personnel across all branches' : 'Manage personnel of ' . e($user['branch_name']) ?></div></div>
 </div>
 
 <?php if ($m = flash('msg')): ?><div class="alert alert-success"><?= e($m) ?></div><?php endif; ?>

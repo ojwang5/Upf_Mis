@@ -60,7 +60,7 @@ function logout(): void {
 }
 
 function user_branch_filter(array $user): ?int {
-    return $user['role'] === 'manager' ? (int)$user['branch_id'] : null;
+    return in_array($user['role'], ['manager','officer'], true) ? (int)$user['branch_id'] : null;
 }
 
 function can_access_branch(array $user, int $branchId): bool {
