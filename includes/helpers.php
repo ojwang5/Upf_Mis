@@ -6,23 +6,37 @@ function e(?string $s): string {
 }
 
 function status_label(string $s): string {
-    return match($s) {
-        'present' => 'Present',
-        'awol' => 'AWOL',
-        'leave' => 'On Leave',
-        'sick' => 'Sick',
-        default => ucfirst($s),
-    };
+    switch ($s) {
+        case 'present':
+            return 'Present';
+        case 'awol':
+            return 'AWOL';
+        case 'leave':
+            return 'On Leave';
+        case 'sick':
+            return 'Sick';
+        default:
+            return ucfirst($s);
+    }
 }
 
 function status_badge(string $s): string {
-    $cls = match($s) {
-        'present' => 'badge badge-present',
-        'awol' => 'badge badge-awol',
-        'leave' => 'badge badge-leave',
-        'sick' => 'badge badge-sick',
-        default => 'badge',
-    };
+    switch ($s) {
+        case 'present':
+            $cls = 'badge badge-present';
+            break;
+        case 'awol':
+            $cls = 'badge badge-awol';
+            break;
+        case 'leave':
+            $cls = 'badge badge-leave';
+            break;
+        case 'sick':
+            $cls = 'badge badge-sick';
+            break;
+        default:
+            $cls = 'badge';
+    }
     return '<span class="' . $cls . '">' . e(status_label($s)) . '</span>';
 }
 
@@ -70,4 +84,22 @@ function flash(string $key, ?string $msg = null): ?string {
     $val = $_SESSION['_flash'][$key] ?? null;
     if (isset($_SESSION['_flash'][$key])) unset($_SESSION['_flash'][$key]);
     return $val;
+}
+
+// CSRF helpers
+function csrf_token(): string {
+    if (empty($_SESSION['_csrf_token'])) {
+        $_SESSION['_csrf_token'] = bin2hex(random_bytes(16));
+    }
+    return $_SESSION['_csrf_token'];
+}
+
+function csrf_field(): string {
+    $t = csrf_token();
+    return '<input type="hidden" name="_csrf" value="' . e($t) . '">';
+}
+
+function verify_csrf(?string $token): bool {
+    if (empty($_SESSION['_csrf_token'])) return false;
+    return hash_equals($_SESSION['_csrf_token'], (string)$token);
 }

@@ -1,0 +1,73 @@
+[Wed Apr 22 09:12:26 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Wed Apr 22 09:12:30 2026] 127.0.0.1:35434 Accepted
+[Wed Apr 22 09:12:30 2026] 127.0.0.1:35434 [200]: GET /login.php - Uncaught Error: Call to undefined function e() in /home/runner/workspace/public/login.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/runner/workspace/public/login.php on line 18
+[Wed Apr 22 09:12:30 2026] 127.0.0.1:35434 Closing
+[Wed Apr 22 09:12:34 2026] 127.0.0.1:39798 Accepted
+[Wed Apr 22 09:12:34 2026] 127.0.0.1:39798 Closing
+[Wed Apr 22 09:12:35 2026] 127.0.0.1:39810 Accepted
+[Wed Apr 22 09:12:35 2026] 127.0.0.1:39810 [200]: GET /login.php - Uncaught Error: Call to undefined function e() in /home/runner/workspace/public/login.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/runner/workspace/public/login.php on line 18
+[Wed Apr 22 09:12:35 2026] 127.0.0.1:39810 Closing
+[Wed Apr 22 09:12:36 2026] 127.0.0.1:39814 Accepted
+[Wed Apr 22 09:12:36 2026] 127.0.0.1:39814 Closing
+[Wed Apr 22 09:12:36 2026] 127.0.0.1:39818 Accepted
+[Wed Apr 22 09:12:36 2026] 127.0.0.1:39818 [200]: GET /login.php - Uncaught Error: Call to undefined function e() in /home/runner/workspace/public/login.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/runner/workspace/public/login.php on line 18
+[Wed Apr 22 09:12:36 2026] 127.0.0.1:39818 Closing
+[Wed Apr 22 09:12:43 2026] 127.0.0.1:39824 Accepted
+[Wed Apr 22 09:12:43 2026] 127.0.0.1:39824 [200]: HEAD /login.php - Uncaught Error: Call to undefined function e() in /home/runner/workspace/public/login.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/runner/workspace/public/login.php on line 18
+[Wed Apr 22 09:12:43 2026] 127.0.0.1:39824 Closing
+[Wed Apr 22 09:12:43 2026] 127.0.0.1:39830 Accepted
+[Wed Apr 22 09:12:43 2026] 127.0.0.1:39830 [200]: GET /login.php - Uncaught Error: Call to undefined function e() in /home/runner/workspace/public/login.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/runner/workspace/public/login.php on line 18
+[Wed Apr 22 09:12:43 2026] 127.0.0.1:39830 Closing
+[Wed Apr 22 09:12:59 2026] 127.0.0.1:56178 Accepted
+[Wed Apr 22 09:12:59 2026] 127.0.0.1:56178 [200]: GET /login.php
+[Wed Apr 22 09:12:59 2026] 127.0.0.1:56178 Closing
+[Wed Apr 22 09:13:00 2026] 127.0.0.1:56186 Accepted
+[Wed Apr 22 09:13:01 2026] 127.0.0.1:56186 [302]: POST /login.php
+[Wed Apr 22 09:13:01 2026] 127.0.0.1:56186 Closing
+[Wed Apr 22 09:13:01 2026] 127.0.0.1:56194 Accepted
+[Wed Apr 22 09:13:01 2026] 127.0.0.1:56194 Closing
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57294 Accepted
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57294 [200]: GET /login.php
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57294 Closing
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57304 Accepted
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57308 Accepted
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57304 [200]: GET /assets/style.css
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57308 [200]: GET /assets/logo.jpg
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57304 Closing
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57308 Closing
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57318 Accepted
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57318 Closing
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57322 Accepted
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57322 [200]: GET /login.php
+[Wed Apr 22 09:13:07 2026] 127.0.0.1:57322 Closing
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57336 Accepted
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57336 Closing
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57346 Accepted
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57346 [200]: GET /login.php
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57346 Closing
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57356 Accepted
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57372 Accepted
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57356 [200]: GET /assets/style.css
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57356 Closing
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57372 [200]: GET /assets/logo.jpg
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57372 Closing
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57374 Accepted
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57374 Closing
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57384 Accepted
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57384 [200]: GET /login.php
+[Wed Apr 22 09:13:13 2026] 127.0.0.1:57384 Closing

@@ -1,0 +1,1259 @@
+[Thu Apr 23 06:54:50 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Thu Apr 23 06:54:51 2026] 127.0.0.1:51314 Accepted
+[Thu Apr 23 06:54:51 2026] 127.0.0.1:51314 Closing
+[Thu Apr 23 06:54:52 2026] 127.0.0.1:51328 Accepted
+[Thu Apr 23 06:54:52 2026] 127.0.0.1:51328 [200]: GET /assets/style.css
+[Thu Apr 23 06:54:52 2026] 127.0.0.1:51328 Closing
+[Thu Apr 23 06:54:52 2026] 127.0.0.1:51340 Accepted
+[Thu Apr 23 06:54:52 2026] 127.0.0.1:51340 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:54:52 2026] 127.0.0.1:51340 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51356 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51356 [302]: POST /login.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51356 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51364 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51364 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51374 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51374 [200]: GET /reports.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51374 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51382 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51382 [200]: GET /leave-requests.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51382 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51388 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51388 [200]: GET /notifications.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51388 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51392 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51392 [200]: GET /daily-status.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51392 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51400 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51400 [403]: GET /employees.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51400 Closing
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51412 Accepted
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51412 [403]: GET /users.php
+[Thu Apr 23 06:54:55 2026] 127.0.0.1:51412 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46104 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46104 [302]: POST /login.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46104 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46116 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46116 [200]: GET /users.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46116 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46132 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46132 [200]: GET /leave-requests.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46132 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46136 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46136 [200]: GET /notifications.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46136 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46140 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46140 [200]: GET /history.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46140 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46154 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46154 [200]: GET /reports.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46154 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46166 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46166 [302]: POST /login.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46166 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46168 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46168 [200]: GET /users.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46168 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46180 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46180 [200]: GET /leave-requests.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46180 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46194 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46194 [200]: GET /notifications.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46194 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46206 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46206 [200]: GET /history.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46206 Closing
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46218 Accepted
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46218 [200]: GET /reports.php
+[Thu Apr 23 06:55:01 2026] 127.0.0.1:46218 Closing
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46230 Accepted
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46230 [302]: GET /leave-requests.php
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46230 Closing
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46244 Accepted
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46244 [200]: GET /login.php
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46244 Closing
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46256 Accepted
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46260 Accepted
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46256 [200]: GET /assets/style.css
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46260 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46256 Closing
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46260 Closing
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46270 Accepted
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46270 Closing
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46280 Accepted
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46280 [200]: GET /login.php
+[Thu Apr 23 06:55:04 2026] 127.0.0.1:46280 Closing
+[Thu Apr 23 06:55:20 2026] 127.0.0.1:37062 Accepted
+[Thu Apr 23 06:55:20 2026] 127.0.0.1:37062 [200]: GET /users.php
+[Thu Apr 23 06:55:20 2026] 127.0.0.1:37062 Closing
+[Thu Apr 23 06:55:21 2026] 127.0.0.1:37078 Accepted
+[Thu Apr 23 06:55:21 2026] 127.0.0.1:37078 [200]: GET /assets/style.css
+[Thu Apr 23 06:55:21 2026] 127.0.0.1:37078 Closing
+[Thu Apr 23 06:55:21 2026] 127.0.0.1:37086 Accepted
+[Thu Apr 23 06:55:21 2026] 127.0.0.1:37086 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:55:21 2026] 127.0.0.1:37086 Closing
+[Thu Apr 23 06:56:30 2026] 127.0.0.1:33618 Accepted
+[Thu Apr 23 06:56:30 2026] 127.0.0.1:33618 [302]: POST /users.php
+[Thu Apr 23 06:56:30 2026] 127.0.0.1:33618 Closing
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33626 Accepted
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33626 [200]: GET /users.php
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33626 Closing
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33640 Accepted
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33640 [200]: GET /assets/style.css
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33650 Accepted
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33650 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33640 Closing
+[Thu Apr 23 06:56:31 2026] 127.0.0.1:33650 Closing
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42134 Accepted
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42134 [200]: GET /notifications.php
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42134 Closing
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42148 Accepted
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42148 [200]: GET /assets/style.css
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42148 Closing
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42160 Accepted
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42160 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:56:42 2026] 127.0.0.1:42160 Closing
+[Thu Apr 23 06:57:25 2026] 127.0.0.1:47054 Accepted
+[Thu Apr 23 06:57:25 2026] 127.0.0.1:47054 [302]: GET /logout.php
+[Thu Apr 23 06:57:25 2026] 127.0.0.1:47054 Closing
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47056 Accepted
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47056 [200]: GET /login.php
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47056 Closing
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47058 Accepted
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47058 [200]: GET /assets/style.css
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47068 Accepted
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47058 Closing
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47068 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:57:26 2026] 127.0.0.1:47068 Closing
+[Thu Apr 23 06:57:43 2026] 127.0.0.1:38344 Accepted
+[Thu Apr 23 06:57:43 2026] 127.0.0.1:38344 [302]: POST /login.php
+[Thu Apr 23 06:57:43 2026] 127.0.0.1:38344 Closing
+[Thu Apr 23 06:57:43 2026] 127.0.0.1:38350 Accepted
+[Thu Apr 23 06:57:43 2026] 127.0.0.1:38350 Closing
+[Thu Apr 23 06:57:44 2026] 127.0.0.1:38358 Accepted
+[Thu Apr 23 06:57:44 2026] 127.0.0.1:38358 [200]: GET /assets/style.css
+[Thu Apr 23 06:57:44 2026] 127.0.0.1:38358 Closing
+[Thu Apr 23 06:57:44 2026] 127.0.0.1:38374 Accepted
+[Thu Apr 23 06:57:44 2026] 127.0.0.1:38374 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:57:44 2026] 127.0.0.1:38374 Closing
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37522 Accepted
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37522 Closing
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37534 Accepted
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37534 [200]: GET /assets/style.css
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37534 Closing
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37542 Accepted
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37542 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:58:15 2026] 127.0.0.1:37542 Closing
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48186 Accepted
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48186 [200]: GET /daily-status.php
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48186 Closing
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48202 Accepted
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48216 Accepted
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48202 [200]: GET /assets/style.css
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48216 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48202 Closing
+[Thu Apr 23 06:58:44 2026] 127.0.0.1:48216 Closing
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:52976 Accepted
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:52976 [200]: GET /reports.php
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:52976 Closing
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:52988 Accepted
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:52988 [200]: GET /assets/style.css
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:52988 Closing
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:53000 Accepted
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:53000 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:59:03 2026] 127.0.0.1:53000 Closing
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58470 Accepted
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58470 [200]: GET /leave-requests.php
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58470 Closing
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58480 Accepted
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58480 [200]: GET /assets/style.css
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58482 Accepted
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58480 Closing
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58482 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:59:24 2026] 127.0.0.1:58482 Closing
+[Thu Apr 23 07:00:16 2026] 127.0.0.1:57904 Accepted
+[Thu Apr 23 07:00:16 2026] 127.0.0.1:57904 [302]: POST /leave-requests.php
+[Thu Apr 23 07:00:16 2026] 127.0.0.1:57904 Closing
+[Thu Apr 23 07:00:17 2026] 127.0.0.1:57912 Accepted
+[Thu Apr 23 07:00:17 2026] 127.0.0.1:57912 [200]: GET /leave-requests.php
+[Thu Apr 23 07:00:17 2026] 127.0.0.1:57912 Closing
+[Thu Apr 23 07:00:18 2026] 127.0.0.1:54052 Accepted
+[Thu Apr 23 07:00:18 2026] 127.0.0.1:54052 [200]: GET /assets/style.css
+[Thu Apr 23 07:00:18 2026] 127.0.0.1:54052 Closing
+[Thu Apr 23 07:00:18 2026] 127.0.0.1:54060 Accepted
+[Thu Apr 23 07:00:18 2026] 127.0.0.1:54060 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:00:18 2026] 127.0.0.1:54060 Closing
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45262 Accepted
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45262 [200]: GET /notifications.php
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45262 Closing
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45278 Accepted
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45278 [200]: GET /assets/style.css
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45278 Closing
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45286 Accepted
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45286 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:00:29 2026] 127.0.0.1:45286 Closing
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53848 Accepted
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53848 [302]: POST /notifications.php
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53848 Closing
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53852 Accepted
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53852 [200]: GET /notifications.php
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53852 Closing
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53866 Accepted
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53866 [200]: GET /assets/style.css
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53866 Closing
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53874 Accepted
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53874 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:00:53 2026] 127.0.0.1:53874 Closing
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51102 Accepted
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51102 [200]: GET /leave-requests.php
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51102 Closing
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51104 Accepted
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51104 [200]: GET /assets/style.css
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51120 Accepted
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51104 Closing
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51120 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:01:03 2026] 127.0.0.1:51120 Closing
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53236 Accepted
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53236 Closing
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53238 Accepted
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53238 [200]: GET /assets/style.css
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53238 Closing
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53254 Accepted
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53254 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:01:19 2026] 127.0.0.1:53254 Closing
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35600 Accepted
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35600 [200]: GET /daily-status.php
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35600 Closing
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35616 Accepted
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35616 [200]: GET /assets/style.css
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35616 Closing
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35624 Accepted
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35624 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:01:32 2026] 127.0.0.1:35624 Closing
+[Thu Apr 23 07:01:36 2026] 127.0.0.1:35632 Accepted
+[Thu Apr 23 07:01:36 2026] 127.0.0.1:35632 [200]: GET /reports.php
+[Thu Apr 23 07:01:36 2026] 127.0.0.1:35632 Closing
+[Thu Apr 23 07:01:37 2026] 127.0.0.1:57824 Accepted
+[Thu Apr 23 07:01:37 2026] 127.0.0.1:57824 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:01:37 2026] 127.0.0.1:57826 Accepted
+[Thu Apr 23 07:01:37 2026] 127.0.0.1:57826 [200]: GET /assets/style.css
+[Thu Apr 23 07:01:37 2026] 127.0.0.1:57824 Closing
+[Thu Apr 23 07:01:37 2026] 127.0.0.1:57826 Closing
+[Thu Apr 23 07:01:51 2026] 127.0.0.1:58026 Accepted
+[Thu Apr 23 07:01:51 2026] 127.0.0.1:58026 Closing
+[Thu Apr 23 07:01:52 2026] 127.0.0.1:58028 Accepted
+[Thu Apr 23 07:01:52 2026] 127.0.0.1:58040 Accepted
+[Thu Apr 23 07:01:52 2026] 127.0.0.1:58040 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:01:52 2026] 127.0.0.1:58028 [200]: GET /assets/style.css
+[Thu Apr 23 07:01:52 2026] 127.0.0.1:58040 Closing
+[Thu Apr 23 07:01:52 2026] 127.0.0.1:58028 Closing
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41658 Accepted
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41658 Closing
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41664 Accepted
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41664 [200]: GET /assets/style.css
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41664 Closing
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41674 Accepted
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41674 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:02:23 2026] 127.0.0.1:41674 Closing
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52632 Accepted
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52632 Closing
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52636 Accepted
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52636 [200]: GET /assets/style.css
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52636 Closing
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52652 Accepted
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52652 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:02:54 2026] 127.0.0.1:52652 Closing
+[Thu Apr 23 07:06:46 2026] 127.0.0.1:52652 Accepted
+[Thu Apr 23 07:06:46 2026] 127.0.0.1:52652 Closing
+[Thu Apr 23 07:06:46 2026] 127.0.0.1:52666 Accepted
+[Thu Apr 23 07:06:46 2026] 127.0.0.1:52666 [200]: GET /login.php
+[Thu Apr 23 07:06:46 2026] 127.0.0.1:52666 Closing
+[Thu Apr 23 07:06:48 2026] 127.0.0.1:41868 Accepted
+[Thu Apr 23 07:06:48 2026] 127.0.0.1:41868 [200]: GET /assets/style.css
+[Thu Apr 23 07:06:48 2026] 127.0.0.1:41868 Closing
+[Thu Apr 23 07:06:48 2026] 127.0.0.1:41872 Accepted
+[Thu Apr 23 07:06:48 2026] 127.0.0.1:41872 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:06:48 2026] 127.0.0.1:41872 Closing
+[Thu Apr 23 07:06:49 2026] 127.0.0.1:41886 Accepted
+[Thu Apr 23 07:06:49 2026] 127.0.0.1:41886 Closing
+[Thu Apr 23 07:06:49 2026] 127.0.0.1:41898 Accepted
+[Thu Apr 23 07:06:49 2026] 127.0.0.1:41898 [200]: GET /login.php
+[Thu Apr 23 07:06:49 2026] 127.0.0.1:41898 Closing
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58264 Accepted
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58264 [200]: POST /login.php
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58264 Closing
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58278 Accepted
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58278 [200]: GET /assets/style.css
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58286 Accepted
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58278 Closing
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58286 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:07:06 2026] 127.0.0.1:58286 Closing
+[Thu Apr 23 07:07:07 2026] 127.0.0.1:39380 Accepted
+[Thu Apr 23 07:07:07 2026] 127.0.0.1:39380 Closing
+[Thu Apr 23 07:07:07 2026] 127.0.0.1:39382 Accepted
+[Thu Apr 23 07:07:07 2026] 127.0.0.1:39382 [200]: GET /login.php
+[Thu Apr 23 07:07:07 2026] 127.0.0.1:39382 Closing
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59844 Accepted
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59844 [200]: POST /login.php
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59844 Closing
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59852 Accepted
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59858 Accepted
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59858 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59852 [200]: GET /assets/style.css
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59858 Closing
+[Thu Apr 23 07:07:17 2026] 127.0.0.1:59852 Closing
+[Thu Apr 23 07:07:18 2026] 127.0.0.1:59872 Accepted
+[Thu Apr 23 07:07:18 2026] 127.0.0.1:59872 Closing
+[Thu Apr 23 07:07:19 2026] 127.0.0.1:59882 Accepted
+[Thu Apr 23 07:07:19 2026] 127.0.0.1:59882 [200]: GET /login.php
+[Thu Apr 23 07:07:19 2026] 127.0.0.1:59882 Closing
+[Thu Apr 23 07:07:37 2026] 127.0.0.1:58378 Accepted
+[Thu Apr 23 07:07:37 2026] 127.0.0.1:58378 [302]: POST /login.php
+[Thu Apr 23 07:07:37 2026] 127.0.0.1:58378 Closing
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58394 Accepted
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58394 Closing
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58404 Accepted
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58404 [200]: GET /assets/style.css
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58418 Accepted
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58404 Closing
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58418 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:07:38 2026] 127.0.0.1:58418 Closing
+[Thu Apr 23 07:07:39 2026] 127.0.0.1:58430 Accepted
+[Thu Apr 23 07:07:39 2026] 127.0.0.1:58430 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:07:39 2026] 127.0.0.1:58430 Closing
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42080 Accepted
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42080 [200]: GET /notifications.php
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42080 Closing
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42096 Accepted
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42096 [200]: GET /assets/style.css
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42096 Closing
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42104 Accepted
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42104 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:07:53 2026] 127.0.0.1:42104 Closing
+[Thu Apr 23 07:08:28 2026] 127.0.0.1:58458 Accepted
+[Thu Apr 23 07:08:28 2026] 127.0.0.1:58458 Closing
+[Thu Apr 23 07:08:29 2026] 127.0.0.1:58462 Accepted
+[Thu Apr 23 07:08:29 2026] 127.0.0.1:58462 [200]: GET /assets/style.css
+[Thu Apr 23 07:08:29 2026] 127.0.0.1:58462 Closing
+[Thu Apr 23 07:08:29 2026] 127.0.0.1:58474 Accepted
+[Thu Apr 23 07:08:29 2026] 127.0.0.1:58474 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:08:29 2026] 127.0.0.1:58474 Closing
+[Thu Apr 23 07:08:38 2026] 127.0.0.1:43004 Accepted
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43004 [200]: GET /employees.php
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43004 Closing
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43012 Accepted
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43012 [200]: GET /assets/style.css
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43012 Closing
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43024 Accepted
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43024 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:08:39 2026] 127.0.0.1:43024 Closing
+[Thu Apr 23 07:10:14 2026] 127.0.0.1:34898 Accepted
+[Thu Apr 23 07:10:14 2026] 127.0.0.1:34898 Closing
+[Thu Apr 23 07:10:15 2026] 127.0.0.1:34906 Accepted
+[Thu Apr 23 07:10:15 2026] 127.0.0.1:34906 [200]: GET /assets/style.css
+[Thu Apr 23 07:10:15 2026] 127.0.0.1:34906 Closing
+[Thu Apr 23 07:10:16 2026] 127.0.0.1:34910 Accepted
+[Thu Apr 23 07:10:16 2026] 127.0.0.1:34910 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:10:16 2026] 127.0.0.1:34910 Closing
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40282 Accepted
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40282 Closing
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40290 Accepted
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40290 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40292 Accepted
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40292 [200]: GET /assets/style.css
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40290 Closing
+[Thu Apr 23 07:10:46 2026] 127.0.0.1:40292 Closing
+[Thu Apr 23 07:11:08 2026] 127.0.0.1:57740 Accepted
+[Thu Apr 23 07:11:08 2026] 127.0.0.1:57740 Closing
+[Thu Apr 23 07:11:09 2026] 127.0.0.1:57752 Accepted
+[Thu Apr 23 07:11:09 2026] 127.0.0.1:57752 [200]: GET /assets/style.css
+[Thu Apr 23 07:11:09 2026] 127.0.0.1:57752 Closing
+[Thu Apr 23 07:11:09 2026] 127.0.0.1:57766 Accepted
+[Thu Apr 23 07:11:09 2026] 127.0.0.1:57766 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:11:09 2026] 127.0.0.1:57766 Closing
+[Thu Apr 23 07:11:10 2026] 127.0.0.1:57782 Accepted
+[Thu Apr 23 07:11:10 2026] 127.0.0.1:57782 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:11:10 2026] 127.0.0.1:57782 Closing
+[Thu Apr 23 07:11:15 2026] 127.0.0.1:57798 Accepted
+[Thu Apr 23 07:11:15 2026] 127.0.0.1:57798 [302]: GET /logout.php
+[Thu Apr 23 07:11:15 2026] 127.0.0.1:57798 Closing
+[Thu Apr 23 07:11:15 2026] 127.0.0.1:57812 Accepted
+[Thu Apr 23 07:11:15 2026] 127.0.0.1:57812 [200]: GET /login.php
+[Thu Apr 23 07:11:15 2026] 127.0.0.1:57812 Closing
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57824 Accepted
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57824 [200]: GET /assets/style.css
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57824 Closing
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57838 Accepted
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57838 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57838 Closing
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57846 Accepted
+[Thu Apr 23 07:11:16 2026] 127.0.0.1:57846 Closing
+[Thu Apr 23 07:11:17 2026] 127.0.0.1:47910 Accepted
+[Thu Apr 23 07:11:17 2026] 127.0.0.1:47910 [200]: GET /login.php
+[Thu Apr 23 07:11:17 2026] 127.0.0.1:47910 Closing
+[Thu Apr 23 07:11:42 2026] 127.0.0.1:46070 Accepted
+[Thu Apr 23 07:11:42 2026] 127.0.0.1:46070 [302]: POST /login.php
+[Thu Apr 23 07:11:42 2026] 127.0.0.1:46070 Closing
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46078 Accepted
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46078 Closing
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46092 Accepted
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46092 [200]: GET /assets/style.css
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46092 Closing
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46106 Accepted
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46106 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:11:43 2026] 127.0.0.1:46106 Closing
+[Thu Apr 23 07:12:15 2026] 127.0.0.1:41532 Accepted
+[Thu Apr 23 07:12:15 2026] 127.0.0.1:41532 Closing
+[Thu Apr 23 07:12:16 2026] 127.0.0.1:41538 Accepted
+[Thu Apr 23 07:12:16 2026] 127.0.0.1:41538 [200]: GET /assets/style.css
+[Thu Apr 23 07:12:16 2026] 127.0.0.1:41538 Closing
+[Thu Apr 23 07:12:16 2026] 127.0.0.1:41544 Accepted
+[Thu Apr 23 07:12:16 2026] 127.0.0.1:41544 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:12:16 2026] 127.0.0.1:41544 Closing
+[Thu Apr 23 07:12:17 2026] 127.0.0.1:44250 Accepted
+[Thu Apr 23 07:12:17 2026] 127.0.0.1:44250 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:12:17 2026] 127.0.0.1:44250 Closing
+[Thu Apr 23 07:12:46 2026] 127.0.0.1:53010 Accepted
+[Thu Apr 23 07:12:46 2026] 127.0.0.1:53010 Closing
+[Thu Apr 23 07:12:47 2026] 127.0.0.1:54288 Accepted
+[Thu Apr 23 07:12:47 2026] 127.0.0.1:54288 [200]: GET /assets/style.css
+[Thu Apr 23 07:12:47 2026] 127.0.0.1:54292 Accepted
+[Thu Apr 23 07:12:47 2026] 127.0.0.1:54292 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:12:47 2026] 127.0.0.1:54288 Closing
+[Thu Apr 23 07:12:47 2026] 127.0.0.1:54292 Closing
+[Thu Apr 23 07:12:48 2026] 127.0.0.1:54298 Accepted
+[Thu Apr 23 07:12:48 2026] 127.0.0.1:54298 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:12:48 2026] 127.0.0.1:54298 Closing
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37396 Accepted
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37396 [200]: GET /employees.php
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37396 Closing
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37410 Accepted
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37410 [200]: GET /assets/style.css
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37414 Accepted
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37414 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37410 Closing
+[Thu Apr 23 07:12:58 2026] 127.0.0.1:37414 Closing
+[Thu Apr 23 07:13:19 2026] 127.0.0.1:57364 Accepted
+[Thu Apr 23 07:13:19 2026] 127.0.0.1:57364 [200]: GET /history.php
+[Thu Apr 23 07:13:19 2026] 127.0.0.1:57364 Closing
+[Thu Apr 23 07:13:20 2026] 127.0.0.1:57380 Accepted
+[Thu Apr 23 07:13:20 2026] 127.0.0.1:57382 Accepted
+[Thu Apr 23 07:13:20 2026] 127.0.0.1:57380 [200]: GET /assets/style.css
+[Thu Apr 23 07:13:20 2026] 127.0.0.1:57382 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:13:20 2026] 127.0.0.1:57380 Closing
+[Thu Apr 23 07:13:20 2026] 127.0.0.1:57382 Closing
+[Thu Apr 23 07:13:28 2026] 127.0.0.1:35942 Accepted
+[Thu Apr 23 07:13:28 2026] 127.0.0.1:35942 [200]: GET /users.php
+[Thu Apr 23 07:13:28 2026] 127.0.0.1:35942 Closing
+[Thu Apr 23 07:13:29 2026] 127.0.0.1:35950 Accepted
+[Thu Apr 23 07:13:29 2026] 127.0.0.1:35950 [200]: GET /assets/style.css
+[Thu Apr 23 07:13:29 2026] 127.0.0.1:35950 Closing
+[Thu Apr 23 07:13:29 2026] 127.0.0.1:35958 Accepted
+[Thu Apr 23 07:13:29 2026] 127.0.0.1:35958 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:13:29 2026] 127.0.0.1:35958 Closing
+[Thu Apr 23 07:13:47 2026] 127.0.0.1:58422 Accepted
+[Thu Apr 23 07:13:47 2026] 127.0.0.1:58422 [200]: GET /employees.php
+[Thu Apr 23 07:13:47 2026] 127.0.0.1:58422 Closing
+[Thu Apr 23 07:13:48 2026] 127.0.0.1:58432 Accepted
+[Thu Apr 23 07:13:48 2026] 127.0.0.1:58432 [200]: GET /assets/style.css
+[Thu Apr 23 07:13:48 2026] 127.0.0.1:58432 Closing
+[Thu Apr 23 07:13:48 2026] 127.0.0.1:58434 Accepted
+[Thu Apr 23 07:13:48 2026] 127.0.0.1:58434 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:13:48 2026] 127.0.0.1:58434 Closing
+[Thu Apr 23 07:13:49 2026] 127.0.0.1:58444 Accepted
+[Thu Apr 23 07:13:49 2026] 127.0.0.1:58444 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:13:49 2026] 127.0.0.1:58444 Closing
+[Thu Apr 23 07:13:52 2026] 127.0.0.1:58448 Accepted
+[Thu Apr 23 07:13:52 2026] 127.0.0.1:58448 Closing
+[Thu Apr 23 07:13:53 2026] 127.0.0.1:58450 Accepted
+[Thu Apr 23 07:13:53 2026] 127.0.0.1:58450 [200]: GET /assets/style.css
+[Thu Apr 23 07:13:53 2026] 127.0.0.1:58450 Closing
+[Thu Apr 23 07:13:53 2026] 127.0.0.1:58466 Accepted
+[Thu Apr 23 07:13:53 2026] 127.0.0.1:58466 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:13:53 2026] 127.0.0.1:58466 Closing
+[Thu Apr 23 07:13:56 2026] 127.0.0.1:58472 Accepted
+[Thu Apr 23 07:13:56 2026] 127.0.0.1:58472 [302]: GET /logout.php
+[Thu Apr 23 07:13:56 2026] 127.0.0.1:58472 Closing
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33104 Accepted
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33104 [200]: GET /login.php
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33104 Closing
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33106 Accepted
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33106 [200]: GET /assets/style.css
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33116 Accepted
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33116 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33106 Closing
+[Thu Apr 23 07:13:57 2026] 127.0.0.1:33116 Closing
+[Thu Apr 23 07:13:58 2026] 127.0.0.1:33120 Accepted
+[Thu Apr 23 07:13:58 2026] 127.0.0.1:33120 Closing
+[Thu Apr 23 07:13:58 2026] 127.0.0.1:33122 Accepted
+[Thu Apr 23 07:13:58 2026] 127.0.0.1:33122 [200]: GET /login.php
+[Thu Apr 23 07:13:58 2026] 127.0.0.1:33122 Closing
+[Thu Apr 23 07:14:17 2026] 127.0.0.1:47408 Accepted
+[Thu Apr 23 07:14:17 2026] 127.0.0.1:47408 [200]: GET /notifications.php
+[Thu Apr 23 07:14:17 2026] 127.0.0.1:47408 Closing
+[Thu Apr 23 07:14:17 2026] 127.0.0.1:47412 Accepted
+[Thu Apr 23 07:14:17 2026] 127.0.0.1:47412 [200]: GET /assets/style.css
+[Thu Apr 23 07:14:17 2026] 127.0.0.1:47412 Closing
+[Thu Apr 23 07:14:18 2026] 127.0.0.1:47424 Accepted
+[Thu Apr 23 07:14:18 2026] 127.0.0.1:47424 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:14:18 2026] 127.0.0.1:47424 Closing
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47434 Accepted
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47434 Closing
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47442 Accepted
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47442 [200]: GET /assets/style.css
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47442 Closing
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47456 Accepted
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47456 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:14:24 2026] 127.0.0.1:47456 Closing
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43006 Accepted
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43006 Closing
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43012 Accepted
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43012 [200]: GET /assets/style.css
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43012 Closing
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43014 Accepted
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43014 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:14:55 2026] 127.0.0.1:43014 Closing
+[Thu Apr 23 07:14:57 2026] 127.0.0.1:51728 Accepted
+[Thu Apr 23 07:14:57 2026] 127.0.0.1:51728 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:14:57 2026] 127.0.0.1:51728 Closing
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35862 Accepted
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35862 Closing
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35872 Accepted
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35872 [200]: GET /assets/style.css
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35872 Closing
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35878 Accepted
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35878 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:15:26 2026] 127.0.0.1:35878 Closing
+[Thu Apr 23 07:15:27 2026] 127.0.0.1:41050 Accepted
+[Thu Apr 23 07:15:27 2026] 127.0.0.1:41050 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:15:27 2026] 127.0.0.1:41050 Closing
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36756 Accepted
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36756 Closing
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36772 Accepted
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36772 [200]: GET /assets/style.css
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36772 Closing
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36788 Accepted
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36788 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:15:57 2026] 127.0.0.1:36788 Closing
+[Thu Apr 23 07:16:00 2026] 127.0.0.1:36800 Accepted
+[Thu Apr 23 07:16:00 2026] 127.0.0.1:36800 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:16:00 2026] 127.0.0.1:36800 Closing
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53342 Accepted
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53342 Closing
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53358 Accepted
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53358 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53358 Closing
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53372 Accepted
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53372 [200]: GET /assets/style.css
+[Thu Apr 23 07:16:30 2026] 127.0.0.1:53372 Closing
+[Thu Apr 23 07:16:33 2026] 127.0.0.1:53388 Accepted
+[Thu Apr 23 07:16:33 2026] 127.0.0.1:53388 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:16:33 2026] 127.0.0.1:53388 Closing
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34038 Accepted
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34038 [200]: GET /employees.php
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34038 Closing
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34054 Accepted
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34070 Accepted
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34054 [200]: GET /assets/style.css
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34070 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34054 Closing
+[Thu Apr 23 07:16:53 2026] 127.0.0.1:34070 Closing
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47870 Accepted
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47870 [200]: GET /daily-status.php
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47870 Closing
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47878 Accepted
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47878 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47878 Closing
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47894 Accepted
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47894 [200]: GET /assets/style.css
+[Thu Apr 23 07:17:11 2026] 127.0.0.1:47894 Closing
+[Thu Apr 23 07:17:31 2026] 127.0.0.1:50776 Accepted
+[Thu Apr 23 07:17:31 2026] 127.0.0.1:50776 [302]: POST /daily-status.php
+[Thu Apr 23 07:17:31 2026] 127.0.0.1:50776 Closing
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50792 Accepted
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50792 [200]: GET /daily-status.php?date=2026-04-23
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50792 Closing
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50804 Accepted
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50808 Accepted
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50804 [200]: GET /assets/style.css
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50808 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50804 Closing
+[Thu Apr 23 07:17:32 2026] 127.0.0.1:50808 Closing
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52736 Accepted
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52736 [200]: GET /reports.php
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52736 Closing
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52740 Accepted
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52740 [200]: GET /assets/style.css
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52754 Accepted
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52754 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52740 Closing
+[Thu Apr 23 07:17:39 2026] 127.0.0.1:52754 Closing
+[Thu Apr 23 07:17:49 2026] 127.0.0.1:56500 Accepted
+[Thu Apr 23 07:17:49 2026] 127.0.0.1:56500 [302]: POST /reports.php
+[Thu Apr 23 07:17:49 2026] 127.0.0.1:56500 Closing
+[Thu Apr 23 07:17:49 2026] 127.0.0.1:56516 Accepted
+[Thu Apr 23 07:17:49 2026] 127.0.0.1:56516 [200]: GET /reports.php?date=2026-04-23&branch=3
+[Thu Apr 23 07:17:49 2026] 127.0.0.1:56516 Closing
+[Thu Apr 23 07:17:50 2026] 127.0.0.1:56532 Accepted
+[Thu Apr 23 07:17:50 2026] 127.0.0.1:56532 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:17:50 2026] 127.0.0.1:56544 Accepted
+[Thu Apr 23 07:17:50 2026] 127.0.0.1:56544 [200]: GET /assets/style.css
+[Thu Apr 23 07:17:50 2026] 127.0.0.1:56532 Closing
+[Thu Apr 23 07:17:50 2026] 127.0.0.1:56544 Closing
+[Thu Apr 23 07:18:03 2026] 127.0.0.1:58116 Accepted
+[Thu Apr 23 07:18:03 2026] 127.0.0.1:58116 [200]: GET /export.php?type=print&date=2026-04-23&branch=3
+[Thu Apr 23 07:18:03 2026] 127.0.0.1:58116 Closing
+[Thu Apr 23 07:18:04 2026] 127.0.0.1:58126 Accepted
+[Thu Apr 23 07:18:04 2026] 127.0.0.1:58126 Closing
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53372 Accepted
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53372 [200]: GET /leave-requests.php
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53372 Closing
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53388 Accepted
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53388 [200]: GET /assets/style.css
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53388 Closing
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53402 Accepted
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53402 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:19:19 2026] 127.0.0.1:53402 Closing
+[Thu Apr 23 07:20:07 2026] 127.0.0.1:47124 Accepted
+[Thu Apr 23 07:20:07 2026] 127.0.0.1:47124 [302]: POST /leave-requests.php
+[Thu Apr 23 07:20:07 2026] 127.0.0.1:47124 Closing
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47140 Accepted
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47140 [200]: GET /leave-requests.php
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47140 Closing
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47146 Accepted
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47146 [200]: GET /assets/style.css
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47146 Closing
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47156 Accepted
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47156 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:20:08 2026] 127.0.0.1:47156 Closing
+[Thu Apr 23 07:20:24 2026] 127.0.0.1:59768 Accepted
+[Thu Apr 23 07:20:24 2026] 127.0.0.1:59768 [200]: GET /daily-status.php
+[Thu Apr 23 07:20:24 2026] 127.0.0.1:59768 Closing
+[Thu Apr 23 07:20:25 2026] 127.0.0.1:59774 Accepted
+[Thu Apr 23 07:20:25 2026] 127.0.0.1:59774 [200]: GET /assets/style.css
+[Thu Apr 23 07:20:25 2026] 127.0.0.1:59774 Closing
+[Thu Apr 23 07:20:25 2026] 127.0.0.1:59782 Accepted
+[Thu Apr 23 07:20:25 2026] 127.0.0.1:59782 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:20:25 2026] 127.0.0.1:59782 Closing
+[Thu Apr 23 07:20:33 2026] 127.0.0.1:50332 Accepted
+[Thu Apr 23 07:20:33 2026] 127.0.0.1:50332 [200]: GET /reports.php
+[Thu Apr 23 07:20:33 2026] 127.0.0.1:50332 Closing
+[Thu Apr 23 07:20:34 2026] 127.0.0.1:50338 Accepted
+[Thu Apr 23 07:20:34 2026] 127.0.0.1:50338 [200]: GET /assets/style.css
+[Thu Apr 23 07:20:34 2026] 127.0.0.1:50338 Closing
+[Thu Apr 23 07:20:34 2026] 127.0.0.1:50350 Accepted
+[Thu Apr 23 07:20:34 2026] 127.0.0.1:50350 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:20:34 2026] 127.0.0.1:50350 Closing
+[Thu Apr 23 07:20:38 2026] 127.0.0.1:59306 Accepted
+[Thu Apr 23 07:20:38 2026] 127.0.0.1:59306 [200]: GET /leave-requests.php
+[Thu Apr 23 07:20:38 2026] 127.0.0.1:59306 Closing
+[Thu Apr 23 07:20:39 2026] 127.0.0.1:59310 Accepted
+[Thu Apr 23 07:20:39 2026] 127.0.0.1:59310 [200]: GET /assets/style.css
+[Thu Apr 23 07:20:39 2026] 127.0.0.1:59310 Closing
+[Thu Apr 23 07:20:39 2026] 127.0.0.1:59324 Accepted
+[Thu Apr 23 07:20:39 2026] 127.0.0.1:59324 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:20:39 2026] 127.0.0.1:59324 Closing
+[Thu Apr 23 07:21:04 2026] 127.0.0.1:59360 Accepted
+[Thu Apr 23 07:21:04 2026] 127.0.0.1:59360 [302]: POST /leave-requests.php
+[Thu Apr 23 07:21:04 2026] 127.0.0.1:59360 Closing
+[Thu Apr 23 07:21:04 2026] 127.0.0.1:59370 Accepted
+[Thu Apr 23 07:21:04 2026] 127.0.0.1:59370 [200]: GET /leave-requests.php
+[Thu Apr 23 07:21:04 2026] 127.0.0.1:59370 Closing
+[Thu Apr 23 07:21:05 2026] 127.0.0.1:59376 Accepted
+[Thu Apr 23 07:21:05 2026] 127.0.0.1:59376 [200]: GET /assets/style.css
+[Thu Apr 23 07:21:05 2026] 127.0.0.1:59376 Closing
+[Thu Apr 23 07:21:05 2026] 127.0.0.1:59392 Accepted
+[Thu Apr 23 07:21:05 2026] 127.0.0.1:59392 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:21:05 2026] 127.0.0.1:59392 Closing
+[Thu Apr 23 07:21:34 2026] 127.0.0.1:58966 Accepted
+[Thu Apr 23 07:21:34 2026] 127.0.0.1:58966 [302]: POST /leave-requests.php
+[Thu Apr 23 07:21:34 2026] 127.0.0.1:58966 Closing
+[Thu Apr 23 07:21:34 2026] 127.0.0.1:58972 Accepted
+[Thu Apr 23 07:21:34 2026] 127.0.0.1:58972 [200]: GET /leave-requests.php
+[Thu Apr 23 07:21:34 2026] 127.0.0.1:58972 Closing
+[Thu Apr 23 07:21:35 2026] 127.0.0.1:58984 Accepted
+[Thu Apr 23 07:21:35 2026] 127.0.0.1:58984 [200]: GET /assets/style.css
+[Thu Apr 23 07:21:35 2026] 127.0.0.1:58984 Closing
+[Thu Apr 23 07:21:35 2026] 127.0.0.1:58992 Accepted
+[Thu Apr 23 07:21:35 2026] 127.0.0.1:58992 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:21:35 2026] 127.0.0.1:58992 Closing
+[Thu Apr 23 07:21:45 2026] 127.0.0.1:36670 Accepted
+[Thu Apr 23 07:21:45 2026] 127.0.0.1:36670 [302]: POST /leave-requests.php
+[Thu Apr 23 07:21:45 2026] 127.0.0.1:36670 Closing
+[Thu Apr 23 07:21:45 2026] 127.0.0.1:36678 Accepted
+[Thu Apr 23 07:21:45 2026] 127.0.0.1:36678 [200]: GET /leave-requests.php
+[Thu Apr 23 07:21:45 2026] 127.0.0.1:36678 Closing
+[Thu Apr 23 07:21:46 2026] 127.0.0.1:36682 Accepted
+[Thu Apr 23 07:21:46 2026] 127.0.0.1:36682 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:21:46 2026] 127.0.0.1:36682 Closing
+[Thu Apr 23 07:21:46 2026] 127.0.0.1:36696 Accepted
+[Thu Apr 23 07:21:46 2026] 127.0.0.1:36696 [200]: GET /assets/style.css
+[Thu Apr 23 07:21:46 2026] 127.0.0.1:36696 Closing
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37594 Accepted
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37594 [200]: GET /history.php
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37594 Closing
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37598 Accepted
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37598 [200]: GET /assets/style.css
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37612 Accepted
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37598 Closing
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37612 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:21:59 2026] 127.0.0.1:37612 Closing
+[Thu Apr 23 07:22:11 2026] 127.0.0.1:37438 Accepted
+[Thu Apr 23 07:22:11 2026] 127.0.0.1:37438 [200]: GET /history.php?id=3
+[Thu Apr 23 07:22:11 2026] 127.0.0.1:37438 Closing
+[Thu Apr 23 07:22:12 2026] 127.0.0.1:37450 Accepted
+[Thu Apr 23 07:22:12 2026] 127.0.0.1:37450 [200]: GET /assets/style.css
+[Thu Apr 23 07:22:12 2026] 127.0.0.1:37460 Accepted
+[Thu Apr 23 07:22:12 2026] 127.0.0.1:37460 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:22:12 2026] 127.0.0.1:37450 Closing
+[Thu Apr 23 07:22:12 2026] 127.0.0.1:37460 Closing
+[Thu Apr 23 07:22:14 2026] 127.0.0.1:37462 Accepted
+[Thu Apr 23 07:22:14 2026] 127.0.0.1:37462 [200]: GET /history.php?id=3
+[Thu Apr 23 07:22:14 2026] 127.0.0.1:37462 Closing
+[Thu Apr 23 07:22:15 2026] 127.0.0.1:37464 Accepted
+[Thu Apr 23 07:22:15 2026] 127.0.0.1:37464 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:22:15 2026] 127.0.0.1:37468 Accepted
+[Thu Apr 23 07:22:15 2026] 127.0.0.1:37468 [200]: GET /assets/style.css
+[Thu Apr 23 07:22:15 2026] 127.0.0.1:37464 Closing
+[Thu Apr 23 07:22:15 2026] 127.0.0.1:37468 Closing
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36968 Accepted
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36968 [200]: GET /history.php?id=1
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36968 Closing
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36970 Accepted
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36980 Accepted
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36970 [200]: GET /assets/style.css
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36980 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36970 Closing
+[Thu Apr 23 07:22:23 2026] 127.0.0.1:36980 Closing
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36484 Accepted
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36484 [200]: GET /users.php
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36484 Closing
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36494 Accepted
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36494 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36496 Accepted
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36496 [200]: GET /assets/style.css
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36494 Closing
+[Thu Apr 23 07:22:28 2026] 127.0.0.1:36496 Closing
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51002 Accepted
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51002 [200]: GET /notifications.php
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51002 Closing
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51006 Accepted
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51006 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51006 Closing
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51012 Accepted
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51012 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:08 2026] 127.0.0.1:51012 Closing
+[Thu Apr 23 07:23:19 2026] 127.0.0.1:53968 Accepted
+[Thu Apr 23 07:23:19 2026] 127.0.0.1:53968 [302]: POST /notifications.php
+[Thu Apr 23 07:23:19 2026] 127.0.0.1:53968 Closing
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:53982 Accepted
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:53982 [200]: GET /notifications.php
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:53982 Closing
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:53996 Accepted
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:53996 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:53996 Closing
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:54008 Accepted
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:54008 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:20 2026] 127.0.0.1:54008 Closing
+[Thu Apr 23 07:23:24 2026] 127.0.0.1:54014 Accepted
+[Thu Apr 23 07:23:24 2026] 127.0.0.1:54014 [302]: POST /notifications.php
+[Thu Apr 23 07:23:24 2026] 127.0.0.1:54014 Closing
+[Thu Apr 23 07:23:24 2026] 127.0.0.1:54020 Accepted
+[Thu Apr 23 07:23:24 2026] 127.0.0.1:54020 [200]: GET /notifications.php
+[Thu Apr 23 07:23:24 2026] 127.0.0.1:54020 Closing
+[Thu Apr 23 07:23:25 2026] 127.0.0.1:54030 Accepted
+[Thu Apr 23 07:23:25 2026] 127.0.0.1:54030 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:25 2026] 127.0.0.1:54030 Closing
+[Thu Apr 23 07:23:25 2026] 127.0.0.1:54032 Accepted
+[Thu Apr 23 07:23:25 2026] 127.0.0.1:54032 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:25 2026] 127.0.0.1:54032 Closing
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33706 Accepted
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33706 Closing
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33718 Accepted
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33718 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33722 Accepted
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33722 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33718 Closing
+[Thu Apr 23 07:23:31 2026] 127.0.0.1:33722 Closing
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33724 Accepted
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33724 [200]: GET /status-details.php?status=present&date=2026-04-23&branch=3
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33724 Closing
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33736 Accepted
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33736 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33736 Closing
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33744 Accepted
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33744 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:35 2026] 127.0.0.1:33744 Closing
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51796 Accepted
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51796 Closing
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51798 Accepted
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51798 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51798 Closing
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51812 Accepted
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51812 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:41 2026] 127.0.0.1:51812 Closing
+[Thu Apr 23 07:23:43 2026] 127.0.0.1:51816 Accepted
+[Thu Apr 23 07:23:43 2026] 127.0.0.1:51816 [200]: GET /status-details.php?status=awol&date=2026-04-23&branch=3
+[Thu Apr 23 07:23:43 2026] 127.0.0.1:51816 Closing
+[Thu Apr 23 07:23:44 2026] 127.0.0.1:51822 Accepted
+[Thu Apr 23 07:23:44 2026] 127.0.0.1:51822 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:44 2026] 127.0.0.1:51822 Closing
+[Thu Apr 23 07:23:44 2026] 127.0.0.1:51834 Accepted
+[Thu Apr 23 07:23:44 2026] 127.0.0.1:51834 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:44 2026] 127.0.0.1:51834 Closing
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49352 Accepted
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49352 Closing
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49356 Accepted
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49356 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49360 Accepted
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49356 Closing
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49360 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:49 2026] 127.0.0.1:49360 Closing
+[Thu Apr 23 07:23:52 2026] 127.0.0.1:49372 Accepted
+[Thu Apr 23 07:23:52 2026] 127.0.0.1:49372 [200]: GET /status-details.php?status=leave&date=2026-04-23&branch=3
+[Thu Apr 23 07:23:52 2026] 127.0.0.1:49372 Closing
+[Thu Apr 23 07:23:53 2026] 127.0.0.1:49380 Accepted
+[Thu Apr 23 07:23:53 2026] 127.0.0.1:49380 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:53 2026] 127.0.0.1:49396 Accepted
+[Thu Apr 23 07:23:53 2026] 127.0.0.1:49396 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:53 2026] 127.0.0.1:49380 Closing
+[Thu Apr 23 07:23:53 2026] 127.0.0.1:49396 Closing
+[Thu Apr 23 07:23:56 2026] 127.0.0.1:49412 Accepted
+[Thu Apr 23 07:23:56 2026] 127.0.0.1:49412 Closing
+[Thu Apr 23 07:23:57 2026] 127.0.0.1:58912 Accepted
+[Thu Apr 23 07:23:57 2026] 127.0.0.1:58912 [200]: GET /assets/style.css
+[Thu Apr 23 07:23:57 2026] 127.0.0.1:58912 Closing
+[Thu Apr 23 07:23:57 2026] 127.0.0.1:58926 Accepted
+[Thu Apr 23 07:23:57 2026] 127.0.0.1:58926 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:23:57 2026] 127.0.0.1:58926 Closing
+[Thu Apr 23 07:23:59 2026] 127.0.0.1:58942 Accepted
+[Thu Apr 23 07:23:59 2026] 127.0.0.1:58942 [200]: GET /status-details.php?status=sick&date=2026-04-23&branch=3
+[Thu Apr 23 07:23:59 2026] 127.0.0.1:58942 Closing
+[Thu Apr 23 07:24:00 2026] 127.0.0.1:58958 Accepted
+[Thu Apr 23 07:24:00 2026] 127.0.0.1:58958 [200]: GET /assets/style.css
+[Thu Apr 23 07:24:00 2026] 127.0.0.1:58958 Closing
+[Thu Apr 23 07:24:00 2026] 127.0.0.1:58964 Accepted
+[Thu Apr 23 07:24:00 2026] 127.0.0.1:58964 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:24:00 2026] 127.0.0.1:58964 Closing
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58972 Accepted
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58972 Closing
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58978 Accepted
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58978 [200]: GET /assets/style.css
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58978 Closing
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58980 Accepted
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58980 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:24:03 2026] 127.0.0.1:58980 Closing
+[Thu Apr 23 07:24:32 2026] 127.0.0.1:45856 Accepted
+[Thu Apr 23 07:24:32 2026] 127.0.0.1:45856 [302]: GET /logout.php
+[Thu Apr 23 07:24:32 2026] 127.0.0.1:45856 Closing
+[Thu Apr 23 07:24:32 2026] 127.0.0.1:45860 Accepted
+[Thu Apr 23 07:24:32 2026] 127.0.0.1:45860 [200]: GET /login.php
+[Thu Apr 23 07:24:32 2026] 127.0.0.1:45860 Closing
+[Thu Apr 23 07:24:33 2026] 127.0.0.1:45864 Accepted
+[Thu Apr 23 07:24:33 2026] 127.0.0.1:45864 [200]: GET /assets/style.css
+[Thu Apr 23 07:24:33 2026] 127.0.0.1:45864 Closing
+[Thu Apr 23 07:24:33 2026] 127.0.0.1:45868 Accepted
+[Thu Apr 23 07:24:33 2026] 127.0.0.1:45868 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:24:33 2026] 127.0.0.1:45868 Closing
+[Thu Apr 23 07:24:34 2026] 127.0.0.1:45872 Accepted
+[Thu Apr 23 07:24:34 2026] 127.0.0.1:45872 Closing
+[Thu Apr 23 07:24:35 2026] 127.0.0.1:45876 Accepted
+[Thu Apr 23 07:24:35 2026] 127.0.0.1:45876 [200]: GET /login.php
+[Thu Apr 23 07:24:35 2026] 127.0.0.1:45876 Closing
+[Thu Apr 23 07:24:43 2026] 127.0.0.1:36952 Accepted
+[Thu Apr 23 07:24:43 2026] 127.0.0.1:36952 [302]: POST /login.php
+[Thu Apr 23 07:24:43 2026] 127.0.0.1:36952 Closing
+[Thu Apr 23 07:24:44 2026] 127.0.0.1:36968 Accepted
+[Thu Apr 23 07:24:44 2026] 127.0.0.1:36968 Closing
+[Thu Apr 23 07:24:45 2026] 127.0.0.1:36978 Accepted
+[Thu Apr 23 07:24:45 2026] 127.0.0.1:36978 [200]: GET /assets/style.css
+[Thu Apr 23 07:24:45 2026] 127.0.0.1:36978 Closing
+[Thu Apr 23 07:24:45 2026] 127.0.0.1:36980 Accepted
+[Thu Apr 23 07:24:45 2026] 127.0.0.1:36980 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:24:45 2026] 127.0.0.1:36980 Closing
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42108 Accepted
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42108 Closing
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42118 Accepted
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42118 [200]: GET /assets/style.css
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42118 Closing
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42132 Accepted
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42132 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:25:16 2026] 127.0.0.1:42132 Closing
+[Thu Apr 23 07:25:17 2026] 127.0.0.1:44686 Accepted
+[Thu Apr 23 07:25:17 2026] 127.0.0.1:44686 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:25:17 2026] 127.0.0.1:44686 Closing
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56538 Accepted
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56538 [200]: GET /employees.php
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56538 Closing
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56540 Accepted
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56540 [200]: GET /assets/style.css
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56540 Closing
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56556 Accepted
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56556 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:25:39 2026] 127.0.0.1:56556 Closing
+[Thu Apr 23 07:25:52 2026] 127.0.0.1:36032 Accepted
+[Thu Apr 23 07:25:52 2026] 127.0.0.1:36032 [200]: GET /employees.php?q=69488&branch=
+[Thu Apr 23 07:25:52 2026] 127.0.0.1:36032 Closing
+[Thu Apr 23 07:25:53 2026] 127.0.0.1:36036 Accepted
+[Thu Apr 23 07:25:53 2026] 127.0.0.1:36036 [200]: GET /assets/style.css
+[Thu Apr 23 07:25:53 2026] 127.0.0.1:36036 Closing
+[Thu Apr 23 07:25:53 2026] 127.0.0.1:36044 Accepted
+[Thu Apr 23 07:25:53 2026] 127.0.0.1:36044 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:25:53 2026] 127.0.0.1:36044 Closing
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38268 Accepted
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38268 [200]: GET /employees.php?q=69488&branch=1
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38268 Closing
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38284 Accepted
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38284 [200]: GET /assets/style.css
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38284 Closing
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38300 Accepted
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38300 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:26:07 2026] 127.0.0.1:38300 Closing
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38316 Accepted
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38316 [200]: GET /employees.php?q=69488&branch=3
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38316 Closing
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38324 Accepted
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38324 [200]: GET /assets/style.css
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38324 Closing
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38338 Accepted
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38338 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:26:16 2026] 127.0.0.1:38338 Closing
+[Thu Apr 23 07:26:23 2026] 127.0.0.1:46568 Accepted
+[Thu Apr 23 07:26:23 2026] 127.0.0.1:46568 [200]: GET /employees.php?q=&branch=3
+[Thu Apr 23 07:26:23 2026] 127.0.0.1:46568 Closing
+[Thu Apr 23 07:26:24 2026] 127.0.0.1:46584 Accepted
+[Thu Apr 23 07:26:24 2026] 127.0.0.1:46584 [200]: GET /assets/style.css
+[Thu Apr 23 07:26:24 2026] 127.0.0.1:46584 Closing
+[Thu Apr 23 07:26:24 2026] 127.0.0.1:46596 Accepted
+[Thu Apr 23 07:26:24 2026] 127.0.0.1:46596 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:26:24 2026] 127.0.0.1:46596 Closing
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44894 Accepted
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44894 [200]: GET /daily-status.php
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44894 Closing
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44906 Accepted
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44906 [200]: GET /assets/style.css
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44906 Closing
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44912 Accepted
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44912 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:26:49 2026] 127.0.0.1:44912 Closing
+[Thu Apr 23 07:27:05 2026] 127.0.0.1:58194 Accepted
+[Thu Apr 23 07:27:05 2026] 127.0.0.1:58194 [200]: GET /reports.php
+[Thu Apr 23 07:27:05 2026] 127.0.0.1:58194 Closing
+[Thu Apr 23 07:27:07 2026] 127.0.0.1:52226 Accepted
+[Thu Apr 23 07:27:07 2026] 127.0.0.1:52226 [200]: GET /assets/style.css
+[Thu Apr 23 07:27:07 2026] 127.0.0.1:52226 Closing
+[Thu Apr 23 07:27:07 2026] 127.0.0.1:52228 Accepted
+[Thu Apr 23 07:27:07 2026] 127.0.0.1:52228 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:27:07 2026] 127.0.0.1:52228 Closing
+[Thu Apr 23 07:27:37 2026] 127.0.0.1:54716 Accepted
+[Thu Apr 23 07:27:37 2026] 127.0.0.1:54716 [200]: GET /reports.php?date=2026-04-23&branch=1
+[Thu Apr 23 07:27:37 2026] 127.0.0.1:54716 Closing
+[Thu Apr 23 07:27:38 2026] 127.0.0.1:54722 Accepted
+[Thu Apr 23 07:27:38 2026] 127.0.0.1:54722 [200]: GET /assets/style.css
+[Thu Apr 23 07:27:38 2026] 127.0.0.1:54722 Closing
+[Thu Apr 23 07:27:38 2026] 127.0.0.1:54726 Accepted
+[Thu Apr 23 07:27:38 2026] 127.0.0.1:54726 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:27:38 2026] 127.0.0.1:54726 Closing
+[Thu Apr 23 07:27:42 2026] 127.0.0.1:54734 Accepted
+[Thu Apr 23 07:27:42 2026] 127.0.0.1:54734 [200]: GET /reports.php?date=2026-04-23&branch=3
+[Thu Apr 23 07:27:42 2026] 127.0.0.1:54734 Closing
+[Thu Apr 23 07:27:45 2026] 127.0.0.1:54736 Accepted
+[Thu Apr 23 07:27:45 2026] 127.0.0.1:54736 [200]: GET /assets/style.css
+[Thu Apr 23 07:27:45 2026] 127.0.0.1:54736 Closing
+[Thu Apr 23 07:27:45 2026] 127.0.0.1:54742 Accepted
+[Thu Apr 23 07:27:45 2026] 127.0.0.1:54742 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:27:45 2026] 127.0.0.1:54742 Closing
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49592 Accepted
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49592 [200]: GET /reports.php?date=2026-04-23&branch=
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49592 Closing
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49608 Accepted
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49608 [200]: GET /assets/style.css
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49608 Closing
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49616 Accepted
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49616 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:27:50 2026] 127.0.0.1:49616 Closing
+[Thu Apr 23 07:28:01 2026] 127.0.0.1:37682 Accepted
+[Thu Apr 23 07:28:01 2026] 127.0.0.1:37682 [302]: POST /reports.php?date=2026-04-23&branch=
+[Thu Apr 23 07:28:01 2026] 127.0.0.1:37682 Closing
+[Thu Apr 23 07:28:01 2026] 127.0.0.1:37692 Accepted
+[Thu Apr 23 07:28:01 2026] 127.0.0.1:37692 [200]: GET /reports.php?date=2026-04-23
+[Thu Apr 23 07:28:01 2026] 127.0.0.1:37692 Closing
+[Thu Apr 23 07:28:02 2026] 127.0.0.1:37708 Accepted
+[Thu Apr 23 07:28:02 2026] 127.0.0.1:37708 [200]: GET /assets/style.css
+[Thu Apr 23 07:28:02 2026] 127.0.0.1:37708 Closing
+[Thu Apr 23 07:28:02 2026] 127.0.0.1:37714 Accepted
+[Thu Apr 23 07:28:02 2026] 127.0.0.1:37714 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:28:02 2026] 127.0.0.1:37714 Closing
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41264 Accepted
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41264 [200]: GET /leave-requests.php
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41264 Closing
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41280 Accepted
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41280 [200]: GET /assets/style.css
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41280 Closing
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41284 Accepted
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41284 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:28:07 2026] 127.0.0.1:41284 Closing
+[Thu Apr 23 07:28:27 2026] 127.0.0.1:37280 Accepted
+[Thu Apr 23 07:28:27 2026] 127.0.0.1:37280 [302]: POST /leave-requests.php
+[Thu Apr 23 07:28:27 2026] 127.0.0.1:37280 Closing
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37282 Accepted
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37282 [200]: GET /leave-requests.php
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37282 Closing
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37298 Accepted
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37298 [200]: GET /assets/style.css
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37298 Closing
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37314 Accepted
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37314 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:28:28 2026] 127.0.0.1:37314 Closing
+[Thu Apr 23 07:28:41 2026] 127.0.0.1:39644 Accepted
+[Thu Apr 23 07:28:41 2026] 127.0.0.1:39644 [302]: POST /leave-requests.php
+[Thu Apr 23 07:28:41 2026] 127.0.0.1:39644 Closing
+[Thu Apr 23 07:28:41 2026] 127.0.0.1:39648 Accepted
+[Thu Apr 23 07:28:41 2026] 127.0.0.1:39648 [200]: GET /leave-requests.php
+[Thu Apr 23 07:28:41 2026] 127.0.0.1:39648 Closing
+[Thu Apr 23 07:28:42 2026] 127.0.0.1:39662 Accepted
+[Thu Apr 23 07:28:42 2026] 127.0.0.1:39662 [200]: GET /assets/style.css
+[Thu Apr 23 07:28:42 2026] 127.0.0.1:39662 Closing
+[Thu Apr 23 07:28:42 2026] 127.0.0.1:39674 Accepted
+[Thu Apr 23 07:28:42 2026] 127.0.0.1:39674 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:28:42 2026] 127.0.0.1:39674 Closing
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38662 Accepted
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38662 [200]: GET /history.php
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38662 Closing
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38666 Accepted
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38666 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38682 Accepted
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38666 Closing
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38682 [200]: GET /assets/style.css
+[Thu Apr 23 07:28:57 2026] 127.0.0.1:38682 Closing
+[Thu Apr 23 07:29:06 2026] 127.0.0.1:38688 Accepted
+[Thu Apr 23 07:29:06 2026] 127.0.0.1:38688 [200]: GET /history.php?id=4
+[Thu Apr 23 07:29:06 2026] 127.0.0.1:38688 Closing
+[Thu Apr 23 07:29:07 2026] 127.0.0.1:40542 Accepted
+[Thu Apr 23 07:29:07 2026] 127.0.0.1:40542 [200]: GET /assets/style.css
+[Thu Apr 23 07:29:07 2026] 127.0.0.1:40542 Closing
+[Thu Apr 23 07:29:07 2026] 127.0.0.1:40556 Accepted
+[Thu Apr 23 07:29:07 2026] 127.0.0.1:40556 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:29:07 2026] 127.0.0.1:40556 Closing
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40560 Accepted
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40560 [200]: GET /notifications.php
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40560 Closing
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40572 Accepted
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40572 [200]: GET /assets/style.css
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40572 Closing
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40584 Accepted
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40584 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:29:12 2026] 127.0.0.1:40584 Closing
+[Thu Apr 23 07:29:25 2026] 127.0.0.1:53638 Accepted
+[Thu Apr 23 07:29:26 2026] 127.0.0.1:53638 [302]: POST /notifications.php
+[Thu Apr 23 07:29:26 2026] 127.0.0.1:53638 Closing
+[Thu Apr 23 07:29:26 2026] 127.0.0.1:53650 Accepted
+[Thu Apr 23 07:29:26 2026] 127.0.0.1:53650 [200]: GET /notifications.php
+[Thu Apr 23 07:29:26 2026] 127.0.0.1:53650 Closing
+[Thu Apr 23 07:29:28 2026] 127.0.0.1:35072 Accepted
+[Thu Apr 23 07:29:28 2026] 127.0.0.1:35072 [200]: GET /assets/style.css
+[Thu Apr 23 07:29:28 2026] 127.0.0.1:35072 Closing
+[Thu Apr 23 07:29:28 2026] 127.0.0.1:35074 Accepted
+[Thu Apr 23 07:29:28 2026] 127.0.0.1:35074 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:29:28 2026] 127.0.0.1:35074 Closing
+[Thu Apr 23 07:29:48 2026] 127.0.0.1:32842 Accepted
+[Thu Apr 23 07:29:48 2026] 127.0.0.1:32842 [302]: GET /logout.php
+[Thu Apr 23 07:29:48 2026] 127.0.0.1:32842 Closing
+[Thu Apr 23 07:29:49 2026] 127.0.0.1:32854 Accepted
+[Thu Apr 23 07:29:49 2026] 127.0.0.1:32854 [200]: GET /login.php
+[Thu Apr 23 07:29:49 2026] 127.0.0.1:32854 Closing
+[Thu Apr 23 07:29:50 2026] 127.0.0.1:32856 Accepted
+[Thu Apr 23 07:29:50 2026] 127.0.0.1:32856 [200]: GET /assets/style.css
+[Thu Apr 23 07:29:50 2026] 127.0.0.1:32856 Closing
+[Thu Apr 23 07:29:50 2026] 127.0.0.1:32866 Accepted
+[Thu Apr 23 07:29:50 2026] 127.0.0.1:32866 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:29:50 2026] 127.0.0.1:32866 Closing
+[Thu Apr 23 07:29:51 2026] 127.0.0.1:32874 Accepted
+[Thu Apr 23 07:29:51 2026] 127.0.0.1:32874 Closing
+[Thu Apr 23 07:29:52 2026] 127.0.0.1:32890 Accepted
+[Thu Apr 23 07:29:52 2026] 127.0.0.1:32890 [200]: GET /login.php
+[Thu Apr 23 07:29:52 2026] 127.0.0.1:32890 Closing
+[Thu Apr 23 07:30:03 2026] 127.0.0.1:48520 Accepted
+[Thu Apr 23 07:30:03 2026] 127.0.0.1:48520 [200]: POST /login.php
+[Thu Apr 23 07:30:03 2026] 127.0.0.1:48520 Closing
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48536 Accepted
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48536 [200]: GET /assets/style.css
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48536 Closing
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48540 Accepted
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48540 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48540 Closing
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48550 Accepted
+[Thu Apr 23 07:30:04 2026] 127.0.0.1:48550 Closing
+[Thu Apr 23 07:30:05 2026] 127.0.0.1:48564 Accepted
+[Thu Apr 23 07:30:05 2026] 127.0.0.1:48564 [200]: GET /login.php
+[Thu Apr 23 07:30:05 2026] 127.0.0.1:48564 Closing
+[Thu Apr 23 07:30:15 2026] 127.0.0.1:46706 Accepted
+[Thu Apr 23 07:30:15 2026] 127.0.0.1:46706 [302]: POST /login.php
+[Thu Apr 23 07:30:15 2026] 127.0.0.1:46706 Closing
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46720 Accepted
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46720 Closing
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46736 Accepted
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46736 [200]: GET /assets/style.css
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46736 Closing
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46742 Accepted
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46742 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:30:16 2026] 127.0.0.1:46742 Closing
+[Thu Apr 23 07:30:25 2026] 127.0.0.1:47130 Accepted
+[Thu Apr 23 07:30:25 2026] 127.0.0.1:47130 [200]: GET /daily-status.php
+[Thu Apr 23 07:30:25 2026] 127.0.0.1:47130 Closing
+[Thu Apr 23 07:30:26 2026] 127.0.0.1:47140 Accepted
+[Thu Apr 23 07:30:26 2026] 127.0.0.1:47140 [200]: GET /assets/style.css
+[Thu Apr 23 07:30:26 2026] 127.0.0.1:47140 Closing
+[Thu Apr 23 07:30:26 2026] 127.0.0.1:47146 Accepted
+[Thu Apr 23 07:30:26 2026] 127.0.0.1:47146 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:30:26 2026] 127.0.0.1:47146 Closing
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52284 Accepted
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52284 [200]: GET /reports.php
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52284 Closing
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52300 Accepted
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52300 [200]: GET /assets/style.css
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52300 Closing
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52310 Accepted
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52310 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:30:38 2026] 127.0.0.1:52310 Closing
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52312 Accepted
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52312 [200]: GET /leave-requests.php
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52312 Closing
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52326 Accepted
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52326 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52326 Closing
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52334 Accepted
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52334 [200]: GET /assets/style.css
+[Thu Apr 23 07:30:41 2026] 127.0.0.1:52334 Closing
+[Thu Apr 23 07:30:52 2026] 127.0.0.1:57092 Accepted
+[Thu Apr 23 07:30:52 2026] 127.0.0.1:57092 [200]: GET /notifications.php
+[Thu Apr 23 07:30:52 2026] 127.0.0.1:57092 Closing
+[Thu Apr 23 07:30:53 2026] 127.0.0.1:57094 Accepted
+[Thu Apr 23 07:30:53 2026] 127.0.0.1:57094 [200]: GET /assets/style.css
+[Thu Apr 23 07:30:53 2026] 127.0.0.1:57094 Closing
+[Thu Apr 23 07:30:53 2026] 127.0.0.1:57106 Accepted
+[Thu Apr 23 07:30:53 2026] 127.0.0.1:57106 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:30:53 2026] 127.0.0.1:57106 Closing
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36402 Accepted
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36402 [200]: GET /leave-requests.php
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36402 Closing
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36412 Accepted
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36412 [200]: GET /assets/style.css
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36412 Closing
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36420 Accepted
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36420 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:31:07 2026] 127.0.0.1:36420 Closing
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33388 Accepted
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33388 [302]: GET /logout.php
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33388 Closing
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33404 Accepted
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33404 [200]: GET /login.php
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33404 Closing
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33420 Accepted
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33420 [200]: GET /assets/style.css
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33420 Closing
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33432 Accepted
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33432 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:31:29 2026] 127.0.0.1:33432 Closing
+[Thu Apr 23 07:31:30 2026] 127.0.0.1:33440 Accepted
+[Thu Apr 23 07:31:30 2026] 127.0.0.1:33440 Closing
+[Thu Apr 23 07:31:31 2026] 127.0.0.1:33450 Accepted
+[Thu Apr 23 07:31:31 2026] 127.0.0.1:33450 [200]: GET /login.php
+[Thu Apr 23 07:31:31 2026] 127.0.0.1:33450 Closing
+[Thu Apr 23 07:34:36 2026] 172.31.96.194:55038 Accepted
+[Thu Apr 23 07:34:36 2026] 172.31.96.194:55038 Closing
+[Thu Apr 23 07:34:36 2026] 172.31.96.194:55048 Accepted
+[Thu Apr 23 07:34:36 2026] 172.31.96.194:55048 [200]: GET /login.php
+[Thu Apr 23 07:34:36 2026] 172.31.96.194:55048 Closing
+[Thu Apr 23 07:34:38 2026] 172.31.96.194:50374 Accepted
+[Thu Apr 23 07:34:38 2026] 172.31.96.194:50374 [200]: GET /assets/style.css
+[Thu Apr 23 07:34:38 2026] 172.31.96.194:50374 Closing
+[Thu Apr 23 07:34:39 2026] 172.31.96.194:50378 Accepted
+[Thu Apr 23 07:34:39 2026] 172.31.96.194:50378 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:34:39 2026] 172.31.96.194:50378 Closing
+[Thu Apr 23 07:35:36 2026] 172.31.96.194:58900 Accepted
+[Thu Apr 23 07:35:36 2026] 172.31.96.194:58900 Closing
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53724 Accepted
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53724 [200]: GET /login.php
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53724 Closing
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53736 Accepted
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53736 [200]: GET /assets/style.css
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53736 Closing
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53752 Accepted
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53752 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:35:37 2026] 172.31.96.194:53752 Closing
+[Thu Apr 23 07:43:10 2026] 172.31.96.194:36756 Accepted
+[Thu Apr 23 07:43:10 2026] 172.31.96.194:36756 [302]: POST /login.php
+[Thu Apr 23 07:43:10 2026] 172.31.96.194:36756 Closing
+[Thu Apr 23 07:43:13 2026] 172.31.96.194:36762 Accepted
+[Thu Apr 23 07:43:13 2026] 172.31.96.194:36762 Closing
+[Thu Apr 23 07:43:14 2026] 172.31.96.194:36770 Accepted
+[Thu Apr 23 07:43:14 2026] 172.31.96.194:36770 [200]: GET /assets/style.css
+[Thu Apr 23 07:43:14 2026] 172.31.96.194:36770 Closing
+[Thu Apr 23 07:43:14 2026] 172.31.96.194:36784 Accepted
+[Thu Apr 23 07:43:14 2026] 172.31.96.194:36784 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:43:14 2026] 172.31.96.194:36784 Closing
+[Thu Apr 23 07:43:46 2026] 172.31.96.194:59852 Accepted
+[Thu Apr 23 07:43:46 2026] 172.31.96.194:59852 Closing
+[Thu Apr 23 07:43:47 2026] 172.31.96.194:34684 Accepted
+[Thu Apr 23 07:43:47 2026] 172.31.96.194:34684 [200]: GET /assets/style.css
+[Thu Apr 23 07:43:47 2026] 172.31.96.194:34684 Closing
+[Thu Apr 23 07:43:47 2026] 172.31.96.194:34692 Accepted
+[Thu Apr 23 07:43:47 2026] 172.31.96.194:34692 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:43:47 2026] 172.31.96.194:34692 Closing
+[Thu Apr 23 07:44:18 2026] 172.31.96.194:59640 Accepted
+[Thu Apr 23 07:44:18 2026] 172.31.96.194:59640 Closing
+[Thu Apr 23 07:44:20 2026] 172.31.96.194:59642 Accepted
+[Thu Apr 23 07:44:20 2026] 172.31.96.194:59642 [200]: GET /assets/style.css
+[Thu Apr 23 07:44:20 2026] 172.31.96.194:59642 Closing
+[Thu Apr 23 07:44:20 2026] 172.31.96.194:59654 Accepted
+[Thu Apr 23 07:44:20 2026] 172.31.96.194:59654 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:44:20 2026] 172.31.96.194:59654 Closing
+[Thu Apr 23 07:45:00 2026] 172.31.96.194:33622 Accepted
+[Thu Apr 23 07:45:00 2026] 172.31.96.194:33622 Closing
+[Thu Apr 23 07:45:01 2026] 172.31.96.194:33626 Accepted
+[Thu Apr 23 07:45:01 2026] 172.31.96.194:33626 [200]: GET /assets/style.css
+[Thu Apr 23 07:45:01 2026] 172.31.96.194:33626 Closing
+[Thu Apr 23 07:45:01 2026] 172.31.96.194:33636 Accepted
+[Thu Apr 23 07:45:01 2026] 172.31.96.194:33636 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:45:01 2026] 172.31.96.194:33636 Closing
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56298 Accepted
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56298 Closing
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56302 Accepted
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56302 [200]: GET /assets/style.css
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56302 Closing
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56316 Accepted
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56316 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:45:34 2026] 172.31.96.194:56316 Closing
+[Thu Apr 23 07:46:06 2026] 172.31.96.194:49500 Accepted
+[Thu Apr 23 07:46:06 2026] 172.31.96.194:49500 Closing
+[Thu Apr 23 07:46:07 2026] 172.31.96.194:49568 Accepted
+[Thu Apr 23 07:46:07 2026] 172.31.96.194:49568 [200]: GET /assets/style.css
+[Thu Apr 23 07:46:07 2026] 172.31.96.194:49568 Closing
+[Thu Apr 23 07:46:07 2026] 172.31.96.194:49576 Accepted
+[Thu Apr 23 07:46:07 2026] 172.31.96.194:49576 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:46:07 2026] 172.31.96.194:49576 Closing
+[Thu Apr 23 07:46:38 2026] 172.31.96.194:34152 Accepted
+[Thu Apr 23 07:46:38 2026] 172.31.96.194:34152 Closing
+[Thu Apr 23 07:46:39 2026] 172.31.96.194:34162 Accepted
+[Thu Apr 23 07:46:39 2026] 172.31.96.194:34162 [200]: GET /assets/style.css
+[Thu Apr 23 07:46:39 2026] 172.31.96.194:34162 Closing
+[Thu Apr 23 07:46:39 2026] 172.31.96.194:34164 Accepted
+[Thu Apr 23 07:46:39 2026] 172.31.96.194:34164 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:46:39 2026] 172.31.96.194:34164 Closing
+[Thu Apr 23 07:47:11 2026] 172.31.96.194:33576 Accepted
+[Thu Apr 23 07:47:11 2026] 172.31.96.194:33576 Closing
+[Thu Apr 23 07:47:13 2026] 172.31.96.194:33588 Accepted
+[Thu Apr 23 07:47:13 2026] 172.31.96.194:33588 [200]: GET /assets/style.css
+[Thu Apr 23 07:47:13 2026] 172.31.96.194:33588 Closing
+[Thu Apr 23 07:47:13 2026] 172.31.96.194:33602 Accepted
+[Thu Apr 23 07:47:13 2026] 172.31.96.194:33602 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:47:13 2026] 172.31.96.194:33602 Closing
+[Thu Apr 23 07:47:50 2026] 172.31.96.194:43690 Accepted
+[Thu Apr 23 07:47:50 2026] 172.31.96.194:43690 Closing
+[Thu Apr 23 07:47:55 2026] 172.31.96.194:43696 Accepted
+[Thu Apr 23 07:47:55 2026] 172.31.96.194:43696 [200]: GET /assets/style.css
+[Thu Apr 23 07:47:55 2026] 172.31.96.194:43696 Closing
+[Thu Apr 23 07:47:55 2026] 172.31.96.194:43702 Accepted
+[Thu Apr 23 07:47:55 2026] 172.31.96.194:43702 [200]: GET /assets/logo.jpg
+[Thu Apr 23 07:47:55 2026] 172.31.96.194:43702 Closing

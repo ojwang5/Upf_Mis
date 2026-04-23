@@ -1,0 +1,30 @@
+[Thu Apr 23 06:52:51 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Thu Apr 23 06:52:52 2026] 127.0.0.1:45742 Accepted
+[Thu Apr 23 06:52:52 2026] 127.0.0.1:45742 Closing
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46560 Accepted
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46560 [200]: POST /login.php - Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 19 FOREIGN KEY constraint failed in /home/runner/workspace/includes/db.php:89
+Stack trace:
+#0 /home/runner/workspace/includes/db.php(89): PDO->exec('DROP TABLE user...')
+#1 /home/runner/workspace/includes/db.php(16): migrate(Object(PDO))
+#2 /home/runner/workspace/includes/auth.php(47): db()
+#3 /home/runner/workspace/public/login.php(9): login('kofc', 'kofc123')
+#4 {main}
+  thrown in /home/runner/workspace/includes/db.php on line 89
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46560 Closing
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46574 Accepted
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46574 Closing
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46582 Accepted
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46582 [302]: GET /reports.php
+[Thu Apr 23 06:54:12 2026] 127.0.0.1:46582 Closing
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46590 Accepted
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46590 [302]: GET /leave-requests.php
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46590 Closing
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46602 Accepted
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46602 [302]: GET /notifications.php
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46602 Closing
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46604 Accepted
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46604 [302]: GET /daily-status.php
+[Thu Apr 23 06:54:13 2026] 127.0.0.1:46604 Closing
+[Thu Apr 23 06:54:34 2026] 127.0.0.1:56944 Accepted
+[Thu Apr 23 06:54:34 2026] 127.0.0.1:56944 [200]: GET /login.php
+[Thu Apr 23 06:54:34 2026] 127.0.0.1:56944 Closing

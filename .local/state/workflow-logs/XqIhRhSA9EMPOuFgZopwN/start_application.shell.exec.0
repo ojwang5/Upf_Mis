@@ -1,0 +1,35 @@
+[Thu Apr 23 06:49:44 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Thu Apr 23 06:49:45 2026] 127.0.0.1:39392 Accepted
+[Thu Apr 23 06:49:45 2026] 127.0.0.1:39392 Closing
+[Thu Apr 23 06:49:45 2026] 127.0.0.1:39398 Accepted
+[Thu Apr 23 06:49:45 2026] 127.0.0.1:39398 [200]: GET /login.php
+[Thu Apr 23 06:49:45 2026] 127.0.0.1:39398 Closing
+[Thu Apr 23 06:49:46 2026] 127.0.0.1:39414 Accepted
+[Thu Apr 23 06:49:46 2026] 127.0.0.1:39414 Closing
+[Thu Apr 23 06:49:47 2026] 127.0.0.1:49004 Accepted
+[Thu Apr 23 06:49:47 2026] 127.0.0.1:49004 [200]: GET /assets/style.css
+[Thu Apr 23 06:49:47 2026] 127.0.0.1:49004 Closing
+[Thu Apr 23 06:49:47 2026] 127.0.0.1:49016 Accepted
+[Thu Apr 23 06:49:47 2026] 127.0.0.1:49016 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:49:47 2026] 127.0.0.1:49016 Closing
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49020 Accepted
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49032 Accepted
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49020 [200]: GET /assets/style.css
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49032 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49020 Closing
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49032 Closing
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49046 Accepted
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49046 Closing
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49050 Accepted
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49050 [200]: GET /login.php
+[Thu Apr 23 06:49:50 2026] 127.0.0.1:49050 Closing
+[Thu Apr 23 06:50:17 2026] 127.0.0.1:58494 Accepted
+[Thu Apr 23 06:50:17 2026] 127.0.0.1:58494 Closing
+[Thu Apr 23 06:50:18 2026] 127.0.0.1:58508 Accepted
+[Thu Apr 23 06:50:18 2026] 127.0.0.1:58508 [200]: GET /assets/style.css
+[Thu Apr 23 06:50:18 2026] 127.0.0.1:58508 Closing
+[Thu Apr 23 06:50:18 2026] 127.0.0.1:58518 Accepted
+[Thu Apr 23 06:50:18 2026] 127.0.0.1:58518 [200]: GET /assets/logo.jpg
+[Thu Apr 23 06:50:18 2026] 127.0.0.1:58518 Closing
+[Thu Apr 23 06:50:48 2026] 127.0.0.1:50990 Accepted
+[Thu Apr 23 06:50:48 2026] 127.0.0.1:50990 Closing
