@@ -110,8 +110,10 @@ a:hover{text-decoration:underline}
 .grid-4{grid-template-columns:repeat(4,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-2{grid-template-columns:repeat(2,1fr)}
+/* some pages use grid-6; keep classic 3/2 responsive card sizing */
+.grid-6{grid-template-columns:repeat(3,1fr)}
 @media (max-width: 1100px){.grid-4{grid-template-columns:repeat(2,1fr)}}
-@media (max-width: 900px){.grid-3{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}}
+@media (max-width: 900px){.grid-3{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}.grid-6{grid-template-columns:1fr 1fr}}
 @media (max-width: 700px){
   .app{flex-direction:column}
   .sidebar{width:100%;display:flex;overflow-x:auto;padding:0;background:var(--navy-800)}
@@ -119,12 +121,14 @@ a:hover{text-decoration:underline}
   .sidebar a{border-left:none;border-bottom:3px solid transparent;padding:12px 16px;white-space:nowrap}
   .sidebar a.active{border-left:none;border-bottom-color:var(--gold);background:rgba(212,160,23,.1)}
   .grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}
+  .grid-6{grid-template-columns:repeat(2,1fr)}
   .content{padding:18px}
   .topbar-inner{padding:10px 16px;gap:12px}
   .brand .org{font-size:13px;letter-spacing:.8px}
   .brand .motto{display:none}
   .user-info{display:none}
 }
+
 
 /* ===== Stat cards ===== */
 .stat{

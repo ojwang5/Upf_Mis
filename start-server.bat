@@ -16,3 +16,6 @@ if exist "C:\xampp\php\php.exe" (
 echo php.exe not found in PATH and default XAMPP path not present.
 echo Edit start-server.bat to point to your php.exe or add php to PATH.
 pause
+
+
+##.\start-server.bat

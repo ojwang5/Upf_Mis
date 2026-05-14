@@ -17,13 +17,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         INSERT INTO daily_status (employee_id, date, status, notes, recorded_by) VALUES (?,?,?,?,?)
         ON CONFLICT(employee_id, date) DO UPDATE SET status=excluded.status, notes=excluded.notes, recorded_by=excluded.recorded_by
     ");
+    $blocked = [];
+
+    $approvedLeaveStmt = $pdo->prepare(
+        "SELECT 1 FROM leave_requests
+         WHERE employee_id = ?
+           AND status='approved'
+           AND start_date <= :d
+           AND end_date >= :d
+           AND destination IS NOT NULL
+         ORDER BY submitted_at DESC LIMIT 1"
+    );
+
     foreach ($statuses as $eid => $st) {
         $eid = (int)$eid;
         $emp = $pdo->prepare("SELECT branch_id FROM employees WHERE id=?"); $emp->execute([$eid]); $r = $emp->fetch();
         if (!$r || !can_access_branch($user, (int)$r['branch_id'])) continue;
-        if (!in_array($st, ['present','awol','leave','sick'], true)) continue;
+
+        if (!in_array($st, ['present','awol','leave','sick','onleave'], true)) continue;
+
+        // Enforce: cannot manually save onleave unless an approved leave_request exists for this date.
+        // Admin can force onleave only if leave is approved; managers/admin shouldn't bypass.
+        if ($st === 'onleave') {
+            $approvedLeaveStmt->execute([$eid, ':d' => $date]);
+            $ok = (bool)$approvedLeaveStmt->fetchColumn();
+            if (!$ok) {
+                $blocked[] = $eid;
+                continue;
+            }
+        }
+
         $stmt->execute([$eid, $date, $st, $notes[$eid] ?? null, $user['id']]);
     }
+
+    if ($blocked) {
+        flash('err', 'Some personnel were not updated because onleave is only allowed with an approved leave request for ' . $date . '.');
+    }
+
     flash('msg', 'Daily status saved for ' . $date);
     header('Location: /daily-status.php?date=' . urlencode($date)); exit;
 }
@@ -65,7 +95,7 @@ include __DIR__ . '/../includes/header.php';
   <div class="card">
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Service No</th><th>Name</th><th>Rank</th><th>Branch</th><th>Status</th><th>Notes</th></tr></thead>
+        <thead><tr><th>Force/File No</th><th>Name</th><th>Rank</th><th>Branch</th><th>Status</th><th>Notes</th></tr></thead>
         <tbody>
           <?php foreach ($rows as $r): ?>
             <tr>

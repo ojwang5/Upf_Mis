@@ -6,9 +6,14 @@ $page = 'employees';
 $page_title = 'Employees';
 $pdo = db();
 
+// Field officers can view personnel but must not edit/update/delete.
+$can_modify_personnel = in_array($user['role'], ['admin','manager'], true);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     if ($action === 'create' || $action === 'update') {
+        if (!$can_modify_personnel) { http_response_code(403); exit('Forbidden'); }
+
         $service_no = trim($_POST['service_no'] ?? '');
         $full_name = trim($_POST['full_name'] ?? '');
         $gender = $_POST['gender'] ?? 'M';
@@ -34,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flash('msg', 'Employee updated.');
         }
     } elseif ($action === 'delete') {
+        if (!$can_modify_personnel) { http_response_code(403); exit('Forbidden'); }
+
         $id = (int)$_POST['id'];
         $emp = $pdo->prepare("SELECT branch_id FROM employees WHERE id=?");
         $emp->execute([$id]); $row = $emp->fetch();
@@ -74,11 +81,17 @@ include __DIR__ . '/../includes/header.php';
 
 <div class="card">
   <h3><?= $editing ? 'Edit Employee' : 'Add Employee' ?></h3>
-  <form method="post">
+  <?php if (!$can_modify_personnel): ?>
+    <div class="muted" style="padding:12px 0">Field officers cannot create or edit personnel.</div>
+    </div>
+    
+    <div class="card" style="margin-top:14px">
+  <?php endif; ?>
+  <form method="post" <?= $can_modify_personnel ? '' : 'style="display:none"' ?>>
     <input type="hidden" name="action" value="<?= $editing?'update':'create' ?>">
     <?php if ($editing): ?><input type="hidden" name="id" value="<?= $editing['id'] ?>"><?php endif; ?>
     <div class="form-row">
-      <div class="form-group"><label>Service No</label><input type="text" name="service_no" required value="<?= e($editing['service_no'] ?? '') ?>"></div>
+      <div class="form-group"><label>Force/File No</label><input type="text" name="service_no" required value="<?= e($editing['service_no'] ?? '') ?>"></div>
       <div class="form-group"><label>Full Name</label><input type="text" name="full_name" required value="<?= e($editing['full_name'] ?? '') ?>"></div>
       <div class="form-group"><label>Rank</label><input type="text" name="rank" required value="<?= e($editing['rank'] ?? '') ?>"></div>
       <div class="form-group"><label>Gender</label>
@@ -99,10 +112,12 @@ include __DIR__ . '/../includes/header.php';
       <div class="form-group" style="flex:0">
         <label>&nbsp;</label>
         <button class="btn" type="submit"><?= $editing?'Update':'Add' ?></button>
-        <?php if ($editing): ?> <a class="btn btn-secondary" href="/employees.php">Cancel</a><?php endif; ?>
+<?php if ($editing && $can_modify_personnel): ?> <a class="btn btn-secondary" href="/employees.php">Cancel</a><?php endif; ?>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
+  <div class="card">
+  
 </div>
 
 <div class="card">
@@ -119,7 +134,7 @@ include __DIR__ . '/../includes/header.php';
   </form>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Service No</th><th>Name</th><th>Rank</th><th>Gender</th><th>Branch</th><th>Phone</th><th></th></tr></thead>
+      <thead><tr><th>Force/File No</th><th>Name</th><th>Rank</th><th>Gender</th><th>Branch</th><th>Phone</th><th></th></tr></thead>
       <tbody>
         <?php foreach ($employees as $e): ?>
         <tr>
@@ -130,11 +145,13 @@ include __DIR__ . '/../includes/header.php';
           <td><?= e($e['branch_name']) ?></td>
           <td><?= e($e['phone']) ?></td>
           <td>
-            <a class="btn btn-sm btn-secondary" href="/employees.php?edit=<?= $e['id'] ?>">Edit</a>
-            <form method="post" style="display:inline" onsubmit="return confirm('Remove this employee?')">
-              <input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= $e['id'] ?>">
-              <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-            </form>
+            <?php if ($can_modify_personnel): ?>
+              <a class="btn btn-sm btn-secondary" href="/employees.php?edit=<?= $e['id'] ?>">Edit</a>
+              <form method="post" style="display:inline" onsubmit="return confirm('Remove this employee?')">
+                <input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= $e['id'] ?>">
+                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+              </form>
+            <?php endif; ?>
           </td>
         </tr>
         <?php endforeach; ?>

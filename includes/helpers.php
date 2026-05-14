@@ -31,6 +31,9 @@ function status_badge(string $s): string {
         case 'leave':
             $cls = 'badge badge-leave';
             break;
+        case 'onleave':
+            $cls = 'badge badge-leave';
+            break;
         case 'sick':
             $cls = 'badge badge-sick';
             break;

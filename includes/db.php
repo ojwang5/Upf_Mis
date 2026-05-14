@@ -19,7 +19,7 @@ function db(): PDO {
 }
 
 function init_schema(PDO $pdo): void {
-    $pdo->exec("
+    $pdo->exec(<<<'SQL'
         CREATE TABLE IF NOT EXISTS branches (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL UNIQUE,
@@ -48,7 +48,7 @@ function init_schema(PDO $pdo): void {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
             date TEXT NOT NULL,
-            status TEXT NOT NULL CHECK(status IN ('present','awol','leave','sick')),
+            status TEXT NOT NULL CHECK(status IN ('present','awol','leave','sick','onleave')),
             notes TEXT,
             recorded_by INTEGER REFERENCES users(id),
             UNIQUE(employee_id, date)
@@ -61,7 +61,8 @@ function init_schema(PDO $pdo): void {
             generated_at TEXT NOT NULL,
             summary_json TEXT NOT NULL
         );
-    ");
+SQL
+    );
 
     $count = (int)$pdo->query("SELECT COUNT(*) FROM branches")->fetchColumn();
     if ($count === 0) {
@@ -72,9 +73,27 @@ function init_schema(PDO $pdo): void {
 function migrate(PDO $pdo): void {
     $v = (int)$pdo->query("PRAGMA user_version")->fetchColumn();
 
+    // Post-v1/legacy migrations.
+    $hasLeaveRequests = (bool)$pdo->query("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='leave_requests'")
+        ->fetchColumn();
+    if ($hasLeaveRequests) {
+        $cols = [];
+        foreach ($pdo->query("PRAGMA table_info(leave_requests)") as $c) {
+            $cols[$c['name']] = true;
+        }
+        if (!isset($cols['expires_notified_at'])) {
+            $pdo->exec("ALTER TABLE leave_requests ADD COLUMN expires_notified_at TEXT");
+        }
+        if (!isset($cols['expiry_renewal_status'])) {
+            $pdo->exec("ALTER TABLE leave_requests ADD COLUMN expiry_renewal_status TEXT NOT NULL DEFAULT 'none'");
+        }
+        if (!isset($cols['destination'])) {
+            $pdo->exec("ALTER TABLE leave_requests ADD COLUMN destination TEXT");
+        }
+    }
+
     if ($v < 1) {
-        // v1: ensure 'officer' allowed in users.role; add report workflow fields; create leave_requests + notifications
-        // foreign_keys must be toggled outside a transaction
+        // v1 base migration: users role constraint, add reports workflow fields, create leave_requests + notifications
         $pdo->exec("PRAGMA foreign_keys = OFF");
         $pdo->exec("BEGIN");
         try {
@@ -86,19 +105,20 @@ function migrate(PDO $pdo): void {
                 role TEXT NOT NULL CHECK(role IN ('admin','manager','officer')),
                 branch_id INTEGER REFERENCES branches(id)
             )");
-            $pdo->exec("INSERT INTO users_new (id, username, password_hash, full_name, role, branch_id) SELECT id, username, password_hash, full_name, role, branch_id FROM users");
+            $pdo->exec("INSERT INTO users_new (id, username, password_hash, full_name, role, branch_id)
+                SELECT id, username, password_hash, full_name, role, branch_id FROM users");
             $pdo->exec("DROP TABLE users");
             $pdo->exec("ALTER TABLE users_new RENAME TO users");
 
-            // Report workflow columns
             $cols = [];
-            foreach ($pdo->query("PRAGMA table_info(reports)") as $c) $cols[$c['name']] = true;
+            foreach ($pdo->query("PRAGMA table_info(reports)") as $c) {
+                $cols[$c['name']] = true;
+            }
             if (!isset($cols['status']))       $pdo->exec("ALTER TABLE reports ADD COLUMN status TEXT NOT NULL DEFAULT 'approved'");
             if (!isset($cols['reviewed_by']))  $pdo->exec("ALTER TABLE reports ADD COLUMN reviewed_by INTEGER");
             if (!isset($cols['reviewed_at']))  $pdo->exec("ALTER TABLE reports ADD COLUMN reviewed_at TEXT");
             if (!isset($cols['review_notes'])) $pdo->exec("ALTER TABLE reports ADD COLUMN review_notes TEXT");
 
-            // Leave requests
             $pdo->exec("CREATE TABLE IF NOT EXISTS leave_requests (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
@@ -107,6 +127,7 @@ function migrate(PDO $pdo): void {
                 start_date TEXT NOT NULL,
                 end_date TEXT NOT NULL,
                 reason TEXT NOT NULL,
+                destination TEXT,
                 status TEXT NOT NULL DEFAULT 'pending_manager',
                 submitted_by INTEGER REFERENCES users(id),
                 submitted_at TEXT NOT NULL,
@@ -115,10 +136,11 @@ function migrate(PDO $pdo): void {
                 manager_notes TEXT,
                 admin_reviewed_by INTEGER REFERENCES users(id),
                 admin_reviewed_at TEXT,
-                admin_notes TEXT
+                admin_notes TEXT,
+                expires_notified_at TEXT,
+                expiry_renewal_status TEXT NOT NULL DEFAULT 'none'
             )");
 
-            // Notifications
             $pdo->exec("CREATE TABLE IF NOT EXISTS notifications (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
@@ -132,6 +154,7 @@ function migrate(PDO $pdo): void {
                 created_by INTEGER REFERENCES users(id),
                 created_at TEXT NOT NULL
             )");
+
             $pdo->exec("CREATE TABLE IF NOT EXISTS notification_reads (
                 notification_id INTEGER NOT NULL REFERENCES notifications(id) ON DELETE CASCADE,
                 user_id INTEGER NOT NULL,
@@ -139,23 +162,39 @@ function migrate(PDO $pdo): void {
                 PRIMARY KEY (notification_id, user_id)
             )");
 
+            $pdo->exec("CREATE TABLE IF NOT EXISTS officer_suspensions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+                branch_id INTEGER NOT NULL REFERENCES branches(id),
+                reason TEXT NOT NULL,
+                start_date TEXT NOT NULL,
+                end_date TEXT,
+                status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','ended')),
+                created_at TEXT NOT NULL,
+                created_by INTEGER REFERENCES users(id)
+            )");
+
+            $pdo->exec("CREATE TABLE IF NOT EXISTS officer_disciplinary (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+                branch_id INTEGER NOT NULL REFERENCES branches(id),
+                reason TEXT NOT NULL,
+                start_date TEXT NOT NULL,
+                end_date TEXT,
+                status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','closed')),
+                created_at TEXT NOT NULL,
+                created_by INTEGER REFERENCES users(id)
+            )");
+
+
             $pdo->exec("PRAGMA user_version = 1");
             $pdo->exec("COMMIT");
             $pdo->exec("PRAGMA foreign_keys = ON");
+
         } catch (Throwable $e) {
             $pdo->exec("ROLLBACK");
             $pdo->exec("PRAGMA foreign_keys = ON");
             throw $e;
-        }
-    }
-
-    // Seed an officer account if none exists
-    $hasOfficer = (int)$pdo->query("SELECT COUNT(*) FROM users WHERE role='officer'")->fetchColumn();
-    if ($hasOfficer === 0) {
-        $kla = $pdo->query("SELECT id FROM branches WHERE code='KLA'")->fetchColumn();
-        if ($kla) {
-            $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?)");
-            $stmt->execute(['kofc', password_hash('kofc123', PASSWORD_DEFAULT), 'Kampala Field Officer', 'officer', (int)$kla]);
         }
     }
 }
@@ -167,7 +206,9 @@ function seed_data(PDO $pdo): void {
         ['N.Kyoga', 'NKY', 'Lira'],
     ];
     $stmt = $pdo->prepare("INSERT INTO branches (name, code, location) VALUES (?,?,?)");
-    foreach ($branches as $b) { $stmt->execute($b); }
+    foreach ($branches as $b) {
+        $stmt->execute($b);
+    }
 
     $bIds = [];
     foreach ($pdo->query("SELECT id, code FROM branches") as $r) {
@@ -185,7 +226,7 @@ function seed_data(PDO $pdo): void {
         $ustmt->execute([$u[0], password_hash($u[1], PASSWORD_DEFAULT), $u[2], $u[3], $u[4]]);
     }
 
-    $ranks = ['Constable','Corporal','Sergeant','Inspector','ASP','SP'];
+    $ranks = ['PC','CPL','SGT','S/SGT','HC','HCM','AIP','IP','ASP','SP','SSP','ACP','CP','SCP','AIGP','DIGP','IGP'];
     $first = ['John','Mary','Peter','Grace','Samuel','Esther','David','Joyce','Robert','Sarah','Moses','Ruth','James','Agnes','Paul','Joan'];
     $last = ['Okello','Nakato','Mugisha','Akello','Kato','Namukasa','Wasswa','Nakimera','Opio','Kintu','Bwambale','Nabukenya'];
     $estmt = $pdo->prepare("INSERT INTO employees (service_no, full_name, gender, rank, branch_id, phone) VALUES (?,?,?,?,?,?)");
@@ -201,9 +242,52 @@ function seed_data(PDO $pdo): void {
     }
 
     $today = date('Y-m-d');
-    $statuses = ['present','present','present','present','present','awol','leave','sick'];
+    $statuses = ['present','present','present','present','present','awol','leave','sick','onleave'];
     $dstmt = $pdo->prepare("INSERT INTO daily_status (employee_id, date, status, notes, recorded_by) VALUES (?,?,?,?,1)");
     foreach ($pdo->query("SELECT id FROM employees") as $e) {
         $dstmt->execute([(int)$e['id'], $today, $statuses[array_rand($statuses)], null]);
     }
+
+    // Seed sample suspensions & disciplinary records
+    $now = date('Y-m-d H:i:s');
+    $empIds = $pdo->query("SELECT id, branch_id FROM employees")->fetchAll();
+    $susStmt = $pdo->prepare(
+        "INSERT INTO officer_suspensions (employee_id, branch_id, reason, start_date, end_date, status, created_at, created_by) VALUES (?,?,?,?,?,?,?,?)"
+    );
+    $disStmt = $pdo->prepare(
+        "INSERT INTO officer_disciplinary (employee_id, branch_id, reason, start_date, end_date, status, created_at, created_by) VALUES (?,?,?,?,?,?,?,?)"
+    );
+
+    $createdBy = (int)$pdo->query("SELECT id FROM users WHERE role='admin' LIMIT 1")->fetchColumn();
+    foreach ($empIds as $i => $row) {
+        $eid = (int)$row['id'];
+        $bid = (int)$row['branch_id'];
+
+        if ($i % 9 === 0) {
+            $susStmt->execute([
+                $eid,
+                $bid,
+                'Interdiction pending investigation',
+                $today,
+                null,
+                'active',
+                $now,
+                $createdBy,
+            ]);
+        }
+        if ($i % 11 === 0) {
+            $disStmt->execute([
+                $eid,
+                $bid,
+                'Disciplinary action (case review)',
+                $today,
+                null,
+                'active',
+                $now,
+                $createdBy,
+            ]);
+        }
+    }
 }
+
+

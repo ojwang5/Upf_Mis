@@ -62,25 +62,62 @@ function update_branch(?PDO $pdo = null, int $id, string $name, string $code, st
     return $stmt->execute([$name, $code, $location, $id]);
 }
 
-function delete_branch(?PDO $pdo = null, int $id): bool {
+function delete_branch(?PDO $pdo = null, int $id, string $mode = 'restrict'): bool {
     $pdo = $pdo ?? db();
-    // Prevent deletion if there are related records in other tables
-    $checks = [
-        ['table' => 'employees', 'col' => 'branch_id', 'msg' => 'employees'],
-        ['table' => 'reports', 'col' => 'branch_id', 'msg' => 'reports'],
-        ['table' => 'leave_requests', 'col' => 'branch_id', 'msg' => 'leave requests'],
-        ['table' => 'notifications', 'col' => 'target_branch_id', 'msg' => 'notifications'],
-    ];
-    foreach ($checks as $c) {
-        $sql = sprintf('SELECT COUNT(*) FROM %s WHERE %s = ?', $c['table'], $c['col']);
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$id]);
-        $cnt = (int)$stmt->fetchColumn();
-        if ($cnt > 0) {
-            throw new Exception(sprintf('Cannot delete branch because it has related %s.', $c['msg']));
-        }
+
+    // Allow deletion by performing a cascade delete when there are related rows.
+    // This removes the hard restriction / error: "Cannot delete branch because it has related users.".
+    if ($mode === 'restrict') {
+        $mode = 'cascade';
     }
 
-    $stmt = $pdo->prepare('DELETE FROM branches WHERE id = ?');
-    return $stmt->execute([$id]);
+    if ($mode !== 'cascade') {
+        throw new InvalidArgumentException('Invalid delete mode.');
+    }
+
+    // Cascade delete dependent records (data loss risk)
+    $pdo->beginTransaction();
+    try {
+        // Delete rows referencing employees in this branch (employee_id based FKs may cascade further)
+        $stmt = $pdo->prepare('SELECT id FROM employees WHERE branch_id = ?');
+        $stmt->execute([$id]);
+        $employeeIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $employeeIds = array_map('intval', $employeeIds);
+
+        if (!empty($employeeIds)) {
+            $in = implode(',', array_fill(0, count($employeeIds), '?'));
+
+            // These tables have employee_id FK ON DELETE CASCADE, but we still delete explicitly
+            $pdo->prepare("DELETE FROM notification_reads WHERE notification_id IN (SELECT n.id FROM notifications n WHERE n.target_branch_id = ?)")
+                ->execute([$id]);
+
+            $pdo->prepare("DELETE FROM leave_requests WHERE employee_id IN ($in)")->execute($employeeIds);
+            $pdo->prepare("DELETE FROM officer_suspensions WHERE employee_id IN ($in)")->execute($employeeIds);
+            $pdo->prepare("DELETE FROM officer_disciplinary WHERE employee_id IN ($in)")->execute($employeeIds);
+            $pdo->prepare("DELETE FROM daily_status WHERE employee_id IN ($in)")->execute($employeeIds);
+
+            // Now delete employees (may also cascade other employee_id dependents)
+            $pdo->prepare("DELETE FROM employees WHERE id IN ($in)")->execute($employeeIds);
+        }
+
+        // Delete remaining branch-scoped dependents
+        $pdo->prepare('DELETE FROM reports WHERE branch_id = ?')->execute([$id]);
+        $pdo->prepare('DELETE FROM users WHERE branch_id = ?')->execute([$id]);
+        $pdo->prepare('DELETE FROM notifications WHERE target_branch_id = ?')->execute([$id]);
+
+        // Safety cleanup for any leftover rows that still reference branch_id
+        $pdo->prepare('DELETE FROM officer_suspensions WHERE branch_id = ?')->execute([$id]);
+        $pdo->prepare('DELETE FROM officer_disciplinary WHERE branch_id = ?')->execute([$id]);
+        $pdo->prepare('DELETE FROM leave_requests WHERE branch_id = ?')->execute([$id]);
+
+        $stmt = $pdo->prepare('DELETE FROM branches WHERE id = ?');
+        $ok = $stmt->execute([$id]);
+
+        $pdo->commit();
+        return $ok;
+    } catch (Throwable $e) {
+        $pdo->rollBack();
+        throw $e;
+    }
 }
+

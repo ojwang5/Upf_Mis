@@ -9,14 +9,76 @@ $pdo = db();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
+
+    // Submitter actions: extend / renew for expired approved leaves
+    if (in_array($action, ['extend', 'renew'], true)) {
+        if (!is_officer($user)) {
+            // submission is allowed for all submitters (officer role) only in this system
+            // keep silent for non-officers
+        }
+        $rid = (int)($_POST['id'] ?? 0);
+        $newEnd = $_POST['new_end_date'] ?? '';
+        if ($rid > 0 && $newEnd && (is_officer($user))) {
+            $reqStmt = $pdo->prepare("SELECT lr.*, e.full_name AS emp_name
+                FROM leave_requests lr
+                JOIN employees e ON e.id=lr.employee_id
+                WHERE lr.id=? AND lr.submitted_by=?");
+            $reqStmt->execute([$rid, (int)$user['id']]);
+            $r = $reqStmt->fetch();
+            $today = date('Y-m-d');
+            if ($r && $r['status']==='approved' && $r['end_date'] < $today) {
+                // Only the original submitter can extend/renew
+                if ((int)$r['submitted_by'] !== (int)$user['id']) {
+                    flash('err', 'You can only extend/renew your own leave application.');
+                    header('Location: /leave-requests.php'); exit;
+                }
+
+                if ($action === 'extend') {
+                    $pdo->prepare("UPDATE leave_requests SET end_date=?, expiry_renewal_status='extended', expires_notified_at=NULL WHERE id=?")
+                        ->execute([$newEnd, $rid]);
+                    flash('msg', 'Leave extended successfully.');
+                } else {
+                    // Renew = create a new pending request (reapplication)
+                    $reason = $_POST['reason'] ?? $r['reason'];
+                    $stmt = $pdo->prepare("INSERT INTO leave_requests (employee_id, branch_id, leave_type, start_date, end_date, reason, destination, status, submitted_by, submitted_at) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                    $stmt->execute([
+                        (int)$r['employee_id'],
+                        (int)$r['branch_id'],
+                        $r['leave_type'],
+                        $r['start_date'],
+                        $newEnd,
+                        $reason,
+                        $r['destination'] ?? '',
+                        'pending_manager',
+                        (int)$user['id'],
+                        date('c')
+                    ]);
+                    $newRid = (int)$pdo->lastInsertId();
+                    $pdo->prepare("UPDATE leave_requests SET expiry_renewal_status='renewed' WHERE id=?")
+                        ->execute([$rid]);
+                    notify_branch_managers((int)$r['branch_id'],
+                        'New leave renewal request',
+                        $r['emp_name'] . ' — ' . $r['leave_type'] . ' renewal request submitted.',
+                        ['link' => '/leave-requests.php#req-' . $newRid, 'created_by' => $user['id'], 'kind' => 'leave']
+                    );
+                    flash('msg', 'Leave renewed successfully. A new request was submitted for review.');
+                    
+                }
+            }
+        }
+        header('Location: /leave-requests.php'); exit;
+    }
+
     if ($action === 'submit') {
+
         $eid = (int)$_POST['employee_id'];
         $emp = $pdo->prepare("SELECT * FROM employees WHERE id=?"); $emp->execute([$eid]); $e = $emp->fetch();
         if ($e && can_access_branch($user, (int)$e['branch_id'])) {
-            $stmt = $pdo->prepare("INSERT INTO leave_requests (employee_id, branch_id, leave_type, start_date, end_date, reason, status, submitted_by, submitted_at) VALUES (?,?,?,?,?,?,?,?,?)");
+            $stmt = $pdo->prepare("INSERT INTO leave_requests (employee_id, branch_id, leave_type, start_date, end_date, reason, destination, status, submitted_by, submitted_at) VALUES (?,?,?,?,?,?,?,?,?,?)");
             $stmt->execute([
                 $eid, (int)$e['branch_id'], $_POST['leave_type'] ?? 'Annual',
                 $_POST['start_date'], $_POST['end_date'], $_POST['reason'] ?? '',
+                $_POST['destination'] ?? '',
                 'pending_manager', $user['id'], date('c')
             ]);
             $rid = (int)$pdo->lastInsertId();
@@ -105,9 +167,73 @@ function status_pill(string $s): string {
     return '<span class="badge ' . $cls . '">' . htmlspecialchars($lab) . '</span>';
 }
 
+// Expiry notification (notify submitter once)
+$today = date('Y-m-d');
+
+// Defensive: some DBs may not have expires_notified_at yet.
+$hasExpiryNotifiedAt = false;
+try {
+    $cols = [];
+    foreach ($pdo->query("PRAGMA table_info(leave_requests)") as $c) {
+        $cols[$c['name']] = true;
+    }
+    $hasExpiryNotifiedAt = isset($cols['expires_notified_at']);
+} catch (Throwable $e) {
+    $hasExpiryNotifiedAt = false;
+}
+
+if ($hasExpiryNotifiedAt) {
+    $notifStmt = $pdo->prepare("SELECT lr.*, e.full_name AS emp_name
+        FROM leave_requests lr
+        JOIN employees e ON e.id=lr.employee_id
+        WHERE lr.status='approved' AND lr.end_date < ?
+          AND (lr.expires_notified_at IS NULL OR lr.expires_notified_at='')");
+    $notifStmt->execute([$today]);
+    $expiredToNotify = $notifStmt->fetchAll();
+    foreach ($expiredToNotify as $r) {
+        notify('Leave expired',
+            $r['emp_name'] . ' (' . $r['leave_type'] . ') has expired. Choose to extend or renew by re-application.',
+            'user',
+            [
+                'target_user_id' => (int)$r['submitted_by'],
+                'created_by' => $user['id'],
+                'kind' => 'leave',
+                'link' => '/leave-requests.php#req-' . (int)$r['id']
+            ]
+        );
+        $pdo->prepare("UPDATE leave_requests SET expires_notified_at=? WHERE id=?")
+            ->execute([date('c'), (int)$r['id']]);
+    }
+} else {
+    // Fallback: notify without tracking (prevents fatal error on old schemas)
+    $notifStmt = $pdo->prepare("SELECT lr.*, e.full_name AS emp_name
+        FROM leave_requests lr
+        JOIN employees e ON e.id=lr.employee_id
+        WHERE lr.status='approved' AND lr.end_date < ?");
+    $notifStmt->execute([$today]);
+    $expiredToNotify = $notifStmt->fetchAll();
+
+    foreach ($expiredToNotify as $r) {
+        notify('Leave expired',
+            $r['emp_name'] . ' (' . $r['leave_type'] . ') has expired. Choose to extend or renew by re-application.',
+            'user',
+            [
+                'target_user_id' => (int)$r['submitted_by'],
+                'created_by' => $user['id'],
+                'kind' => 'leave',
+                'link' => '/leave-requests.php#req-' . (int)$r['id']
+            ]
+        );
+    }
+}
+
+
+
+
 include __DIR__ . '/../includes/header.php';
 ?>
 <div class="page-header">
+
   <div><h1>Leave Requests</h1><div class="desc">Submit and review personnel leave applications</div></div>
 </div>
 
@@ -129,11 +255,20 @@ include __DIR__ . '/../includes/header.php';
       </div>
       <div class="form-group"><label>Type</label>
         <select name="leave_type">
-          <option>Annual</option><option>Sick</option><option>Compassionate</option><option>Maternity</option><option>Other</option>
+          <option>Annual</option>
+          <option>Sick</option>
+          <option>Compassionate</option>
+          <option>Study leave</option>
+          <option>Maternity leave</option>
+          <option>Paternity leave</option>
+          <option>Pass leave</option>
+          <option>Other</option>
         </select>
       </div>
+
       <div class="form-group"><label>Start Date</label><input type="date" name="start_date" required value="<?= date('Y-m-d') ?>"></div>
       <div class="form-group"><label>End Date</label><input type="date" name="end_date" required value="<?= date('Y-m-d') ?>"></div>
+      <div class="form-group" style="flex:2;min-width:240px"><label>Destination</label><input type="text" name="destination" placeholder="e.g. Home/City/Station" required></div>
       <div class="form-group" style="flex:2;min-width:240px"><label>Reason</label><input type="text" name="reason" required></div>
       <div class="form-group" style="flex:0"><label>&nbsp;</label><button class="btn">Submit</button></div>
     </div>
@@ -160,7 +295,39 @@ include __DIR__ . '/../includes/header.php';
           </td>
           <td><span class="muted"><?= e(date('M j, H:i', strtotime($r['submitted_at']))) ?><br>by <?= e($r['submitter'] ?? '—') ?></span></td>
           <td>
-            <?php if ($r['status']==='pending_manager' && (is_manager($user) && (int)$r['branch_id']===(int)$user['branch_id']) || ($r['status']==='pending_manager' && is_admin($user))): ?>
+            <?php
+              $isExpiredApproved = ($r['status']==='approved' && $r['end_date'] < date('Y-m-d') && (int)$r['submitted_by']===(int)$user['id']);
+            ?>
+
+            <?php if ($isExpiredApproved): ?>
+              <details><summary class="btn btn-sm btn-secondary" style="display:inline-block">Expired - Actions</summary>
+                <form method="post" style="margin-top:8px;display:flex;flex-direction:column;gap:8px;min-width:240px">
+                  <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
+                  <input type="hidden" name="action" value="extend">
+                  <div class="form-group" style="margin:0">
+                    <label style="display:block">New End Date</label>
+                    <input type="date" name="new_end_date" required value="<?= e(date('Y-m-d')) ?>" style="width:100%">
+                  </div>
+                  <button class="btn btn-sm">Extend</button>
+                </form>
+
+                <form method="post" style="margin-top:10px;display:flex;flex-direction:column;gap:8px;min-width:240px">
+                  <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
+                  <input type="hidden" name="action" value="renew">
+                  <div class="form-group" style="margin:0">
+                    <label style="display:block">New End Date</label>
+                    <input type="date" name="new_end_date" required value="<?= e(date('Y-m-d')) ?>" style="width:100%">
+                  </div>
+                  <div class="form-group" style="margin:0">
+                    <label style="display:block">Reason (optional)</label>
+                    <input type="text" name="reason" placeholder="Optional" value="<?= e($r['reason'] ?? '') ?>" style="width:100%">
+                  </div>
+                  <button class="btn btn-sm" style="background:var(--danger);border-color:var(--danger)" type="submit">Renew (Re-apply)</button>
+                </form>
+              </details>
+
+            <?php elseif ($r['status']==='pending_manager' && (is_manager($user) && (int)$r['branch_id']===(int)$user['branch_id']) || ($r['status']==='pending_manager' && is_admin($user))): ?>
+
               <details><summary class="btn btn-sm btn-secondary" style="display:inline-block">Review</summary>
                 <form method="post" style="margin-top:8px;display:flex;flex-direction:column;gap:6px;min-width:220px">
                   <input type="hidden" name="action" value="manager_review"><input type="hidden" name="id" value="<?= $r['id'] ?>">

@@ -90,7 +90,7 @@ include __DIR__ . '/../includes/header.php';
       <div class="form-group"><label>Role</label>
         <?php if (is_admin($user)): ?>
         <select name="role" id="role-select" onchange="document.getElementById('br-row').style.display=this.value==='admin'?'none':''">
-          <option value="officer">Officer (limited)</option>
+          <option value="officer">Duty Officer </option>
           <option value="manager">Branch Manager</option>
           <option value="admin">Admin (HQ)</option>
         </select>

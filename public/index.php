@@ -50,12 +50,57 @@ $ic_awol = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 $ic_leave = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
 $ic_sick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>';
 ?>
-<div class="grid grid-4">
+<?php
+$pdo = db();
+
+// These tables may not exist for older/partially migrated databases.
+// Dashboard should still render, showing 0 counts.
+$tableExists = function(string $table) use ($pdo): bool {
+    $stmt = $pdo->prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name = :t LIMIT 1");
+    $stmt->execute([':t' => $table]);
+    return (bool)$stmt->fetchColumn();
+};
+
+$suspensionCount = 0;
+$disciplinaryCount = 0;
+
+if ($tableExists('officer_suspensions')) {
+    $sumSuspSql = "SELECT COUNT(*) FROM officer_suspensions s WHERE s.status='active'";
+    $sumParams = [];
+    if ($branchId !== null) {
+        $sumSuspSql .= ' AND s.branch_id = :b';
+        $sumParams[':b'] = $branchId;
+    }
+    $stmt = $pdo->prepare($sumSuspSql);
+    $stmt->execute($sumParams);
+    $suspensionCount = (int)$stmt->fetchColumn();
+}
+
+if ($tableExists('officer_disciplinary')) {
+    $sumDiscSql = "SELECT COUNT(*) FROM officer_disciplinary d WHERE d.status='active'";
+    $sumParams = [];
+    if ($branchId !== null) {
+        $sumDiscSql .= ' AND d.branch_id = :b';
+        $sumParams[':b'] = $branchId;
+    }
+    $stmt = $pdo->prepare($sumDiscSql);
+    $stmt->execute($sumParams);
+    $disciplinaryCount = (int)$stmt->fetchColumn();
+}
+?>
+
+
+
+<div class="grid grid-6">
   <a class="stat present stat-link" href="/status-details.php?status=present&<?= e($detailQS) ?>"><div><div class="label">Present</div><div class="value"><?= $totals['present'] ?></div><div class="hint">View details &rarr;</div></div><div class="icon"><?= $ic_present ?></div></a>
   <a class="stat awol stat-link" href="/status-details.php?status=awol&<?= e($detailQS) ?>"><div><div class="label">AWOL</div><div class="value"><?= $totals['awol'] ?></div><div class="hint">View details &rarr;</div></div><div class="icon"><?= $ic_awol ?></div></a>
-  <a class="stat leave stat-link" href="/status-details.php?status=leave&<?= e($detailQS) ?>"><div><div class="label">On Leave</div><div class="value"><?= $totals['on_leave'] ?></div><div class="hint">View details &rarr;</div></div><div class="icon"><?= $ic_leave ?></div></a>
+  <a class="stat leave stat-link" href="/status-details.php?status=onleave&<?= e($detailQS) ?>"><div><div class="label">On Leave</div><div class="value"><?= $totals['on_leave'] ?></div><div class="hint">View details &rarr;</div></div><div class="icon"><?= $ic_leave ?></div></a>
   <a class="stat sick stat-link" href="/status-details.php?status=sick&<?= e($detailQS) ?>"><div><div class="label">Sick</div><div class="value"><?= $totals['sick'] ?></div><div class="hint">View details &rarr;</div></div><div class="icon"><?= $ic_sick ?></div></a>
+  <a class="stat suspend stat-link" href="/suspensions.php<?= $branchId !== null ? '?branch='.(int)$branchId : '' ?>"><div><div class="label">Suspensions</div><div class="value"><?= $suspensionCount ?></div><div class="hint">View officers &rarr;</div></div><div class="icon"><?= '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="M16.5 7.5l-4.5 4.5-4.5-4.5"/><path d="M5 21h14"/></svg>' ?></div></a>
+  <a class="stat disciplinary stat-link" href="/disciplinary.php<?= $branchId !== null ? '?branch='.(int)$branchId : '' ?>"><div><div class="label">Disciplinary</div><div class="value"><?= $disciplinaryCount ?></div><div class="hint">View officers &rarr;</div></div><div class="icon"><?= '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' ?></div></a>
 </div>
+
+
 
 <div class="card" style="margin-top:18px">
   <h2>Branch Overview — <?= e(date('l, j F Y', strtotime($date))) ?></h2>

@@ -62,7 +62,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $errors[] = $e->getMessage();
             }
           }
+        } elseif ($action === 'delete_cascade') {
+          $id = (int)($_POST['id'] ?? 0);
+          if ($id <= 0) $errors[] = 'Invalid branch id.';
+          if (empty($errors)) {
+            try {
+              delete_branch(null, $id, 'cascade');
+              flash('success', 'Branch deleted with dependent records (cascade).');
+              header('Location: /branches.php'); exit;
+            } catch (Exception $e) {
+              $errors[] = $e->getMessage();
+            }
+          }
         }
+
     }
 }
 
@@ -101,7 +114,12 @@ require_once __DIR__ . '/../includes/header.php';
           <td>
             <button class="btn btn-sm" onclick="showEdit(<?= (int)$b['id'] ?>,'<?= e($b['name']) ?>','<?= e($b['code']) ?>','<?= e($b['location']) ?>')">Edit</button>
             <?php if (($b['employee_count'] ?? 0) > 0): ?>
-              <button class="btn btn-danger btn-sm" disabled title="Cannot delete branch with assigned employees">Delete</button>
+              <form method="post" action="/branches.php" style="display:inline" onsubmit="return confirm('This will permanently delete the branch and all dependent records. Continue?');">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="delete_cascade">
+                <input type="hidden" name="id" value="<?= (int)$b['id'] ?>">
+                <button class="btn btn-danger btn-sm" type="submit">Delete (cascade)</button>
+              </form>
             <?php else: ?>
               <form method="post" action="/branches.php" style="display:inline" onsubmit="return confirm('Delete branch?');">
                 <?= csrf_field() ?>
@@ -110,6 +128,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
               </form>
             <?php endif; ?>
+
           </td>
         </tr>
       <?php endforeach; ?>
