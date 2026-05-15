@@ -7,6 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     if (login($username, $password)) {
+        require_once __DIR__ . '/../includes/audit.php';
+        $actor = audit_actor_from_session();
+        audit_log($actor, 'auth.login', 'user', $actor ? (string)$actor['id'] : null, ['username' => $username]);
         header('Location: /');
         exit;
     }

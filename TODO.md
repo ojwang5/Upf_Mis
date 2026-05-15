@@ -1,9 +1,13 @@
 # TODO
 
-- [ ] Explore current deletion logic for branches and related DB constraints.
-- [ ] Update branch deletion to allow deletion when users exist (or when related records exist), instead of throwing: "Cannot delete branch because it has related users.".
-- [ ] Ensure UI and tests support the new deletion behavior (possibly use cascade or set FK to NULL strategy).
-- [x] Update/extend tests in tests/BranchTest.php accordingly.
-- [ ] Run phpunit (or equivalent) to verify (may require PHPUnit install/zip extension). 
+- [x] Add audit log schema/table (`audit_logs`) in `includes/db.php`.
+- [x] Create `includes/audit.php` with `audit_log()` helper.
+- [x] Wire logging into `public/login.php` and `public/logout.php`.
+- [x] Wire logging into `public/users.php` (create/reset/delete).
 
+- [ ] Wire logging into `public/employees.php` (create/update/delete).
+- [ ] Wire logging into `public/branches.php` (create/update/delete/delete_cascade).
+- [ ] Wire logging into `public/history.php` (manager_approve/reject, admin_approve/reject).
+- [x] Create admin UI `public/admin-audit.php` (filter/search/pagination) requiring admin.
+- [ ] Run quick server/test to verify audit rows are created and page works.
 

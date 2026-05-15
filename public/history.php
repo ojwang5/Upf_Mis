@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/notifications.php';
+require_once __DIR__ . '/../includes/audit.php';
+
 $user = require_role(['admin','manager']);
 $page = 'history';
 $page_title = 'History';
@@ -15,6 +17,14 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         if ($action==='manager_approve' && is_manager($user) && (int)$rep['branch_id']===(int)$user['branch_id'] && $rep['status']==='pending_manager') {
             $pdo->prepare("UPDATE reports SET status='pending_admin', reviewed_by=?, reviewed_at=?, review_notes=? WHERE id=?")
                 ->execute([$user['id'], date('c'), $_POST['notes'] ?? '', $rid]);
+
+            audit_log($user, 'report.manager_approve', 'report', (string)$rid, [
+                'from_status' => 'pending_manager',
+                'to_status' => 'pending_admin',
+                'branch_id' => (int)$rep['branch_id'],
+                'generated_by' => (int)$rep['generated_by'],
+            ]);
+
             notify_admins('Branch report forwarded to HQ',
                 ($user['branch_name'] ?? '') . ' — ' . date('j M Y', strtotime($rep['date'])),
                 ['link'=>'/history.php?id='.$rid,'created_by'=>$user['id'],'kind'=>'report']);
@@ -22,12 +32,28 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         } elseif ($action==='manager_reject' && is_manager($user) && (int)$rep['branch_id']===(int)$user['branch_id'] && $rep['status']==='pending_manager') {
             $pdo->prepare("UPDATE reports SET status='rejected', reviewed_by=?, reviewed_at=?, review_notes=? WHERE id=?")
                 ->execute([$user['id'], date('c'), $_POST['notes'] ?? '', $rid]);
+
+            audit_log($user, 'report.manager_reject', 'report', (string)$rid, [
+                'from_status' => 'pending_manager',
+                'to_status' => 'rejected',
+                'branch_id' => (int)$rep['branch_id'],
+                'generated_by' => (int)$rep['generated_by'],
+            ]);
+
             notify('Report rejected by manager','Your report for '.date('j M Y',strtotime($rep['date'])).' was rejected.','user',
                 ['target_user_id'=>(int)$rep['generated_by'],'created_by'=>$user['id'],'kind'=>'report','link'=>'/history.php?id='.$rid]);
             flash('msg','Report rejected.');
         } elseif ($action==='admin_approve' && is_admin($user) && $rep['status']==='pending_admin') {
             $pdo->prepare("UPDATE reports SET status='approved', reviewed_by=?, reviewed_at=?, review_notes=? WHERE id=?")
                 ->execute([$user['id'], date('c'), $_POST['notes'] ?? '', $rid]);
+
+            audit_log($user, 'report.admin_approve', 'report', (string)$rid, [
+                'from_status' => 'pending_admin',
+                'to_status' => 'approved',
+                'branch_id' => (int)($rep['branch_id'] ?? 0),
+                'generated_by' => (int)$rep['generated_by'],
+            ]);
+
             if ($rep['branch_id']) {
                 notify('Report approved by HQ','Report for '.date('j M Y',strtotime($rep['date'])).' approved.','branch',
                     ['target_branch_id'=>(int)$rep['branch_id'],'created_by'=>$user['id'],'kind'=>'report']);
@@ -36,6 +62,14 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         } elseif ($action==='admin_reject' && is_admin($user) && in_array($rep['status'],['pending_admin','pending_manager'],true)) {
             $pdo->prepare("UPDATE reports SET status='rejected', reviewed_by=?, reviewed_at=?, review_notes=? WHERE id=?")
                 ->execute([$user['id'], date('c'), $_POST['notes'] ?? '', $rid]);
+
+            audit_log($user, 'report.admin_reject', 'report', (string)$rid, [
+                'from_status' => (string)$rep['status'],
+                'to_status' => 'rejected',
+                'branch_id' => (int)($rep['branch_id'] ?? 0),
+                'generated_by' => (int)$rep['generated_by'],
+            ]);
+
             flash('msg','Report rejected.');
         }
     }

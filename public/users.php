@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/helpers.php';
+require_once __DIR__ . '/../includes/audit.php';
 $user = require_role(['admin','manager']);
 $page = 'users';
 $page_title = 'User Accounts';
@@ -34,6 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?)");
                 $stmt->execute([$username, password_hash($password, PASSWORD_DEFAULT), $full_name, $role, $branch_id]);
+                audit_log($user, 'user.create', 'user', (string)$username, [
+                    'full_name' => $full_name,
+                    'role' => $role,
+                    'branch_id' => $branch_id,
+                ]);
                 flash('msg', 'Account created for ' . $full_name . '.');
             } catch (PDOException $e) {
                 flash('err', 'Could not create user: ' . $e->getMessage());
@@ -44,6 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target = $pdo->prepare("SELECT * FROM users WHERE id=?"); $target->execute([$id]); $t = $target->fetch();
         if ($t && (is_admin($user) || (is_manager($user) && $t['role']==='officer' && (int)$t['branch_id']===(int)$user['branch_id'])) && strlen($newpw) >= 4) {
             $pdo->prepare("UPDATE users SET password_hash=? WHERE id=?")->execute([password_hash($newpw, PASSWORD_DEFAULT), $id]);
+            audit_log($user, 'user.reset_password', 'user', (string)$id, [
+                'target_role' => $t['role'] ?? null,
+                'target_branch_id' => $t['branch_id'] ?? null,
+            ]);
             flash('msg', 'Password reset.');
         }
     } elseif ($action === 'delete') {
@@ -52,6 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $target = $pdo->prepare("SELECT * FROM users WHERE id=?"); $target->execute([$id]); $t = $target->fetch();
             if ($t && (is_admin($user) || (is_manager($user) && $t['role']==='officer' && (int)$t['branch_id']===(int)$user['branch_id']))) {
                 $pdo->prepare("DELETE FROM users WHERE id=?")->execute([$id]);
+                audit_log($user, 'user.delete', 'user', (string)$id, [
+                    'target_username' => $t['username'] ?? null,
+                    'target_role' => $t['role'] ?? null,
+                    'target_branch_id' => $t['branch_id'] ?? null,
+                ]);
                 flash('msg', 'Account removed.');
             }
         }

@@ -61,6 +61,20 @@ function init_schema(PDO $pdo): void {
             generated_at TEXT NOT NULL,
             summary_json TEXT NOT NULL
         );
+
+        -- Admin/audit trail table (used by includes/audit.php and public/admin-audit.php)
+        CREATE TABLE IF NOT EXISTS audit_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            actor_user_id INTEGER REFERENCES users(id),
+            actor_role TEXT,
+            action TEXT NOT NULL,
+            target_type TEXT,
+            target_id TEXT,
+            ip_address TEXT,
+            user_agent TEXT,
+            meta_json TEXT,
+            created_at TEXT NOT NULL
+        );
 SQL
     );
 
