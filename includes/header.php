@@ -2,6 +2,7 @@
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/notifications.php';
+
 $user = current_user();
 $page = $page ?? '';
 $page_title = $page_title ?? '';
@@ -19,15 +20,18 @@ $all_nav = [
   'admin-audit' => ['href'=>'/admin-audit.php','label'=>'Audit Log','roles'=>['admin'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>'],
   'notifications' => ['href'=>'/notifications.php','label'=>'Notifications','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>'],
 ];
+
 $nav_items = [];
 foreach ($all_nav as $k => $n) {
-    if ($user && in_array($role, $n['roles'], true)) {
-        $n['key'] = $k; $nav_items[] = $n;
-    }
+  if ($user && in_array($role, $n['roles'], true)) {
+    $n['key'] = $k;
+    $nav_items[] = $n;
+  }
 }
 
 $unreadCount = $user ? unread_notification_count($user) : 0;
-?><!doctype html>
+?>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -39,6 +43,14 @@ $unreadCount = $user ? unread_notification_count($user) : 0;
 <body>
 <header class="topbar">
   <div class="topbar-inner">
+    <?php if ($user): ?>
+      <button class="menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Toggle menu" aria-controls="app-sidebar" aria-expanded="false">
+        <span class="menu-toggle-icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+    <?php endif; ?>
+
     <img src="/assets/logo.jpg" alt="UPF" class="logo">
     <div class="brand">
       <div class="org"><?= e(APP_ORG) ?></div>
@@ -47,6 +59,7 @@ $unreadCount = $user ? unread_notification_count($user) : 0;
     </div>
     <?php if ($user): ?>
       <a href="/notifications.php" class="bell" title="Notifications">
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <?php if ($unreadCount > 0): ?><span class="bell-badge"><?= $unreadCount > 99 ? '99+' : $unreadCount ?></span><?php endif; ?>
       </a>
@@ -58,14 +71,56 @@ $unreadCount = $user ? unread_notification_count($user) : 0;
     <?php endif; ?>
   </div>
 </header>
+
 <?php if ($user): ?>
 <div class="app">
-  <nav class="sidebar sidebar-wrap">
+  <nav class="sidebar sidebar-wrap" id="app-sidebar">
     <div class="nav-label">Menu</div>
     <?php foreach ($nav_items as $n): ?>
-      <a href="<?= $n['href'] ?>" class="<?= $page===$n['key']?'active':'' ?>"><?= $n['icon'] ?><span><?= e($n['label']) ?></span><?php if ($n['key']==='notifications' && $unreadCount>0): ?><span class="nav-badge"><?= $unreadCount ?></span><?php endif; ?></a>
+      <a href="<?= $n['href'] ?>" class="<?= $page===$n['key']?'active':'' ?>">
+        <?= $n['icon'] ?><span><?= e($n['label']) ?></span>
+        <?php if ($n['key']==='notifications' && $unreadCount>0): ?><span class="nav-badge"><?= $unreadCount ?></span><?php endif; ?>
+      </a>
     <?php endforeach; ?>
     <div class="sb-footer">v1.0 · <?= date('Y') ?></div>
   </nav>
   <main class="content">
 <?php endif; ?>
+
+<?php if ($user): ?>
+<script>
+(function(){
+  const btn = document.getElementById('mobile-menu-toggle');
+  const sidebar = document.getElementById('app-sidebar');
+  if(!btn || !sidebar) return;
+
+  const setExpanded = (expanded) => {
+    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    sidebar.classList.toggle('is-open', expanded);
+  };
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    setExpanded(!expanded);
+  });
+
+  // Close when clicking a menu link (mobile)
+  sidebar.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if(!a) return;
+    if(window.matchMedia('(max-width: 700px)').matches) setExpanded(false);
+  });
+
+  // Close on outside click (mobile)
+  document.addEventListener('click', (e) => {
+    if(!window.matchMedia('(max-width: 700px)').matches) return;
+    if(e.target === btn || btn.contains(e.target)) return;
+    if(!sidebar.classList.contains('is-open')) return;
+    setExpanded(false);
+  });
+})();
+</script>
+<?php endif; ?>
+
+

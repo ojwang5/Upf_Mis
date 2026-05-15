@@ -235,7 +235,12 @@ include __DIR__ . '/../includes/header.php';
 <div class="page-header">
 
   <div><h1>Leave Requests</h1><div class="desc">Submit and review personnel leave applications</div></div>
+  <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;justify-content:flex-end">
+    <a class="btn btn-secondary" href="/export-leave-types.php?type=csv">Export All (CSV)</a>
+    <a class="btn btn-secondary" href="/export-leave-types.php?type=html" target="_blank" rel="noopener">Export All (PDF)</a>
+  </div>
 </div>
+
 
 <?php if ($m = flash('msg')): ?><div class="alert alert-success"><?= e($m) ?></div><?php endif; ?>
 <?php if ($m = flash('err')): ?><div class="alert alert-error"><?= e($m) ?></div><?php endif; ?>

@@ -61,8 +61,15 @@ include __DIR__ . '/../includes/header.php';
     <h1><?= e(status_label($status)) ?> Personnel</h1>
     <div class="desc"><?= e(date('l, j F Y', strtotime($date))) ?> · <?= count($rows) ?> personnel</div>
   </div>
-  <a class="btn btn-secondary" href="/?<?= e($backQS) ?>">&larr; Back to Dashboard</a>
+  <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;justify-content:flex-end">
+    <?php $branchParam = ($user['role'] === 'admin' && !empty($_GET['branch'])) ? (int)$_GET['branch'] : ''; ?>
+    <?php $branchQS = ($branchParam !== '') ? ('&branch='.(int)$branchParam) : ''; ?>
+    <a class="btn btn-secondary" href="/export-status-details.php?type=csv&status=<?= e($status) ?>&date=<?= e($date) ?><?= $branchQS ?>">Export CSV</a>
+    <a class="btn btn-secondary" href="/export-status-details.php?type=html&status=<?= e($status) ?>&date=<?= e($date) ?><?= $branchQS ?>" target="_blank" rel="noopener">Export PDF</a>
+    <a class="btn btn-secondary" href="/?<?= e($backQS) ?>">&larr; Back to Dashboard</a>
+  </div>
 </div>
+
 
 <div class="card">
   <div class="table-wrap">

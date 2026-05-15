@@ -63,11 +63,32 @@ function mark_all_read(array $user): void {
     }
 }
 
+function delete_notification_for_user(int $notificationId, array $user): void {
+    // Only delete if the notification is visible to this user.
+    $stmt = db()->prepare(
+        "DELETE FROM notifications
+         WHERE id = :nid AND (
+             audience = 'all'
+             OR (audience = 'user' AND target_user_id = :uid)
+             OR (audience = 'role' AND target_role = :role)
+             OR (audience = 'branch' AND target_branch_id = :bid)
+         )"
+    );
+
+    $stmt->execute([
+        ':nid'  => $notificationId,
+        ':uid'  => (int)$user['id'],
+        ':role' => $user['role'],
+        ':bid'  => $user['branch_id'] !== null ? (int)$user['branch_id'] : -1,
+    ]);
+}
+
 /** Notify all managers of a branch (and admins) */
 function notify_branch_managers(int $branchId, string $title, string $msg, array $opts = []): void {
     notify($title, $msg, 'branch', array_merge($opts, ['target_branch_id' => $branchId]));
     notify($title, $msg, 'role', array_merge($opts, ['target_role' => 'admin']));
 }
+
 
 /** Notify all admins */
 function notify_admins(string $title, string $msg, array $opts = []): void {

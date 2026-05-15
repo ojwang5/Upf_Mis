@@ -13,6 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mark_all_read($user);
     } elseif ($action === 'mark_one' && !empty($_POST['id'])) {
         mark_notification_read((int)$_POST['id'], (int)$user['id']);
+    } elseif ($action === 'delete_one' && !empty($_POST['id'])) {
+        delete_notification_for_user((int)$_POST['id'], $user);
+        flash('msg', 'Notification deleted.');
     } elseif ($action === 'broadcast' && is_admin($user)) {
         $title = trim($_POST['title'] ?? ''); $message = trim($_POST['message'] ?? '');
         $audience = $_POST['audience'] ?? 'all';
@@ -30,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     header('Location: /notifications.php'); exit;
 }
+
 
 $notifs = notifications_for($user, false, 100);
 $branches = $pdo->query("SELECT * FROM branches ORDER BY name")->fetchAll();
@@ -86,13 +90,20 @@ include __DIR__ . '/../includes/header.php';
           <?= $n['sender'] ? ' · from ' . e($n['sender']) : '' ?>
           · audience: <?= e($n['audience']) ?>
           <?php if ($n['link']): ?> · <a href="<?= e($n['link']) ?>">Open</a><?php endif; ?>
-          <?php if ($unread): ?>
+<?php if ($unread): ?>
             <form method="post" style="display:inline">
               <input type="hidden" name="action" value="mark_one"><input type="hidden" name="id" value="<?= $n['id'] ?>">
               <button class="link-btn" type="submit">mark read</button>
             </form>
           <?php endif; ?>
+
+          <form method="post" style="display:inline" onsubmit="return confirm('Delete this notification?');">
+            <input type="hidden" name="action" value="delete_one"><input type="hidden" name="id" value="<?= $n['id'] ?>">
+            <button class="link-btn link-btn-danger" type="submit">delete</button>
+          </form>
         </div>
+
+
       </div>
     </div>
   <?php endforeach; ?>

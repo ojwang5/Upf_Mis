@@ -40,7 +40,7 @@ if (current_user()) { header('Location: /'); exit; }
   </div>
   <button class="btn" style="width:100%" type="submit">Sign in</button>
   <div class="muted" style="margin-top:14px;font-size:11px;text-align:center">
-    Default accounts: admin/admin123 · kmgr/kmgr123 · rmgr/rmgr123 · nmgr/nmgr123
+    Failed to login contact system administrators
   </div>
 </form>
 </body></html>

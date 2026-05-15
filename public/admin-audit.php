@@ -17,8 +17,6 @@ $actorId = (int)($_GET['actor_id'] ?? 0);
 $from = trim((string)($_GET['from'] ?? ''));
 $to = trim((string)($_GET['to'] ?? ''));
 
-$allowedActions = null; // could be used later
-
 $where = '1=1';
 $params = [];
 
@@ -122,49 +120,93 @@ include __DIR__ . '/../includes/header.php';
 </div>
 
 <div class="card" style="margin-top:14px">
-  <div class="muted" style="margin-bottom:10px">
-    Showing <?= (string)count($rows) ?> of <?= (string)$total ?> records
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap">
+    <div>
+      <div class="muted" style="margin-bottom:10px">
+        Showing <?= (string)count($rows) ?> of <?= (string)$total ?> records
+      </div>
+      <div class="muted">Retention default: <b>90 days</b>. Use purge below to delete older records.</div>
+    </div>
+
+    <form method="post" action="/admin-audit-purge.php" style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+      <?= csrf_field() ?>
+      <input type="hidden" name="mode" value="older_than_days">
+      <input type="hidden" name="confirm" value="DELETE">
+      <div class="form-group">
+        <label>Delete audit logs older than</label>
+        <input type="number" name="days" value="90" min="1" style="width:110px">
+      </div>
+      <button class="btn btn-danger" type="submit" onclick="return confirm('This will permanently delete audit logs older than the selected number of days. Continue?')">Purge</button>
+    </form>
   </div>
+</div>
+
+<div class="card" style="margin-top:14px">
   <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>When</th>
-          <th>Actor</th>
-          <th>Action</th>
-          <th>Target</th>
-          <th>IP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($rows as $r): ?>
+    <form method="post" action="/admin-audit-purge.php">
+      <?= csrf_field() ?>
+      <input type="hidden" name="mode" value="bulk">
+      <input type="hidden" name="confirm" value="DELETE">
+
+      <table>
+        <thead>
           <tr>
-            <td><?= (int)$r['id'] ?></td>
-            <td><?= e(date('Y-m-d H:i:s', strtotime((string)$r['created_at']))) ?></td>
-            <td>
-              <?= $r['actor_full_name'] ? e($r['actor_full_name']) : '<span class="muted">—</span>' ?><br>
-              <span class="muted"><?= $r['actor_username'] ? e($r['actor_username']) : '' ?></span>
-            </td>
-            <td><?= e($r['action']) ?></td>
-            <td>
-              <?= e($r['target_type'] ?? '—') ?><br>
-              <span class="muted"><?= e($r['target_id'] ?? '—') ?></span>
-              <?php if (!empty($r['meta_json'])): ?>
-                <details>
-                  <summary class="muted" style="cursor:pointer">meta</summary>
-                  <pre style="white-space:pre-wrap;margin:8px 0;font-size:12px"><?= e((string)json_decode($r['meta_json'], true) ?: $r['meta_json']) ?></pre>
-                </details>
-              <?php endif; ?>
-            </td>
-            <td><?= e((string)($r['ip_address'] ?? '')) ?></td>
+            <th>Select</th>
+            <th>#</th>
+            <th>When</th>
+            <th>Actor</th>
+            <th>Action</th>
+            <th>Target</th>
+            <th>IP</th>
+            <th></th>
           </tr>
-        <?php endforeach; ?>
-        <?php if (!$rows): ?>
-          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">No audit records.</td></tr>
-        <?php endif; ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <?php foreach ($rows as $r): ?>
+            <tr>
+              <td>
+                <input type="checkbox" name="ids[]" value="<?= (int)$r['id'] ?>">
+              </td>
+              <td><?= (int)$r['id'] ?></td>
+              <td><?= e(date('Y-m-d H:i:s', strtotime((string)$r['created_at']))) ?></td>
+              <td>
+                <?= $r['actor_full_name'] ? e($r['actor_full_name']) : '<span class="muted">—</span>' ?><br>
+                <span class="muted"><?= $r['actor_username'] ? e($r['actor_username']) : '' ?></span>
+              </td>
+              <td><?= e($r['action']) ?></td>
+              <td>
+                <?= e($r['target_type'] ?? '—') ?><br>
+                <span class="muted"><?= e($r['target_id'] ?? '—') ?></span>
+                <?php if (!empty($r['meta_json'])): ?>
+                  <details>
+                    <summary class="muted" style="cursor:pointer">meta</summary>
+                    <pre style="white-space:pre-wrap;margin:8px 0;font-size:12px"><?= e((string)json_decode($r['meta_json'], true) ?: $r['meta_json']) ?></pre>
+                  </details>
+                <?php endif; ?>
+              </td>
+              <td><?= e((string)($r['ip_address'] ?? '')) ?></td>
+              <td style="text-align:right">
+                <form method="post" action="/admin-audit-purge.php" onsubmit="return confirm('Delete audit log id #<?= (int)$r['id'] ?> permanently?');" style="display:inline">
+                  <?= csrf_field() ?>
+                  <input type="hidden" name="mode" value="one">
+                  <input type="hidden" name="confirm" value="DELETE">
+                  <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
+                  <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          <?php if (!$rows): ?>
+            <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:24px">No audit records.</td></tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+
+      <div style="margin-top:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="muted">Bulk delete is enabled for selected records on this page.</div>
+        <button class="btn btn-danger" type="submit" onclick="return confirm('Delete selected audit logs permanently?');">Delete selected</button>
+      </div>
+    </form>
   </div>
 
   <div style="margin-top:12px;display:flex;justify-content:center;gap:10px;align-items:center">
@@ -185,4 +227,5 @@ include __DIR__ . '/../includes/header.php';
 </div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
+
 

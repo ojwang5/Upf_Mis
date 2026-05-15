@@ -132,7 +132,13 @@ include __DIR__ . '/../includes/header.php';
       </select>
     </div>
   </form>
+  <div style="display:flex;gap:10px;align-items:flex-end">
+    <?php $qs = 'status='.(urlencode($_GET['status'] ?? '')); ?>
+    <a class="btn btn-secondary" href="/export-history.php?type=csv&status=<?= e($_GET['status'] ?? '') ?>">Export CSV</a>
+    <a class="btn btn-secondary" href="/export-history.php?type=html&status=<?= e($_GET['status'] ?? '') ?>" target="_blank" rel="noopener">Export PDF</a>
+  </div>
 </div>
+
 
 <?php if ($m = flash('msg')): ?><div class="alert alert-success"><?= e($m) ?></div><?php endif; ?>
 
