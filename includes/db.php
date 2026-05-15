@@ -200,6 +200,12 @@ function migrate(PDO $pdo): void {
 }
 
 function seed_data(PDO $pdo): void {
+    $tableExists = static function (PDO $pdo, string $table): bool {
+        $stmt = $pdo->prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name = :t LIMIT 1");
+        $stmt->execute([':t' => $table]);
+        return (bool)$stmt->fetchColumn();
+    };
+
     $branches = [
         ['Kampala HQ', 'KLA', 'Kampala'],
         ['Rwizi', 'RWZ', 'Mbarara'],
@@ -248,22 +254,36 @@ function seed_data(PDO $pdo): void {
         $dstmt->execute([(int)$e['id'], $today, $statuses[array_rand($statuses)], null]);
     }
 
-    // Seed sample suspensions & disciplinary records
+    // Seed sample suspensions & disciplinary records.
+    // Older/partial DBs may not have these tables yet; guard to avoid fatal errors.
     $now = date('Y-m-d H:i:s');
     $empIds = $pdo->query("SELECT id, branch_id FROM employees")->fetchAll();
-    $susStmt = $pdo->prepare(
-        "INSERT INTO officer_suspensions (employee_id, branch_id, reason, start_date, end_date, status, created_at, created_by) VALUES (?,?,?,?,?,?,?,?)"
-    );
-    $disStmt = $pdo->prepare(
-        "INSERT INTO officer_disciplinary (employee_id, branch_id, reason, start_date, end_date, status, created_at, created_by) VALUES (?,?,?,?,?,?,?,?)"
-    );
 
-    $createdBy = (int)$pdo->query("SELECT id FROM users WHERE role='admin' LIMIT 1")->fetchColumn();
+    $hasSuspensions = $tableExists($pdo, 'officer_suspensions');
+    $hasDisciplinary = $tableExists($pdo, 'officer_disciplinary');
+
+    $susStmt = null;
+    if ($hasSuspensions) {
+        $susStmt = $pdo->prepare(
+            "INSERT INTO officer_suspensions (employee_id, branch_id, reason, start_date, end_date, status, created_at, created_by) VALUES (?,?,?,?,?,?,?,?)"
+        );
+    }
+
+    $disStmt = null;
+    if ($hasDisciplinary) {
+        $disStmt = $pdo->prepare(
+            "INSERT INTO officer_disciplinary (employee_id, branch_id, reason, start_date, end_date, status, created_at, created_by) VALUES (?,?,?,?,?,?,?,?)"
+        );
+    }
+
+    $createdByVal = $pdo->query("SELECT id FROM users WHERE role='admin' LIMIT 1")->fetchColumn();
+    $createdBy = $createdByVal !== false ? (int)$createdByVal : null;
+
     foreach ($empIds as $i => $row) {
         $eid = (int)$row['id'];
         $bid = (int)$row['branch_id'];
 
-        if ($i % 9 === 0) {
+        if ($susStmt && ($i % 9 === 0)) {
             $susStmt->execute([
                 $eid,
                 $bid,
@@ -275,7 +295,8 @@ function seed_data(PDO $pdo): void {
                 $createdBy,
             ]);
         }
-        if ($i % 11 === 0) {
+
+        if ($disStmt && ($i % 11 === 0)) {
             $disStmt->execute([
                 $eid,
                 $bid,
@@ -289,5 +310,8 @@ function seed_data(PDO $pdo): void {
         }
     }
 }
+
+
+
 
 
