@@ -247,7 +247,13 @@ include __DIR__ . '/../includes/header.php';
 
 <div class="card">
   <h3>Submit New Leave Request</h3>
-  <form method="post">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+    <button id="toggle-leave-form" class="btn btn-secondary" type="button">Add Leave</button>
+    <div class="muted" style="font-size:12px;">Show/Hide leave request fields</div>
+  </div>
+
+  <form method="post" id="leave-form" style="display:none">
     <input type="hidden" name="action" value="submit">
     <div class="form-row">
       <div class="form-group"><label>Employee</label>
@@ -279,6 +285,26 @@ include __DIR__ . '/../includes/header.php';
     </div>
     <div class="muted" style="margin-top:6px">Submissions go first to the branch manager, then to HQ for final approval.</div>
   </form>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('toggle-leave-form');
+      const form = document.getElementById('leave-form');
+      if (!btn || !form) return;
+
+      function syncLabel(){
+        const isOpen = form.style.display !== 'none';
+        btn.textContent = isOpen ? 'Hide Form' : 'Add Leave';
+      }
+
+      btn.addEventListener('click', function(){
+        form.style.display = (form.style.display === 'none' || !form.style.display) ? 'block' : 'none';
+        syncLabel();
+      });
+
+      syncLabel();
+    })();
+  </script>
 </div>
 
 <div class="card">

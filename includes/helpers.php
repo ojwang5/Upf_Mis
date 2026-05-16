@@ -106,3 +106,4 @@ function verify_csrf(?string $token): bool {
     if (empty($_SESSION['_csrf_token'])) return false;
     return hash_equals($_SESSION['_csrf_token'], (string)$token);
 }
+

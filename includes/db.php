@@ -42,6 +42,7 @@ function init_schema(PDO $pdo): void {
             rank TEXT NOT NULL,
             branch_id INTEGER NOT NULL REFERENCES branches(id),
             phone TEXT,
+            email TEXT NOT NULL,
             active INTEGER NOT NULL DEFAULT 1
         );
         CREATE TABLE IF NOT EXISTS daily_status (
@@ -104,6 +105,22 @@ function migrate(PDO $pdo): void {
         if (!isset($cols['destination'])) {
             $pdo->exec("ALTER TABLE leave_requests ADD COLUMN destination TEXT");
         }
+    }
+
+    // v2: add required email column to employees
+    if ($v < 2) {
+        $cols = [];
+        foreach ($pdo->query("PRAGMA table_info(employees)") as $c) {
+            $cols[$c['name']] = true;
+        }
+        if (!isset($cols['email'])) {
+            // Add as nullable first, then backfill, then enforce NOT NULL.
+            // SQLite ALTER TABLE limitations mean NOT NULL enforcement may not be fully guaranteed
+            // across versions; this is still a safe upgrade for existing DBs.
+            $pdo->exec("ALTER TABLE employees ADD COLUMN email TEXT");
+            $pdo->exec("UPDATE employees SET email = '' WHERE email IS NULL");
+        }
+        $pdo->exec("PRAGMA user_version = 2");
     }
 
     if ($v < 1) {
@@ -249,7 +266,7 @@ function seed_data(PDO $pdo): void {
     $ranks = ['PC','CPL','SGT','S/SGT','HC','HCM','AIP','IP','ASP','SP','SSP','ACP','CP','SCP','AIGP','DIGP','IGP'];
     $first = ['John','Mary','Peter','Grace','Samuel','Esther','David','Joyce','Robert','Sarah','Moses','Ruth','James','Agnes','Paul','Joan'];
     $last = ['Okello','Nakato','Mugisha','Akello','Kato','Namukasa','Wasswa','Nakimera','Opio','Kintu','Bwambale','Nabukenya'];
-    $estmt = $pdo->prepare("INSERT INTO employees (service_no, full_name, gender, rank, branch_id, phone) VALUES (?,?,?,?,?,?)");
+    $estmt = $pdo->prepare("INSERT INTO employees (service_no, full_name, gender, rank, branch_id, phone, email) VALUES (?,?,?,?,?,?,?)");
     $sn = 10001;
     foreach ($bIds as $code => $bid) {
         for ($i = 0; $i < 12; $i++) {
@@ -257,7 +274,8 @@ function seed_data(PDO $pdo): void {
             $name = $first[array_rand($first)] . ' ' . $last[array_rand($last)];
             $rank = $ranks[array_rand($ranks)];
             $phone = '+25670' . random_int(1000000, 9999999);
-            $estmt->execute(['UPF' . $sn++, $name, $g, $rank, $bid, $phone]);
+            $email = strtolower(preg_replace('/[^a-z0-9]+/','.', trim($name))) . '.' . $sn . '@example.com';
+            $estmt->execute(['UPF' . $sn++, $name, $g, $rank, $bid, $phone, $email]);
         }
     }
 

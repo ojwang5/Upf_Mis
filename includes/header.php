@@ -99,11 +99,84 @@ $unreadCount = $user ? unread_notification_count($user) : 0;
     sidebar.classList.toggle('is-open', expanded);
   };
 
+  let didDrag = false;
+  let dragStart = {x:0,y:0};
+  let lastPointer = {x:0,y:0};
+  const DRAG_THRESHOLD_PX = 8;
+
+  // Click-to-toggle (suppressed if user drags)
   btn.addEventListener('click', (e) => {
+    if(didDrag) { didDrag = false; return; }
     e.stopPropagation();
     const expanded = btn.getAttribute('aria-expanded') === 'true';
     setExpanded(!expanded);
   });
+
+  // Mobile: make hamburger icon movable (drag)
+  // Only apply on small screens to avoid changing desktop behavior.
+  const isMobile = () => window.matchMedia('(max-width: 700px)').matches;
+
+  const onPointerDown = (e) => {
+    if(!isMobile()) return;
+    if(e.button !== undefined && e.button !== 0) return; // mouse left only
+
+    didDrag = false;
+    dragStart = { x: e.clientX, y: e.clientY };
+    lastPointer = { x: e.clientX, y: e.clientY };
+
+    // Capture pointer so move continues smoothly
+    try { btn.setPointerCapture(e.pointerId); } catch(_err) {}
+
+    // Avoid the sidebar toggle during drag
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const onPointerMove = (e) => {
+    if(!isMobile()) return;
+    if(e.buttons !== undefined && e.buttons === 0) return;
+
+    const dx = e.clientX - dragStart.x;
+    const dy = e.clientY - dragStart.y;
+    const dist = Math.hypot(dx, dy);
+
+    if(dist > DRAG_THRESHOLD_PX) didDrag = true;
+    if(!didDrag) return;
+
+    const rect = btn.getBoundingClientRect();
+    const nextLeft = rect.left + (e.clientX - lastPointer.x);
+    const nextTop  = rect.top  + (e.clientY - lastPointer.y);
+
+    // Clamp inside viewport (leave a small margin)
+    const margin = 6;
+    const maxLeft = window.innerWidth - rect.width - margin;
+    const maxTop  = window.innerHeight - rect.height - margin;
+    const minLeft = margin;
+    const minTop  = 6;
+
+    const clampedLeft = Math.max(minLeft, Math.min(maxLeft, nextLeft));
+    const clampedTop  = Math.max(minTop, Math.min(maxTop, nextTop));
+
+    btn.style.left = clampedLeft + 'px';
+    btn.style.top = clampedTop + 'px';
+
+    lastPointer = { x: e.clientX, y: e.clientY };
+
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const endDrag = (e) => {
+    if(!isMobile()) return;
+    try { btn.releasePointerCapture(e.pointerId); } catch(_err) {}
+  };
+
+  btn.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove, { passive: false });
+  btn.addEventListener('pointerup', endDrag);
+  btn.addEventListener('pointercancel', endDrag);
+  
+
 
   // Close when clicking a menu link (mobile)
   sidebar.addEventListener('click', (e) => {

@@ -4,18 +4,35 @@ require_once __DIR__ . '/../includes/helpers.php';
 
 $error = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-    if (login($username, $password)) {
-        require_once __DIR__ . '/../includes/audit.php';
-        $actor = audit_actor_from_session();
-        audit_log($actor, 'auth.login', 'user', $actor ? (string)$actor['id'] : null, ['username' => $username]);
-        header('Location: /');
-        exit;
+    // CSRF protection (required)
+    if (!verify_csrf($_POST['_csrf'] ?? null)) {
+        $error = 'Invalid username or password.';
+    } else {
+        $username = trim($_POST['username'] ?? '');
+        $password = $_POST['password'] ?? '';
+
+        if (login($username, $password)) {
+            require_once __DIR__ . '/../includes/audit.php';
+            $actor = audit_actor_from_session();
+            audit_log($actor, 'auth.login', 'user', $actor ? (string)$actor['id'] : null, ['username' => $username]);
+            header('Location: /');
+            exit;
+        }
+
+        // Best-effort audit on failed login
+        try {
+            require_once __DIR__ . '/../includes/audit.php';
+            $ip = $_SERVER['REMOTE_ADDR'] ?? null;
+            audit_log(null, 'auth.login_failed', 'user', null, ['username' => $username, 'ip' => (string)$ip]);
+        } catch (Throwable $e) {
+            // never break login flow
+        }
+
+        $error = 'Invalid username or password.';
     }
-    $error = 'Invalid username or password.';
 }
 if (current_user()) { header('Location: /'); exit; }
+
 ?><!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +40,9 @@ if (current_user()) { header('Location: /'); exit; }
 <link rel="stylesheet" href="/assets/style.css">
 </head><body class="login-page">
 <form class="login-card" method="post" action="/login.php">
+  <?= csrf_field() ?>
   <div class="brand-block">
+
     <img src="/assets/logo.jpg" alt="UPF">
     <div class="org"><?= e(APP_ORG) ?></div>
     <div class="sys"><?= e(APP_NAME) ?></div>
