@@ -142,6 +142,7 @@ $colKeys = array_keys($cols);
     <div>
         <div class="org"><?= e(APP_ORG) ?></div>
         <div class="sys"><?= e(APP_NAME) ?></div>
+        <div class="motto"><?= e(APP_MOTTO) ?></div>
     </div>
 </div>
 <h2 style="margin:0">Personnel Export — <?= e($label) ?></h2>

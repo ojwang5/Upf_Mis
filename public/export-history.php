@@ -94,6 +94,7 @@ $logoData = file_exists($logoPath) ? base64_encode(file_get_contents($logoPath))
     <div>
       <div class="org"><?= e(APP_ORG) ?></div>
       <div class="sys"><?= e(APP_NAME) ?></div>
+      <div class="motto"><?= e(APP_MOTTO) ?></div>
     </div>
   </div>
 

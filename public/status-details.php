@@ -74,7 +74,7 @@ include __DIR__ . '/../includes/header.php';
 <div class="card">
   <div class="table-wrap">
 <table>
-      <thead><tr><th>Force/File No</th><th>Name</th><th>Rank</th><th>Gender</th><th>Branch</th><th>Phone</th><th>Status</th><th>Leave Destination</th><th>Notes</th></tr></thead>
+<thead><tr><th>Force/File No</th><th>Name</th><th>Rank</th><th>Gender</th><th>Branch</th><th>Phone</th><th>Status</th><th>Leave Destination</th><th>Leave Start</th><th>Leave End</th><th>Leave Duration (Days)</th><th>Notes</th></tr></thead>
       <tbody>
         <?php foreach ($rows as $r): ?>
           <tr>
@@ -104,18 +104,38 @@ include __DIR__ . '/../includes/header.php';
             <td>
               <?php
                 $dest = '';
+                $leaveStart = '';
+                $leaveEnd = '';
+                $daysOnLeave = '';
+
                 if ($status === 'onleave' || $status === 'leave') {
-                    $dStmt = $pdo->prepare("SELECT destination FROM leave_requests
+                    $dStmt = $pdo->prepare("SELECT destination, start_date, end_date FROM leave_requests
                         WHERE employee_id=? AND status='approved'
                           AND start_date <= :d AND end_date >= :d
                         ORDER BY submitted_at DESC LIMIT 1");
                     $dStmt->execute([(int)$r['id'], ':d' => $date]);
                     $rowDest = $dStmt->fetch();
                     $dest = $rowDest['destination'] ?? '';
+                    $leaveStart = $rowDest['start_date'] ?? '';
+                    $leaveEnd = $rowDest['end_date'] ?? '';
+
+                    if (!empty($leaveStart) && !empty($leaveEnd)) {
+                        try {
+                            $ds = new DateTimeImmutable($leaveStart);
+                            $de = new DateTimeImmutable($leaveEnd);
+                            $diff = $ds->diff($de);
+                            $daysOnLeave = (string)($diff->days + 1); // inclusive
+                        } catch (Throwable $t) {
+                            $daysOnLeave = '';
+                        }
+                    }
                 }
               ?>
               <?= e($dest) ?>
             </td>
+            <td><?= e($leaveStart) ?></td>
+            <td><?= e($leaveEnd) ?></td>
+            <td><?= $daysOnLeave !== '' ? e($daysOnLeave) : '<span class="muted">—</span>' ?></td>
             <td><?= e($r['notes'] ?? '') ?></td>
           </tr>
         <?php endforeach; ?>

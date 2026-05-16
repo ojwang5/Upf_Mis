@@ -47,7 +47,12 @@ include __DIR__ . '/../includes/header.php';
 <?php if ($m = flash('msg')): ?><div class="alert alert-success"><?= e($m) ?></div><?php endif; ?>
 
 <?php if (is_admin($user)): ?>
-<div class="card">
+<div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:12px">
+  <button id="toggle-broadcast-form" class="btn btn-secondary" type="button">Create Notification</button>
+  <div class="muted" style="font-size:12px;">Show/Hide notification creation</div>
+</div>
+
+<div class="card" id="broadcast-form-wrapper" style="display:none">
   <h3>Send Broadcast</h3>
   <form method="post">
     <input type="hidden" name="action" value="broadcast">
@@ -71,6 +76,26 @@ include __DIR__ . '/../includes/header.php';
     </div>
   </form>
 </div>
+
+<script>
+(function(){
+  const btn = document.getElementById('toggle-broadcast-form');
+  const wrap = document.getElementById('broadcast-form-wrapper');
+  if(!btn || !wrap) return;
+
+  function syncLabel(){
+    const isOpen = wrap.style.display !== 'none';
+    btn.textContent = isOpen ? 'Hide Notification' : 'Create Notification';
+  }
+
+  btn.addEventListener('click', function(){
+    wrap.style.display = (wrap.style.display === 'none' || !wrap.style.display) ? 'block' : 'none';
+    syncLabel();
+  });
+
+  syncLabel();
+})();
+</script>
 <?php endif; ?>
 
 <div class="card">

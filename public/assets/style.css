@@ -265,7 +265,16 @@ tbody tr:hover td{background:#fafbfd}
 .btn-danger:hover{background:#b91c1c}
 .btn-gold{background:var(--gold);color:#fff}
 .btn-gold:hover{background:#b8870a;color:#fff}
+
+/* Page-specific accent buttons (still inherit base `.btn` and `.btn-secondary` styles) */
+.btn-personnel{background:rgba(59,130,246,.12)!important;border-color:rgba(59,130,246,.35)!important;color:#1d4ed8!important}
+.btn-personnel:hover{background:rgba(59,130,246,.18)!important}
+
+.btn-leave{background:rgba(124,58,237,.12)!important;border-color:rgba(124,58,237,.35)!important;color:#5b21b6!important}
+.btn-leave:hover{background:rgba(124,58,237,.18)!important}
+
 .btn-sm{padding:5px 11px;font-size:12px}
+
 
 /* ===== Forms ===== */
 .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px;align-items:end}

@@ -297,7 +297,7 @@ include __DIR__ . '/../includes/header.php';
 
   <div style="margin-top:12px">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <button id="toggle-personnel-form" class="btn btn-secondary" type="button">Add Personnel</button>
+<button id="toggle-personnel-form" class="btn btn-secondary btn-personnel" type="button">Add Personnel</button>
       <div class="muted" style="font-size:12px;">Collapse/expand the employee fields</div>
     </div>
 

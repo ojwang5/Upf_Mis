@@ -249,7 +249,7 @@ include __DIR__ . '/../includes/header.php';
   <h3>Submit New Leave Request</h3>
 
   <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
-    <button id="toggle-leave-form" class="btn btn-secondary" type="button">Add Leave</button>
+<button id="toggle-leave-form" class="btn btn-secondary btn-leave" type="button">Add Leave</button>
     <div class="muted" style="font-size:12px;">Show/Hide leave request fields</div>
   </div>
 
