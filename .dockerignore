@@ -1,0 +1,12 @@
+vendor/
+node_modules/
+.git
+tests/
+phpunit.xml
+start-server.bat
+start-server.ps1
+.vscode/
+*.log
+/.env
+/.idea
+composer.lock

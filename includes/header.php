@@ -1,0 +1,199 @@
+<?php
+require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/notifications.php';
+
+$user = current_user();
+$page = $page ?? '';
+$page_title = $page_title ?? '';
+
+$role = $user['role'] ?? '';
+$all_nav = [
+  'dashboard' => ['href'=>'/','label'=>'Dashboard','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>'],
+  'employees' => ['href'=>'/employees.php','label'=>'Personnel','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'],
+  'daily'     => ['href'=>'/daily-status.php','label'=>'Daily Status','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>'],
+  'reports'   => ['href'=>'/reports.php','label'=>'Reports','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>'],
+  'leave'     => ['href'=>'/leave-requests.php','label'=>'Leave Requests','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'],
+  'history'   => ['href'=>'/history.php','label'=>'History','roles'=>['admin','manager'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/><polyline points="12 7 12 12 15 15"/></svg>'],
+  'users'     => ['href'=>'/users.php','label'=>'Users','roles'=>['admin','manager'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>'],
+  'branches'  => ['href'=>'/branches.php','label'=>'Branches','roles'=>['admin'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M5 6h14"/><path d="M5 18h14"/></svg>'],
+  'admin-audit' => ['href'=>'/admin-audit.php','label'=>'Audit Log','roles'=>['admin'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>'],
+  'notifications' => ['href'=>'/notifications.php','label'=>'Notifications','roles'=>['admin','manager','officer'],'icon'=>'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>'],
+];
+
+$nav_items = [];
+foreach ($all_nav as $k => $n) {
+  if ($user && in_array($role, $n['roles'], true)) {
+    $n['key'] = $k;
+    $nav_items[] = $n;
+  }
+}
+
+$unreadCount = $user ? unread_notification_count($user) : 0;
+?>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?= e($page_title ? $page_title . ' — ' : '') ?><?= e(APP_NAME) ?></title>
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" type="image/jpeg" href="/assets/logo.jpg">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <?php if ($user): ?>
+      <button class="menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Toggle menu" aria-controls="app-sidebar" aria-expanded="false">
+        <span class="menu-toggle-icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+    <?php endif; ?>
+
+    <img src="/assets/logo.jpg" alt="UPF" class="logo">
+    <div class="brand">
+      <div class="org"><?= e(APP_ORG) ?></div>
+      <div class="sys"><?= e(APP_NAME) ?></div>
+      <div class="motto"><?= e(APP_MOTTO) ?></div>
+    </div>
+    <?php if ($user): ?>
+      <a href="/notifications.php" class="bell" title="Notifications">
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <?php if ($unreadCount > 0): ?><span class="bell-badge"><?= $unreadCount > 99 ? '99+' : $unreadCount ?></span><?php endif; ?>
+      </a>
+      <div class="user-info">
+        <div class="name"><?= e($user['full_name']) ?></div>
+        <div class="meta"><?= e(ucfirst($user['role'])) ?><?= $user['branch_name'] ? ' · ' . e($user['branch_name']) : '' ?></div>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="/logout.php">Sign out</a>
+    <?php endif; ?>
+  </div>
+</header>
+
+<?php if ($user): ?>
+<div class="app">
+  <nav class="sidebar sidebar-wrap" id="app-sidebar">
+    <div class="nav-label">Menu</div>
+    <?php foreach ($nav_items as $n): ?>
+      <a href="<?= $n['href'] ?>" class="<?= $page===$n['key']?'active':'' ?>">
+        <?= $n['icon'] ?><span><?= e($n['label']) ?></span>
+        <?php if ($n['key']==='notifications' && $unreadCount>0): ?><span class="nav-badge"><?= $unreadCount ?></span><?php endif; ?>
+      </a>
+    <?php endforeach; ?>
+    <div class="sb-footer">v1.0 · <?= date('Y') ?></div>
+  </nav>
+  <main class="content">
+<?php endif; ?>
+
+<?php if ($user): ?>
+<script>
+(function(){
+  const btn = document.getElementById('mobile-menu-toggle');
+  const sidebar = document.getElementById('app-sidebar');
+  if(!btn || !sidebar) return;
+
+  const setExpanded = (expanded) => {
+    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    sidebar.classList.toggle('is-open', expanded);
+  };
+
+  let didDrag = false;
+  let dragStart = {x:0,y:0};
+  let lastPointer = {x:0,y:0};
+  const DRAG_THRESHOLD_PX = 8;
+
+  // Click-to-toggle (suppressed if user drags)
+  btn.addEventListener('click', (e) => {
+    if(didDrag) { didDrag = false; return; }
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    setExpanded(!expanded);
+  });
+
+  // Mobile: make hamburger icon movable (drag)
+  // Only apply on small screens to avoid changing desktop behavior.
+  const isMobile = () => window.matchMedia('(max-width: 700px)').matches;
+
+  const onPointerDown = (e) => {
+    if(!isMobile()) return;
+    if(e.button !== undefined && e.button !== 0) return; // mouse left only
+
+    didDrag = false;
+    dragStart = { x: e.clientX, y: e.clientY };
+    lastPointer = { x: e.clientX, y: e.clientY };
+
+    // Capture pointer so move continues smoothly
+    try { btn.setPointerCapture(e.pointerId); } catch(_err) {}
+
+    // Avoid the sidebar toggle during drag
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const onPointerMove = (e) => {
+    if(!isMobile()) return;
+    if(e.buttons !== undefined && e.buttons === 0) return;
+
+    const dx = e.clientX - dragStart.x;
+    const dy = e.clientY - dragStart.y;
+    const dist = Math.hypot(dx, dy);
+
+    if(dist > DRAG_THRESHOLD_PX) didDrag = true;
+    if(!didDrag) return;
+
+    const rect = btn.getBoundingClientRect();
+    const nextLeft = rect.left + (e.clientX - lastPointer.x);
+    const nextTop  = rect.top  + (e.clientY - lastPointer.y);
+
+    // Clamp inside viewport (leave a small margin)
+    const margin = 6;
+    const maxLeft = window.innerWidth - rect.width - margin;
+    const maxTop  = window.innerHeight - rect.height - margin;
+    const minLeft = margin;
+    const minTop  = 6;
+
+    const clampedLeft = Math.max(minLeft, Math.min(maxLeft, nextLeft));
+    const clampedTop  = Math.max(minTop, Math.min(maxTop, nextTop));
+
+    btn.style.left = clampedLeft + 'px';
+    btn.style.top = clampedTop + 'px';
+
+    lastPointer = { x: e.clientX, y: e.clientY };
+
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const endDrag = (e) => {
+    if(!isMobile()) return;
+    try { btn.releasePointerCapture(e.pointerId); } catch(_err) {}
+  };
+
+  btn.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove, { passive: false });
+  btn.addEventListener('pointerup', endDrag);
+  btn.addEventListener('pointercancel', endDrag);
+  
+
+
+  // Close when clicking a menu link (mobile)
+  sidebar.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if(!a) return;
+    if(window.matchMedia('(max-width: 700px)').matches) setExpanded(false);
+  });
+
+  // Close on outside click (mobile)
+  document.addEventListener('click', (e) => {
+    if(!window.matchMedia('(max-width: 700px)').matches) return;
+    if(e.target === btn || btn.contains(e.target)) return;
+    if(!sidebar.classList.contains('is-open')) return;
+    setExpanded(false);
+  });
+})();
+</script>
+<?php endif; ?>
+
+

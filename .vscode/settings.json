@@ -1,0 +1,6 @@
+{
+  "php.validate.executablePath": "C:\\xampp\\php\\php.exe",
+  "php.executablePath": "C:\\xampp\\php\\php.exe",
+  "intelephense.environment.phpVersion": "8.2.0",
+  "php.suggest.basic": false
+}

@@ -1,0 +1,4 @@
+service_no,full_name,gender,rank,branch_name,phone,email
+UPF10001,"John Okello",M,PC,Kampala HQ,+256700000000,john.okello@example.com
+UPF10002,"Mary Nakato",F,CPL,Rwizi,+256700000001,mary.nakato@example.com
+
