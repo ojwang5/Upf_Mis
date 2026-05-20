@@ -1,6 +1,9 @@
 <?php
+<<<<<<< HEAD
 declare(strict_types=1);
 
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/branch.php';
@@ -10,13 +13,35 @@ $page = 'disciplinary';
 $page_title = 'Officer Disciplinary';
 $pdo = db();
 
+<<<<<<< HEAD
 // Older DBs might not have the officer_disciplinary table yet.
 $tableExists = function (string $table) use ($pdo): bool {
+=======
+$branchId = user_branch_filter($user);
+$branches = [];
+if ($user['role'] === 'admin') {
+    $branches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
+    if (!empty($_GET['branch'])) {
+        $branchId = (int)$_GET['branch'];
+    }
+}
+
+$where = "d.status = 'active'";
+$params = [];
+if ($branchId !== null) {
+    $where .= ' AND d.branch_id = :b';
+    $params[':b'] = $branchId;
+}
+
+// Older DBs might not have the officer_disciplinary table yet.
+$tableExists = function(string $table) use ($pdo): bool {
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
     $stmt = $pdo->prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name = :t LIMIT 1");
     $stmt->execute([':t' => $table]);
     return (bool)$stmt->fetchColumn();
 };
 
+<<<<<<< HEAD
 if (!$tableExists('officer_disciplinary')) {
     $page_title = 'Officer Disciplinary';
     include __DIR__ . '/../includes/header.php';
@@ -342,6 +367,25 @@ if (($user['role'] ?? null) === 'admin' && $branchId !== null) {
 $stmt = $pdo->prepare("SELECT COUNT(*) FROM officer_disciplinary d WHERE $countWhere");
 $stmt->execute($countParams);
 $activeCount = (int)$stmt->fetchColumn();
+=======
+$rows = [];
+if ($tableExists('officer_disciplinary')) {
+    $sql = "
+        SELECT d.id, d.reason, d.start_date, d.end_date, d.status,
+               e.id AS employee_id, e.service_no, e.full_name, e.rank, e.gender,
+               b.name AS branch_name
+        FROM officer_disciplinary d
+        JOIN employees e ON e.id = d.employee_id
+        JOIN branches b ON b.id = d.branch_id
+        WHERE $where
+        ORDER BY b.name, e.rank, e.full_name
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $rows = $stmt->fetchAll();
+}
+
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 
 include __DIR__ . '/../includes/header.php';
 ?>
@@ -349,6 +393,7 @@ include __DIR__ . '/../includes/header.php';
 <div class="page-header">
   <div>
     <h1>Officer Disciplinary</h1>
+<<<<<<< HEAD
     <div class="desc">Auto-enforced active/closed actions · Active: <?= (int)$activeCount ?></div>
   </div>
 
@@ -481,10 +526,23 @@ include __DIR__ . '/../includes/header.php';
           $allBranches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
           foreach ($allBranches as $b): ?>
             <option value="<?= (int)$b['id'] ?>" <?= ($selectedBranchId !== null && (int)$b['id'] === (int)$selectedBranchId) ? 'selected' : '' ?>><?= e($b['name']) ?></option>
+=======
+    <div class="desc">Currently active disciplinary actions per officer</div>
+  </div>
+  <form method="get" class="form-row" style="margin:0">
+    <?php if ($user['role'] === 'admin'): ?>
+      <div class="form-group" style="min-width:160px">
+        <label>Branch</label>
+        <select name="branch" onchange="this.form.submit()">
+          <option value="">All Branches</option>
+          <?php foreach ($branches as $b): ?>
+            <option value="<?= (int)$b['id'] ?>" <?= ($branchId === (int)$b['id']) ? 'selected' : '' ?>><?= e($b['name']) ?></option>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
           <?php endforeach; ?>
         </select>
       </div>
     <?php endif; ?>
+<<<<<<< HEAD
 
     <div style="grid-column: span 12">
       <label>Reason for disciplinary action</label>
@@ -504,11 +562,17 @@ include __DIR__ . '/../includes/header.php';
     <div style="grid-column: span 12; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
       <button class="btn" type="submit"><?= $editing ? 'Save Changes' : 'Record Disciplinary Action' ?></button>
     </div>
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
   </form>
 </div>
 
 <?php if (empty($rows)): ?>
+<<<<<<< HEAD
   <div class="card"><div class="muted">No disciplinary records found for the selected filters.</div></div>
+=======
+  <div class="card"><div class="muted">No active disciplinary records found.</div></div>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 <?php else: ?>
   <div class="card">
     <div class="table-wrap">
@@ -519,11 +583,17 @@ include __DIR__ . '/../includes/header.php';
             <th>Name</th>
             <th>Rank</th>
             <th>Branch</th>
+<<<<<<< HEAD
             <th>Status</th>
             <th>Reason</th>
             <th>Start</th>
             <th>End</th>
             <th>History</th>
+=======
+            <th>Reason</th>
+            <th>Start</th>
+            <th>End</th>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
           </tr>
         </thead>
         <tbody>
@@ -533,6 +603,7 @@ include __DIR__ . '/../includes/header.php';
               <td><?= e($r['full_name']) ?></td>
               <td><?= e($r['rank']) ?></td>
               <td><?= e($r['branch_name']) ?></td>
+<<<<<<< HEAD
               <td><?= status_badge_disciplinary((string)$r['status']) ?></td>
               <td><?= e($r['reason']) ?></td>
               <td><?= e($r['start_date']) ?></td>
@@ -540,6 +611,11 @@ include __DIR__ . '/../includes/header.php';
               <td>
                 <a class="btn btn-sm btn-secondary" href="/disciplinary.php?employee_id=<?= (int)$r['employee_id'] ?>">View</a>
               </td>
+=======
+              <td><?= e($r['reason']) ?></td>
+              <td><?= e($r['start_date']) ?></td>
+              <td><?= e($r['end_date'] ?? '') ?></td>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
             </tr>
           <?php endforeach; ?>
         </tbody>
@@ -550,4 +626,7 @@ include __DIR__ . '/../includes/header.php';
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d

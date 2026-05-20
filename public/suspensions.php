@@ -1,6 +1,9 @@
 <?php
+<<<<<<< HEAD
 declare(strict_types=1);
 
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/branch.php';
@@ -10,6 +13,27 @@ $page = 'suspensions';
 $page_title = 'Officer Suspensions (Interdiction)';
 $pdo = db();
 
+<<<<<<< HEAD
+=======
+$branchId = user_branch_filter($user);
+$branches = [];
+if ($user['role'] === 'admin') {
+    $branches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
+    if (!empty($_GET['branch'])) {
+        $branchId = (int)$_GET['branch'];
+    }
+}
+
+$where = 's.status = :status';
+$params = [':status' => 'active'];
+if ($branchId !== null) {
+    $where .= ' AND s.branch_id = :b';
+    $params[':b'] = $branchId;
+}
+
+
+
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 // Older DBs might not have the officer_suspensions table yet.
 $tableExists = function(string $table) use ($pdo): bool {
     $stmt = $pdo->prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name = :t LIMIT 1");
@@ -17,6 +41,7 @@ $tableExists = function(string $table) use ($pdo): bool {
     return (bool)$stmt->fetchColumn();
 };
 
+<<<<<<< HEAD
 if ($tableExists('officer_suspensions')) {
     $today = date('Y-m-d');
     $pdo->beginTransaction();
@@ -71,6 +96,8 @@ if ($tableExists('officer_suspensions')) {
     }
 }
 
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 $rows = [];
 if ($tableExists('officer_suspensions')) {
     $sql = "
@@ -81,13 +108,18 @@ if ($tableExists('officer_suspensions')) {
         JOIN employees e ON e.id = s.employee_id
         JOIN branches b ON b.id = s.branch_id
         WHERE $where
+<<<<<<< HEAD
         ORDER BY b.name, e.rank, e.full_name, s.start_date DESC
+=======
+        ORDER BY b.name, e.rank, e.full_name
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
     ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $rows = $stmt->fetchAll();
 }
 
+<<<<<<< HEAD
 // Dashboard count of active suspensions (for branch scope if not admin)
 $activeCount = 0;
 if ($tableExists('officer_suspensions')) {
@@ -107,6 +139,8 @@ if ($tableExists('officer_suspensions')) {
     $stmt->execute($countParams);
     $activeCount = (int)$stmt->fetchColumn();
 }
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 
 include __DIR__ . '/../includes/header.php';
 ?>
@@ -114,6 +148,7 @@ include __DIR__ . '/../includes/header.php';
 <div class="page-header">
   <div>
     <h1>Officer Suspensions (Interdiction)</h1>
+<<<<<<< HEAD
     <div class="desc">Suspension records (auto-status enforced by date range) · Active: <?= (int)$activeCount ?></div>
   </div>
 
@@ -155,6 +190,27 @@ include __DIR__ . '/../includes/header.php';
 
 <?php if (empty($rows)): ?>
   <div class="card"><div class="muted">No suspension records found.</div></div>
+=======
+    <div class="desc">Currently active suspensions per officer</div>
+  </div>
+  <form method="get" class="form-row" style="margin:0">
+    <?php if ($user['role'] === 'admin'): ?>
+      <div class="form-group" style="min-width:160px">
+        <label>Regions</label>
+        <select name="branch" onchange="this.form.submit()">
+          <option value="">All Regions</option>
+          <?php foreach ($branches as $b): ?>
+            <option value="<?= (int)$b['id'] ?>" <?= ($branchId === (int)$b['id']) ? 'selected' : '' ?>><?= e($b['name']) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    <?php endif; ?>
+  </form>
+</div>
+
+<?php if (empty($rows)): ?>
+  <div class="card"><div class="muted">No active suspension records found.</div></div>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 <?php else: ?>
   <div class="card">
     <div class="table-wrap">
@@ -165,11 +221,17 @@ include __DIR__ . '/../includes/header.php';
             <th>Name</th>
             <th>Rank</th>
             <th>Branch</th>
+<<<<<<< HEAD
             <th>Status</th>
             <th>Reason</th>
             <th>Start</th>
             <th>End</th>
             <th>History</th>
+=======
+            <th>Reason</th>
+            <th>Start</th>
+            <th>End</th>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
           </tr>
         </thead>
         <tbody>
@@ -179,6 +241,7 @@ include __DIR__ . '/../includes/header.php';
               <td><?= e($r['full_name']) ?></td>
               <td><?= e($r['rank']) ?></td>
               <td><?= e($r['branch_name']) ?></td>
+<<<<<<< HEAD
               <td><?= status_badge($r['status']) ?></td>
               <td><?= e($r['reason']) ?></td>
               <td><?= e($r['start_date']) ?></td>
@@ -186,6 +249,11 @@ include __DIR__ . '/../includes/header.php';
               <td>
                 <a class="btn btn-sm btn-secondary" href="/suspension.php?employee_id=<?= (int)$r['employee_id'] ?>">View</a>
               </td>
+=======
+              <td><?= e($r['reason']) ?></td>
+              <td><?= e($r['start_date']) ?></td>
+              <td><?= e($r['end_date'] ?? '') ?></td>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
             </tr>
           <?php endforeach; ?>
         </tbody>

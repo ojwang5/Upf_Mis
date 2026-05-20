@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 declare(strict_types=1);
 
 require_once __DIR__ . '/../includes/auth.php';
@@ -434,4 +435,8 @@ include __DIR__ . '/../includes/header.php';
 </div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
+=======
+// Compatibility endpoint: /suspension.php -> /suspensions.php
+require_once __DIR__ . '/suspensions.php';
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 

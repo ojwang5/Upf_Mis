@@ -13,6 +13,7 @@ define('DB_PATH', BASE_PATH . '/data/mdd.sqlite');
 ini_set('session.use_strict_mode', '1');
 ini_set('session.cookie_httponly', '1');
 ini_set('session.cookie_samesite', 'Lax');
+<<<<<<< HEAD
 // Secure cookies require HTTPS.
 ini_set('session.cookie_secure', '1');
 
@@ -21,10 +22,16 @@ ini_set('session.gc_maxlifetime', '1800');
 if (ini_get('session.gc_probability') === '') ini_set('session.gc_probability', '1');
 if (ini_get('session.gc_divisor') === '') ini_set('session.gc_divisor', '100');
 
+=======
+// Secure cookies require HTTPS. Keep enabled by default; can be disabled via environment/config later if needed.
+ini_set('session.cookie_secure', '1');
+
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+<<<<<<< HEAD
 // Idle timeout
 if (!empty($_SESSION['last_activity']) && (time() - (int)$_SESSION['last_activity']) > 1800) {
     $_SESSION = [];
@@ -34,3 +41,5 @@ if (!empty($_SESSION['last_activity']) && (time() - (int)$_SESSION['last_activit
 }
 
 
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d

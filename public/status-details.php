@@ -135,6 +135,7 @@ include __DIR__ . '/../includes/header.php';
             </td>
             <td><?= e($leaveStart) ?></td>
             <td><?= e($leaveEnd) ?></td>
+<<<<<<< HEAD
             <td>
               <span><?= $daysOnLeave !== '' ? e($daysOnLeave) : '<span class="muted">—</span>' ?></span>
               <?php
@@ -162,6 +163,9 @@ include __DIR__ . '/../includes/header.php';
                 </div>
               <?php endif; ?>
             </td>
+=======
+            <td><?= $daysOnLeave !== '' ? e($daysOnLeave) : '<span class="muted">—</span>' ?></td>
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
             <td><?= e($r['notes'] ?? '') ?></td>
           </tr>
         <?php endforeach; ?>
@@ -172,6 +176,7 @@ include __DIR__ . '/../includes/header.php';
     </table>
   </div>
 </div>
+<<<<<<< HEAD
 <script>
 (function(){
   const els = document.querySelectorAll('.leave-countdown[data-endts]');
@@ -193,4 +198,6 @@ include __DIR__ . '/../includes/header.php';
   setInterval(tick, 1000);
 })();
 </script>
+=======
+>>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 <?php include __DIR__ . '/../includes/footer.php'; ?>
