@@ -43,7 +43,6 @@ function is_admin(array $u): bool { return $u['role'] === 'admin'; }
 function is_manager(array $u): bool { return $u['role'] === 'manager'; }
 function is_officer(array $u): bool { return $u['role'] === 'officer'; }
 
-<<<<<<< HEAD
 function login_lock_remaining_seconds(string $username, string $ip): ?int {
     $username = trim($username);
     $pdo = db();
@@ -76,8 +75,6 @@ function login_lock_remaining_seconds(string $username, string $ip): ?int {
     return $remaining > 0 ? (int)$remaining : null;
 }
 
-=======
->>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 function login(string $username, string $password): bool {
     $username = trim($username);
 
@@ -95,16 +92,9 @@ function login(string $username, string $password): bool {
     )");
 
     $now = date('c');
-<<<<<<< HEAD
-    $lockMaxTries = 5; // lock after 5 failures
-    $windowSeconds = 15 * 60; // window: 15 minutes
-    $lockSeconds = 15 * 60; // lock: 15 minutes
-
-=======
     $lockMaxTries = 5; // 5 failures
     $windowSeconds = 15 * 60; // per 15 minutes
     $lockSeconds = 15 * 60; // lock for 15 minutes
->>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
 
     $st = $pdo->prepare("SELECT * FROM login_attempts WHERE username = ? AND ip_address = ? ORDER BY id DESC LIMIT 1");
     $st->execute([$username, $ip]);
@@ -122,10 +112,6 @@ function login(string $username, string $password): bool {
         return false;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
     $u = $stmt->fetch();
@@ -133,33 +119,18 @@ function login(string $username, string $password): bool {
     if ($u && password_verify($password, $u['password_hash'])) {
         // Successful login: reset attempts + rotate session
         $pdo->prepare("DELETE FROM login_attempts WHERE username = ? AND ip_address = ?")->execute([$username, $ip]);
-<<<<<<< HEAD
 
-        // Rotate session id to reduce fixation/hijack risk
         if (session_status() === PHP_SESSION_ACTIVE) {
             session_regenerate_id(true);
         }
 
-        // Session hardening
         $_SESSION['user_id'] = (int)$u['id'];
         $_SESSION['last_activity'] = time();
 
-=======
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            session_regenerate_id(true);
-        }
-        $_SESSION['user_id'] = (int)$u['id'];
->>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
         return true;
     }
 
     // Failure: update attempts and potentially lock
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> d7b0ca01eb9f334d5c76a0199d57c4d7dc622e5d
     $failed = (int)($a['failed_attempts'] ?? 0);
     $firstAt = (string)($a['first_attempt_at'] ?? $now);
     $firstTs = strtotime($firstAt) ?: time();
@@ -175,7 +146,6 @@ function login(string $username, string $password): bool {
         $lockedUntil = date('c', time() + $lockSeconds);
     }
 
-    // Insert new row as append-only pattern (simpler with SQLite)
     $pdo->prepare(
         "INSERT INTO login_attempts (username, ip_address, failed_attempts, first_attempt_at, locked_until)
          VALUES (?,?,?,?,?)"
@@ -191,15 +161,15 @@ function login(string $username, string $password): bool {
 }
 
 function logout(): void {
-
     $_SESSION = [];
     session_destroy();
 }
 
 function user_branch_filter(array $user): ?int {
-    return in_array($user['role'], ['manager','officer'], true) ? (int)$user['branch_id'] : null;
+    return in_array($user['role'], ['manager', 'officer'], true) ? (int)$user['branch_id'] : null;
 }
 
 function can_access_branch(array $user, int $branchId): bool {
     return $user['role'] === 'admin' || (int)$user['branch_id'] === $branchId;
 }
+
