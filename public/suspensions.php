@@ -14,26 +14,19 @@ $branchId = user_branch_filter($user);
 $branches = [];
 if ($user['role'] === 'admin') {
     $branches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
-    if (!empty($_GET['branch'])) {
+    if (!empty($_GET['branch']) && $_GET['branch'] !== '') {
         $branchId = (int)$_GET['branch'];
     }
 }
 
-$where = 's.status = :status';
-$params = [':status' => 'active'];
-if ($branchId !== null) {
-    $where .= ' AND s.branch_id = :b';
-    $params[':b'] = $branchId;
-}
-
-
 // Older DBs might not have the officer_suspensions table yet.
-$tableExists = function(string $table) use ($pdo): bool {
+$tableExists = function (string $table) use ($pdo): bool {
     $stmt = $pdo->prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name = :t LIMIT 1");
     $stmt->execute([':t' => $table]);
     return (bool)$stmt->fetchColumn();
 };
 
+// Auto-enforce status from date range
 if ($tableExists('officer_suspensions')) {
     $today = date('Y-m-d');
     $pdo->beginTransaction();
@@ -43,6 +36,7 @@ if ($tableExists('officer_suspensions')) {
             WHERE end_date IS NOT NULL AND end_date < :d")->execute([':d' => $today]);
         $pdo->prepare("UPDATE officer_suspensions SET status='ended'
             WHERE start_date > :d")->execute([':d' => $today]);
+
         // Mark active within range
         $pdo->prepare("UPDATE officer_suspensions SET status='active'
             WHERE start_date <= :d AND (end_date IS NULL OR end_date >= :d)")->execute([':d' => $today]);
@@ -51,15 +45,6 @@ if ($tableExists('officer_suspensions')) {
     } catch (Throwable $e) {
         $pdo->rollBack();
         throw $e;
-    }
-}
-
-$branchId = user_branch_filter($user);
-$branches = [];
-if ($user['role'] === 'admin') {
-    $branches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
-    if (!empty($_GET['branch']) && $_GET['branch'] !== '') {
-        $branchId = (int)$_GET['branch'];
     }
 }
 
@@ -74,6 +59,7 @@ $where = '1=1';
 $params = [];
 
 if ($tableExists('officer_suspensions')) {
+    // map to existing table alias expectations below (s,e)
     if ($statusFilter !== 'all') {
         $where .= ' AND s.status = :status';
         $params[':status'] = $statusFilter;
@@ -99,28 +85,21 @@ if ($tableExists('officer_suspensions')) {
         JOIN branches b ON b.id = s.branch_id
         WHERE $where
         ORDER BY b.name, e.rank, e.full_name, s.start_date DESC
-        ORDER BY b.name, e.rank, e.full_name
     ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $rows = $stmt->fetchAll();
 }
 
-// Dashboard count of active suspensions (for branch scope if not admin)
+// Dashboard count of active suspensions
 $activeCount = 0;
 if ($tableExists('officer_suspensions')) {
-    $countWhere = "status='active'";
+    $countWhere = "s.status='active'";
     $countParams = [];
-    if ($branchId !== null && $user['role'] !== 'admin') {
+    if ($branchId !== null) {
         $countWhere .= ' AND s.branch_id = :b';
         $countParams[':b'] = $branchId;
     }
-    if ($user['role'] === 'admin' && $branchId !== null) {
-        // if admin has a branch filter in URL, reflect it
-        $countWhere .= ' AND s.branch_id = :b';
-        $countParams[':b'] = $branchId;
-    }
-
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM officer_suspensions s WHERE $countWhere");
     $stmt->execute($countParams);
     $activeCount = (int)$stmt->fetchColumn();
@@ -133,7 +112,6 @@ include __DIR__ . '/../includes/header.php';
   <div>
     <h1>Officer Suspensions (Interdiction)</h1>
     <div class="desc">Suspension records (auto-status enforced by date range) · Active: <?= (int)$activeCount ?></div>
-  </div>
 
   <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;justify-content:flex-end">
     <form method="get" class="form-row" style="margin:0;gap:10px;display:flex;align-items:flex-end;flex-wrap:wrap">
@@ -169,29 +147,9 @@ include __DIR__ . '/../includes/header.php';
       </div>
     </form>
   </div>
-</div>
 
 <?php if (empty($rows)): ?>
-  <div class="card"><div class="muted">No suspension records found.</div></div>
-    <div class="desc">Currently active suspensions per officer</div>
-  </div>
-  <form method="get" class="form-row" style="margin:0">
-    <?php if ($user['role'] === 'admin'): ?>
-      <div class="form-group" style="min-width:160px">
-        <label>Regions</label>
-        <select name="branch" onchange="this.form.submit()">
-          <option value="">All Regions</option>
-          <?php foreach ($branches as $b): ?>
-            <option value="<?= (int)$b['id'] ?>" <?= ($branchId === (int)$b['id']) ? 'selected' : '' ?>><?= e($b['name']) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-    <?php endif; ?>
-  </form>
-</div>
-
-<?php if (empty($rows)): ?>
-  <div class="card"><div class="muted">No active suspension records found.</div></div>
+  <div class="card"><div class="muted">No suspension records found.</div>
 <?php else: ?>
   <div class="card">
     <div class="table-wrap">
@@ -206,10 +164,7 @@ include __DIR__ . '/../includes/header.php';
             <th>Reason</th>
             <th>Start</th>
             <th>End</th>
-            <th>History</th>
-            <th>Reason</th>
-            <th>Start</th>
-            <th>End</th>
+            <th>View</th>
           </tr>
         </thead>
         <tbody>
@@ -226,16 +181,11 @@ include __DIR__ . '/../includes/header.php';
               <td>
                 <a class="btn btn-sm btn-secondary" href="/suspension.php?employee_id=<?= (int)$r['employee_id'] ?>">View</a>
               </td>
-              <td><?= e($r['reason']) ?></td>
-              <td><?= e($r['start_date']) ?></td>
-              <td><?= e($r['end_date'] ?? '') ?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
     </div>
-  </div>
 <?php endif; ?>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
-
