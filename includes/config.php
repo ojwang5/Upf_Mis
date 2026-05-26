@@ -40,4 +40,22 @@ if (!empty($_SESSION['last_activity']) && (time() - (int)$_SESSION['last_activit
     exit;
 }
 
+// Email configuration for 2FA via SendGrid SMTP
+// These can be set via environment variables or defined here
+if (!getenv('EMAIL_HOST')) {
+    putenv('EMAIL_HOST=smtp.sendgrid.net');
+}
+if (!getenv('EMAIL_PORT')) {
+    putenv('EMAIL_PORT=587');
+}
+if (!getenv('EMAIL_HOST_USER')) {
+    putenv('EMAIL_HOST_USER=apikey');
+}
+if (!getenv('EMAIL_HOST_PASSWORD')) {
+    putenv('EMAIL_HOST_PASSWORD=' . (getenv('SENDGRID_API_KEY') ?: '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'));
+}
+if (!getenv('DEFAULT_FROM_EMAIL')) {
+    putenv('DEFAULT_FROM_EMAIL=ojwangsamuel1@gmail.com');
+}
+
 

@@ -29,6 +29,7 @@ function init_schema(PDO $pdo): void {
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
+            email TEXT,
             password_hash TEXT NOT NULL,
             full_name TEXT NOT NULL,
             role TEXT NOT NULL CHECK(role IN ('admin','manager','officer')),
@@ -87,6 +88,23 @@ SQL
 
 function migrate(PDO $pdo): void {
     $v = (int)$pdo->query("PRAGMA user_version")->fetchColumn();
+
+    // v3: add login 2FA OTP storage
+    if ($v < 3) {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS login_otps (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            otp_hash TEXT NOT NULL,
+            expires_at TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            attempts INTEGER NOT NULL DEFAULT 0,
+            last_attempt_at TEXT,
+            ip_address TEXT
+        )");
+        $pdo->exec("CREATE INDEX IF NOT EXISTS idx_login_otps_user_id_created_at ON login_otps(user_id, created_at)");
+        $pdo->exec("PRAGMA user_version = 3");
+    }
+
 
     // Post-v1/legacy migrations.
     $hasLeaveRequests = (bool)$pdo->query("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='leave_requests'")
@@ -258,9 +276,19 @@ function seed_data(PDO $pdo): void {
         ['rmgr', 'rmgr123', 'Rwizi Manager', 'manager', $bIds['RWZ']],
         ['nmgr', 'nmgr123', 'N.Kyoga Manager', 'manager', $bIds['NKY']],
     ];
-    $ustmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?)");
+
+    // Seed users with placeholder emails (admin will be updated from the Users UI)
+    $ustmt = $pdo->prepare("INSERT INTO users (username, email, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?,?)");
     foreach ($users as $u) {
-        $ustmt->execute([$u[0], password_hash($u[1], PASSWORD_DEFAULT), $u[2], $u[3], $u[4]]);
+        $email = $u[0] . '@example.com';
+        $ustmt->execute([
+            $u[0],
+            $email,
+            password_hash($u[1], PASSWORD_DEFAULT),
+            $u[2],
+            $u[3],
+            $u[4],
+        ]);
     }
 
     $ranks = ['PC','CPL','SGT','S/SGT','HC','HCM','AIP','IP','ASP','SP','SSP','ACP','CP','SCP','AIGP','DIGP','IGP'];

@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     if ($action === 'create') {
         $username   = trim($_POST['username'] ?? '');
+        $email      = trim($_POST['email'] ?? '');
         $full_name  = trim($_POST['full_name'] ?? '');
         $password   = $_POST['password'] ?? '';
         $role       = $_POST['role'] ?? 'officer';
@@ -29,16 +30,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: /users.php'); exit;
             }
         }
-        if ($username === '' || $full_name === '' || strlen($password) < 4) {
-            flash('err', 'Username, full name, and password (min 4 chars) are required.');
+        if ($username === '' || $email === '' || $full_name === '' || strlen($password) < 4) {
+            flash('err', 'Username, email, full name, and password (min 4 chars) are required.');
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash('err', 'Please enter a valid email address.');
         } else {
             try {
-                $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?)");
-                $stmt->execute([$username, password_hash($password, PASSWORD_DEFAULT), $full_name, $role, $branch_id]);
+                // Older DBs might not have `users.email`. Only include it when present.
+                $cols = [];
+                foreach ($pdo->query("PRAGMA table_info(users)") as $c) {
+                    $cols[$c['name']] = true;
+                }
+
+                if (isset($cols['email'])) {
+                    $stmt = $pdo->prepare("INSERT INTO users (username, email, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?,?)");
+                    $stmt->execute([
+                        $username,
+                        $email,
+                        password_hash($password, PASSWORD_DEFAULT),
+                        $full_name,
+                        $role,
+                        $branch_id
+                    ]);
+                } else {
+                    $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, role, branch_id) VALUES (?,?,?,?,?)");
+                    $stmt->execute([
+                        $username,
+                        password_hash($password, PASSWORD_DEFAULT),
+                        $full_name,
+                        $role,
+                        $branch_id
+                    ]);
+                }
                 audit_log($user, 'user.create', 'user', (string)$username, [
                     'full_name' => $full_name,
                     'role' => $role,
                     'branch_id' => $branch_id,
+                    'email' => $email,
                 ]);
                 flash('msg', 'Account created for ' . $full_name . '.');
             } catch (PDOException $e) {
@@ -101,6 +129,7 @@ include __DIR__ . '/../includes/header.php';
     <div class="form-row">
       <div class="form-group"><label>Full Name</label><input type="text" name="full_name" required></div>
       <div class="form-group"><label>Username</label><input type="text" name="username" required></div>
+      <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
       <div class="form-group"><label>Password</label><input type="password" name="password" required minlength="4"></div>
       <div class="form-group"><label>Role</label>
         <?php if (is_admin($user)): ?>
@@ -133,16 +162,18 @@ include __DIR__ . '/../includes/header.php';
   <h3>Existing Users</h3>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Branch</th><th></th></tr></thead>
+      <thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Branch</th><th></th></tr></thead>
       <tbody>
         <?php foreach ($users as $u): ?>
         <tr>
           <td><?= e($u['full_name']) ?></td>
           <td><?= e($u['username']) ?></td>
+          <td><?= e($u['email'] ?? '—') ?></td>
           <td><span class="badge badge-admin"><?= e(ucfirst($u['role'])) ?></span></td>
           <td><?= e($u['branch_name'] ?? '—') ?></td>
           <td>
-            <details><summary class="btn btn-sm btn-secondary" style="display:inline-block">Reset password</summary>
+            <a class="btn btn-sm btn-secondary" style="display:inline-block" href="/user-edit.php?id=<?= $u['id'] ?>">Edit</a>
+            <details style="margin-top:6px"><summary class="btn btn-sm btn-secondary" style="display:inline-block">Reset password</summary>
               <form method="post" style="display:inline-flex;gap:6px;margin-top:8px">
                 <input type="hidden" name="action" value="reset"><input type="hidden" name="id" value="<?= $u['id'] ?>">
                 <input type="password" name="password" placeholder="New password" required minlength="4">

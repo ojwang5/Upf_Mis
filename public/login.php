@@ -10,20 +10,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
+        $ip = (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown');
 
-        if (login($username, $password)) {
-            require_once __DIR__ . '/../includes/audit.php';
-            $actor = audit_actor_from_session();
-            audit_log($actor, 'auth.login', 'user', $actor ? (string)$actor['id'] : null, ['username' => $username]);
-            header('Location: /');
-            exit;
+        $user = null;
+        try {
+            $user = login_password_verify($username, $password);
+        } catch (Throwable $e) {
+            $user = null;
+        }
+
+        if ($user) {
+            // Start 2FA and redirect to OTP screen.
+            try {
+                begin_login_2fa($user, $ip);
+                require_once __DIR__ . '/../includes/audit.php';
+                audit_log(audit_actor_from_session(), 'auth.login_password_ok', 'user', (int)($user['id'] ?? 0), ['username' => $username]);
+                header('Location: /2fa.php');
+                exit;
+            } catch (Throwable $e) {
+                // If OTP email cannot be sent, do not keep user blocked.
+                $error = 'Could not send the verification code. Please try again.';
+                try {
+                    require_once __DIR__ . '/../includes/audit.php';
+                    audit_log(null, 'auth.login_2fa_send_failed', 'user', null, [
+                        'username' => $username,
+                        'error' => $e->getMessage(),
+                    ]);
+                } catch (Throwable $e2) {
+                    // ignore
+                }
+            }
+
         }
 
         // Best-effort audit on failed login
         try {
             require_once __DIR__ . '/../includes/audit.php';
-            $ip = $_SERVER['REMOTE_ADDR'] ?? null;
-            audit_log(null, 'auth.login_failed', 'user', null, ['username' => $username, 'ip' => (string)$ip]);
+            audit_log(null, 'auth.login_failed', 'user', null, ['username' => $username, 'ip' => (string)($_SERVER['REMOTE_ADDR'] ?? '')]);
         } catch (Throwable $e) {
             // never break login flow
         }
@@ -33,8 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // If rate-limited, show lockout countdown (username + current IP)
         try {
             $usernameForLimit = trim($username);
-            $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-            $remaining = login_lock_remaining_seconds($usernameForLimit, (string)$ip);
+            $remaining = login_lock_remaining_seconds($usernameForLimit, $ip);
             if ($remaining !== null) {
                 // Match UI: countdown shows MM:SS
                 $error = 'Too many failed attempts. Try again in ';
@@ -42,12 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (Throwable $e) {
             // ignore
         }
-
     }
 }
 
 if (current_user()) { header('Location: /'); exit; }
-
 
 ?><!doctype html>
 <html lang="en"><head>
@@ -69,7 +89,6 @@ if (current_user()) { header('Location: /'); exit; }
       <?= e($error) ?>
       <?php if (isset($remaining) && is_int($remaining) && $remaining > 0): ?>
           <span><strong><span id="lock-countdown" data-remaining="<?= (int)$remaining ?>"></span></strong></span>
-
       <?php endif; ?>
 
     </div>
@@ -116,6 +135,4 @@ if (current_user()) { header('Location: /'); exit; }
 })();
 </script>
 </body></html>
-
-
 
