@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($location === '') $errors[] = 'Location is required.';
             if (empty($errors)) {
                 try {
-                    $id = create_branch(null, $name, $code, $location);
+$id = create_branch($name, $code, $location, null);
                     flash('success', 'Branch created.');
                     header('Location: /branches.php'); exit;
                 } catch (Exception $e) {
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($id <= 0) $errors[] = 'Invalid branch id.';
             if (empty($errors)) {
                 try {
-                    update_branch(null, $id, $name, $code, $location);
+update_branch($id, $name, $code, $location, null);
                     flash('success', 'Branch updated.');
                     header('Location: /branches.php'); exit;
                 } catch (Exception $e) {
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           if ($id <= 0) $errors[] = 'Invalid branch id.';
           if (empty($errors)) {
             try {
-              delete_branch(null, $id);
+delete_branch($id, 'restrict', null);
               flash('success', 'Branch deleted.');
               header('Location: /branches.php'); exit;
             } catch (Exception $e) {
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           if ($id <= 0) $errors[] = 'Invalid branch id.';
           if (empty($errors)) {
             try {
-              delete_branch(null, $id, 'cascade');
+delete_branch($id, 'cascade', null);
               flash('success', 'Branch deleted with dependent records (cascade).');
               header('Location: /branches.php'); exit;
             } catch (Exception $e) {

@@ -8,7 +8,7 @@ require_once __DIR__ . '/db.php';
  * Returns the new branch id on success.
  * Throws an Exception on failure (including uniqueness violation).
  */
-function create_branch(?PDO $pdo = null, string $name, string $code, string $location): int {
+function create_branch(string $name, string $code, string $location, ?PDO $pdo = null): int {
     $pdo = $pdo ?? db();
     // pre-check uniqueness
     $stmt = $pdo->prepare('SELECT COUNT(*) FROM branches WHERE name = ? OR code = ?');
@@ -23,7 +23,7 @@ function create_branch(?PDO $pdo = null, string $name, string $code, string $loc
     return (int)$pdo->lastInsertId();
 }
 
-function get_branch(?PDO $pdo = null, int $id): ?array {
+function get_branch(int $id, ?PDO $pdo = null): ?array {
     $pdo = $pdo ?? db();
     $stmt = $pdo->prepare('SELECT * FROM branches WHERE id = ?');
     $stmt->execute([$id]);
@@ -31,7 +31,7 @@ function get_branch(?PDO $pdo = null, int $id): ?array {
     return $row === false ? null : $row;
 }
 
-function find_branch_by_code(?PDO $pdo = null, string $code): ?array {
+function find_branch_by_code(string $code, ?PDO $pdo = null): ?array {
     $pdo = $pdo ?? db();
     $stmt = $pdo->prepare('SELECT * FROM branches WHERE code = ?');
     $stmt->execute([$code]);
@@ -49,7 +49,7 @@ function list_branches(?PDO $pdo = null): array {
     return $rows;
 }
 
-function update_branch(?PDO $pdo = null, int $id, string $name, string $code, string $location): bool {
+function update_branch(int $id, string $name, string $code, string $location, ?PDO $pdo = null): bool {
     $pdo = $pdo ?? db();
     // pre-check uniqueness excluding current id
     $chk = $pdo->prepare('SELECT COUNT(*) FROM branches WHERE (name = ? OR code = ?) AND id != ?');
@@ -62,7 +62,7 @@ function update_branch(?PDO $pdo = null, int $id, string $name, string $code, st
     return $stmt->execute([$name, $code, $location, $id]);
 }
 
-function delete_branch(?PDO $pdo = null, int $id, string $mode = 'restrict'): bool {
+function delete_branch(int $id, string $mode = 'restrict', ?PDO $pdo = null): bool {
     $pdo = $pdo ?? db();
 
     // Allow deletion by performing a cascade delete when there are related rows.
