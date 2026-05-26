@@ -1,4 +1,4 @@
-# Start PHP built-in server serving the `public` folder on port 8000
+ # Start PHP built-in server serving the `public` folder on port 8000
 # Usage: Right-click -> Run with PowerShell or from a PowerShell prompt: .\start-server.ps1
 
 $php = (Get-Command php -ErrorAction SilentlyContinue)?.Source
@@ -16,5 +16,7 @@ $port = 8000
 $host = 'localhost'
 $root = 'public'
 Write-Host "Starting PHP dev server: http://$host`:$port (document root: $root) using $php"
-Start-Process -FilePath $php -ArgumentList "-S","$host`:$port","-t","$root" -WorkingDirectory (Resolve-Path .) -NoNewWindow:$false
+# Use the router script so /public routes correctly (e.g. /login.php)
+Start-Process -FilePath $php -ArgumentList "-S","$host`:$port","-t","$root","$root\router.php" -WorkingDirectory (Resolve-Path .) -NoNewWindow:$false
 Write-Host 'Server started.'
+

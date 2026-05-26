@@ -85,7 +85,7 @@ if (current_user()) { header('Location: /'); exit; }
   </div>
   <button class="btn" style="width:100%" type="submit">Sign in</button>
   <div class="muted" style="margin-top:14px;font-size:11px;text-align:center">
-    Failed to login contact system administrators
+    Failed to login contact system administrators  +256781068086
   </div>
 </form>
 <script>
