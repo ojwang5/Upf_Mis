@@ -39,7 +39,8 @@ Your login verification code is: {$code}
 
 This code expires in 10 minutes. Please do not share this code with anyone.
 
-If you did not request this code, please ignore this email.
+If you did not request this code, please ignore this email. 
+Thank you for using the MDD Management System.
 
 ---
 MDD Management System
